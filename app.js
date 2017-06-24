@@ -5,11 +5,9 @@ var express = require('express'),
     morgan = require('morgan'),
     path = require('path'),
     wnumb = require('wnumb'),
-    handleLayout = require('./middle-wares/handleLayout'),
-    handle404 = require('./middle-wares/handle-404'),
-    homeController = require('./controllers/homeController'),
-    categoryController = require('./controllers/categoryController'),
-    productController = require('./controllers/productController');
+    homeController = require('./controllers/homeController')
+    ;
+    
 
 var app = express();
 
@@ -41,11 +39,7 @@ app.use(bodyParser.urlencoded({
     extended: false
 }));
 
-app.use(handleLayout);
 app.use('/', homeController);
-app.use('/category', categoryController);
-app.use('/product', productController);
 
-app.use(handle404);
 
 app.listen(3000);
