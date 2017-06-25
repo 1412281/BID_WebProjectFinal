@@ -3,7 +3,7 @@
 $(function() {
     var product = $("#products").html();
     $("#product").attr("hidden", "");
-    for (var i = 0; i < 12; i++) {
+    for (var i = 0; i < 4; i++) {
         $("#products").append(product);
     }
 
