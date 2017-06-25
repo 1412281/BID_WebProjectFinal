@@ -123,6 +123,52 @@ INSERT INTO sanpham(tensp,nguoidang,loai,motaHTML) VALUES('Áo thun nữ',      
 INSERT INTO sanpham(tensp,nguoidang,loai,motaHTML) VALUES('Áo bé trai',        'user1',2,'<UL>\r\n    <LI>Quần áo bé trai</LI>\r\n    <LI>Loại hàng: Hàng trong nước</LI>\r\n    <LI>Xuất xứ: Tp Hồ Chí Minh</LI>\r\n</UL>\r\n');
 INSERT INTO sanpham(tensp,nguoidang,loai,motaHTML) VALUES('Đầm dạ hội ánh kim','user1',2,'<UL>\r\n    <LI>Màu sắc: Khuynh hướng ánh kim có thể thể hiện trên vàng, bạc, đỏ tía, xanh biển, vàng tím, trắng và đen.</LI>\r\n    <LI>Một số biến tấu mang tính vui nhộn là vàng chanh, màu hoa vân anh và ngọc lam; trong đó hoàng kim và nhũ bạc khá phổ biến.</LI>\r\n    <LI>Phong cách: Diềm đăng ten, rủ xuống theo chiều thẳng đứng, nhiều lớp, cổ chẻ sâu, eo chít cao tới ngực... được biến tấu tùy theo mỗi nhà thiết kế.</LI>\r\n</UL>\r\n');
 
+-- table hinhanh 
+INSERT INTO hinhanh(masp,urlhinhanh) VALUES(1,'imgs/sanpham/1/1.jpg');
+INSERT INTO hinhanh(masp,urlhinhanh) VALUES(2,'imgs/sanpham/2/1.jpg');
+-- table chi tiet phien daugia
+
+INSERT into chitietphien(maphien,thoigian,nguoidaugia,giadau)
+			 VALUES(1,STR_TO_DATE('12-01-2014 00:00:00','%m-%d-%Y %H:%i:%s'),'user1',120000);
+INSERT into chitietphien(maphien,thoigian,nguoidaugia,giadau)
+			 VALUES(1,STR_TO_DATE('12-01-2014 00:01:00','%m-%d-%Y %H:%i:%s'),'user1',130000);  
+INSERT into chitietphien(maphien,thoigian,nguoidaugia,giadau)
+			 VALUES(1,STR_TO_DATE('12-01-2014 00:02:00','%m-%d-%Y %H:%i:%s'),'user1',140000); 
+INSERT into chitietphien(maphien,thoigian,nguoidaugia,giadau)
+			 VALUES(2,STR_TO_DATE('12-01-2014 00:01:00','%m-%d-%Y %H:%i:%s'),'user1',110000);              
+
+
+-- table phien daugia
+INSERT INTO phiendaugia(sanpham,thgianbd,thgiankt,giakhoidiem,buocgia,giahientai,nguoigiugia,giamuangay,tinhtrang)
+			 	 VALUES(1, STR_TO_DATE('12-01-2014 00:00:00','%m-%d-%Y %H:%i:%s'),
+			 	 	       STR_TO_DATE('12-02-2014 00:00:00','%m-%d-%Y %H:%i:%s'),
+			 	 	      100000,10000,100000,null,null,null);
+INSERT INTO phiendaugia(sanpham,thgianbd,thgiankt,giakhoidiem,buocgia,giahientai,nguoigiugia,giamuangay,tinhtrang)
+			 	 VALUES(2, STR_TO_DATE('12-01-2014 00:00:00','%m-%d-%Y %H:%i:%s'),
+			 	 	       STR_TO_DATE('12-02-2014 00:00:00','%m-%d-%Y %H:%i:%s'),
+			 	 	      100000,10000,100000,null,null,null);						
+
+
+
+
+-- tao cac views can thiet giup cau truy van duoc gon gang hon
+drop view if exists topphiendaugia;
+create view topphiendaugia
+as 
+select p.maphien, sp.masp, sp.tensp, count(ct.nguoidaugia) as soluotdau,
+	   p.nguoigiugia , p.giahientai, p.thgiankt,
+	   h.urlhinhanh
+
+from phiendaugia p left join chitietphien ct
+	 on (p.maphien = ct.maphien) ,
+	 sanpham sp , hinhanh h
+where p.sanpham = sp.masp and sp.masp = h.masp
+group by ct.maphien
+;
+
+
+
+
 
 
 -- tao khoa ngoai xen ke tao du lieu mau

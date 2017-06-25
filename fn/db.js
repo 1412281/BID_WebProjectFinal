@@ -14,7 +14,8 @@ exports.load = function(sql) {
         host: _HOST,
         user: _USER,
         password: _PWD,
-        database: _DB
+        database: _DB,
+        multipleStatements: true
     });
 
     connection.connect();

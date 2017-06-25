@@ -22,7 +22,7 @@ app.engine('hbs', handlebars({
         section: handlebars_sections(),
         number_format: function (n) {
             var nf = wnumb({
-                thousand: ','
+                thousand: '.'
             });
             return nf.to(n);
         }
