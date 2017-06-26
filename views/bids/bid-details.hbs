@@ -65,8 +65,33 @@
                         <button type="submit" class="btn btn-danger btn-sm" role="button">Đặt giá </button>
                     </div>
                 </div>
-                <div class="col-md-4" id="luotdaugia">
+                <div class="col-md-4" id="luotdaugia" style="width: 35%;">
                     <div>Lượt đấu giá: {{bid.soluotdau}}</div>
+                    <div>
+                        <table class="table" border="1" style="margin-right: 0px;">
+                         <thead>
+                             <tr class="tablehead">
+                                <th>Số tiền</th>
+                                <th>Thời gian</th>
+                                <th>Người ra giá</th>
+                            </tr>
+                         </thead>
+                        <tbody>
+                       
+                       {{#each chitietphien}}
+                        <tr class="tablerow">
+                           <td>{{number_format giadau}}đ</td> 
+                           <td>{{moment thoigian format="DD/MM/YY HH:mm"}}</td> 
+                           <td>
+                           <a href="">{{nguoidaugia}}</a>
+                           </td>
+                        </tr>
+
+                        {{/each}}
+                        </tbody>
+                        </table>
+                        <a class="pull-right" href="" title="">Xem tất cả</a>   
+                    </div>
 
                 </div>
             </div>

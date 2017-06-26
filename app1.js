@@ -6,7 +6,8 @@ var express = require('express'),
     morgan = require('morgan'),
     path = require('path'),
     wnumb = require('wnumb'),
-    homeController = require('./controllers/homeController')
+    homeController = require('./controllers/homeController'),
+    sellController = require('./controllers/sellController.js')
     ;
     
 
@@ -41,7 +42,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
     extended: false
 }));
-
+app.use('/seller/',sellController);
 app.use('/', homeController);
 
 

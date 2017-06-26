@@ -233,3 +233,12 @@ div.tab button.active {
     border: 0px solid #ccc;
     border-top: none;
 }
+
+.tablehead{
+    background-color: gainsboro;
+    
+}
+
+.tablerow{
+    background-color: whitesmoke;
+}
