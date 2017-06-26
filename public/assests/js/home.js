@@ -11,6 +11,12 @@
 //     $('.support-mes').hide();
 // })
 
+var motahtml = $("#motahtml").text(),
+	newhtml = $.parseHTML(motahtml);
+
+	// $("#motahtml").clear();
+	$("#motahtml").replaceWith(newhtml);
+
 
 
 function opentab(evt, tabName) {
@@ -32,12 +38,28 @@ function opentab(evt, tabName) {
             // Show the current tab, and add an "active" class to the button that opened the tab
             document.getElementById(tabName).style.display = "block";
             evt.currentTarget.className += "active";
+
+            // if(tabName=='gioithieu'){
+            // 	var htmltext = document.getElementById(tabName).innerHTML;
+            // 	document.getElementById("motahtml").innerHTML= htmltext;
+            // }
         }
 
       
+  function isNumber(evt) {
+            evt = (evt) ? evt : window.event;
+            var charCode = (evt.which) ? evt.which : evt.keyCode;
+            if ((charCode > 31 && charCode < 48) || charCode > 57) {
+                return false;
+            }
+            return true;
+        }
 
-
-
+ function changeavatar(source) {
+ 			
+            var newimage = source;
+            document.getElementById("avatar").src = newimage;
+        }
 
 
 // count down timer sau khi tai thoi gian dme nguoc cua phien dau gia
@@ -63,7 +85,7 @@ var x = setInterval(function(){
 	    var distance = countDownDate - now;
 
 	 	// Time calculations for hours, minutes and seconds
-	    var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+	    var hours = Math.floor((distance) / (1000 * 60 * 60));
 	    var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
 	    var seconds = Math.floor((distance % (1000 * 60)) / 1000);
 

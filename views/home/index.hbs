@@ -19,12 +19,12 @@
             <button class="tablinks" onclick="opentab(event,'top5end')">Sắp kết thúc</button>
     </div>
     <div class="row">
-    	<div id="top5hot" class="tabcontent">
+    	<div id="top5hot" class="tabcontent" style="display: block;">
 	    	<div id="products">
 				{{#each top5hot}}
 				<div class="col-md-3">
 				    <div class="thumbnail">
-				        <a href="product-bid-details.html#">
+				        <a href="{{maphien}};{{masp}}">
 				            <img src="{{urlhinhanh}}" alt="..." class="img-responsive">
 				        </a>
 				        <div class="productprice">
@@ -57,7 +57,7 @@
 				{{#each top5max}}
 					<div class="col-md-3">
 					    <div class="thumbnail">
-					        <a href="product-bid-details.html#">
+					        <a href="{{maphien}};{{masp}}">
 					            <img src="{{urlhinhanh}}" alt="..." class="img-responsive">
 					        </a>
 					        <div class="productprice">
@@ -90,7 +90,7 @@
 				{{#each top5end}}
 				<div class="col-md-3">
 				    <div class="thumbnail">
-				        <a href="product-bid-details.html#">
+				        <a href="{{maphien}};{{masp}}">
 				            <img src="{{urlhinhanh}}" alt="..." class="img-responsive">
 				        </a>
 				        <div class="productprice">

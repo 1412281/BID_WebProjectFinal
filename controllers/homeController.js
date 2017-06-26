@@ -1,9 +1,9 @@
 var express = require('express');
-var top5rePo =  require('../models/Top5bidRepo');
+var topbidRepo =  require('../models/TopbidRepo');
 var r = express.Router();
 
 r.get('/', function(req,res){
-	top5rePo.loadTop5()
+	topbidRepo.loadTop5()
 		.then(function(rows){
 			var vm = {
 				layoutVM: res.locals.layoutVM,
@@ -23,7 +23,33 @@ r.get('/', function(req,res){
 			});
 });
 
+r.get('/:id;:idsp',function(req,res){
 
+	var data  = {
+		"maphien": req.params.id,
+		"masp": req.params.idsp
+	}
+
+	if(!data.maphien){
+		res.redirect('/');
+	}
+	
+	
+	topbidRepo.loadByID(data.maphien, data.masp)
+		.then(function(pRows){
+			console.log(pRows[1]);	
+
+
+			var vm = {
+				layoutVM: res.locals.layoutVM,
+                bid: pRows[0][0],
+                giatieptheo: pRows[0][0].buocgia + pRows[0][0].giahientai,
+                imageurls : pRows[1]
+			};
+			res.render('bids/bid-details.hbs',vm);
+		});
+
+});
 
 
 

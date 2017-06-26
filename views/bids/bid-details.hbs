@@ -1,0 +1,120 @@
+{{#section 'css'}}
+<link rel="stylesheet" type="text/css" href="/assests/css/biddetails.css">
+<link rel="stylesheet" type="text/css" href="/assests/css/home.css">
+<link rel="stylesheet" type="text/css" href="/assests/css/product.css">
+
+{{/section}}
+
+{{#section 'title'}}
+    Thông tin phiên đấu giá
+{{/section}}
+
+
+
+
+<div class="row">
+	<div class="col-md-1"></div>
+	<div class="col-md-10">
+		 <div class="row">
+            <div class="row center-block">
+                <a href="/">Trang chủ</a> > Thông tin đấu giá
+            </div>
+            <br>
+            <div class="container" id="tenSanPham">
+
+                <div id="details">
+                    <div class="detailtitle">
+                        {{bid.tensp}}
+                    </div>
+                </div>
+                <div class="detailImage col-md-3 thumbnail">
+                    <img id="avatar" src="{{bid.urlhinhanh}}" alt="" class="imageavatar">
+                </div>
+                <div class="col-md-4 detailinfo" id="chitietsanpham">
+                    <div id="masophien">ID: {{bid.maphien}}</div>
+                    <div id="nguoidang">Người bán: <a href="#">{{bid.nguoiban}}</a></div>
+                    <div id="thgianBD">Bắt đầu:&nbsp;  {{moment bid.thgianbd format="YYYY-MM-DD HH:mm:ss"}}</div>	
+                    <div id="thgianKT">Kết thúc: {{moment bid.thgiankt format="YYYY-MM-DD HH:mm:ss"}}</div>
+                    <div class="timer">
+                        <table align="center">
+                            <tbody>
+                                <tr>
+                                    <td><img src="imgs/icons/timer.png"></td>
+                                    <td class="countdown" value="{{bid.thgiankt}}"></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <br>
+                     {{#if bid.giamuangay}}
+                            <div class="pull-left">
+                                <button type="" class="btn btn-success btn-sm" role="button">Mua ngay:  {{number_format bid.giamuangay}} đ </button>
+                            </div>
+                            <br>
+                            <br>
+                      {{/if}}
+                   
+                      <div id="giahientai" class="detailtitle">
+				            	<a href="#">{{bid.nguoigiugia}}</a>:    {{number_format bid.giahientai}} đ
+                      </div>
+                     
+                    <form class="pull-left" method="post">
+                        <input id="giatieptheo" type="text" class="form-control required" onkeypress="return isNumber(event)" placeholder="Đặt giá" value="{{number_format giatieptheo}}" required="true"></input>
+                    </form>
+                    <div class="pull-right">
+                        <button type="submit" class="btn btn-danger btn-sm" role="button">Đặt giá </button>
+                    </div>
+                </div>
+                <div class="col-md-4" id="luotdaugia">
+                    <div>Lượt đấu giá: {{bid.soluotdau}}</div>
+
+                </div>
+            </div>
+        </div>
+        <div id="thumb-zone">
+            <ul>
+                <a id="thumb-control-left" href="javascript:void(0);"></a>
+                <a id="thumb-control-right" href="javascript:void(0);"></a>
+                
+                {{#each imageurls}}
+                <li>
+                    <img src="{{urlhinhanh}}" onmouseover="changeavatar('{{urlhinhanh}}')"/>
+                </li>
+                {{/each}}
+            </ul>
+        </div>
+        <br>
+        <div class="tab nav nav-tabs">
+            <button class="tablinks" onclick="opentab(event,'gioithieu')">Giới thiệu</button>
+            <button class="tablinks" onclick="opentab(event,'nhanxet')">Nhận xét</button>
+        </div>
+        <div id="gioithieu" class="tabcontent detaildescription" style="display: block;">
+            <div id="motahtml">
+                {{bid.motaHTML}}
+            </div>
+
+            
+        </div>
+        <div id="nhanxet" class="tabcontent">
+            <div>Phần này là nhận xét của người khác</div>
+            <br>
+            <div class="form-group">
+                <label for="comment">Để lại nhận xét của bạn tại đây</label>
+                <textarea class="form-control" rows="3" id="comment"></textarea>
+                <br>
+                <button type="submit" class="btn btn-success">Gửi nhận xét</button>
+            </div>
+        </div>
+	</div>
+	<div class="col-md-1"></div>
+</div>
+{{#section 'js'}}
+    
+	<script src="/assests/js/home.js" type="text/javascript" charset="utf-8"></script>
+
+{{/section}}
+
+          
+    
+
+

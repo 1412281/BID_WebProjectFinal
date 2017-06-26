@@ -125,6 +125,8 @@ INSERT INTO sanpham(tensp,nguoidang,loai,motaHTML) VALUES('Đầm dạ hội án
 
 -- table hinhanh 
 INSERT INTO hinhanh(masp,urlhinhanh) VALUES(1,'imgs/sanpham/1/1.jpg');
+INSERT INTO hinhanh(masp,urlhinhanh) VALUES(1,'imgs/sanpham/1/2.jpg');
+INSERT INTO hinhanh(masp,urlhinhanh) VALUES(1,'imgs/sanpham/1/3.jpg');
 INSERT INTO hinhanh(masp,urlhinhanh) VALUES(2,'imgs/sanpham/2/1.jpg');
 -- table chi tiet phien daugia
 
@@ -146,25 +148,8 @@ INSERT INTO phiendaugia(sanpham,thgianbd,thgiankt,giakhoidiem,buocgia,giahientai
 INSERT INTO phiendaugia(sanpham,thgianbd,thgiankt,giakhoidiem,buocgia,giahientai,nguoigiugia,giamuangay,tinhtrang)
 			 	 VALUES(2, STR_TO_DATE('12-01-2014 00:00:00','%m-%d-%Y %H:%i:%s'),
 			 	 	       STR_TO_DATE('12-02-2014 00:00:00','%m-%d-%Y %H:%i:%s'),
-			 	 	      100000,10000,100000,null,null,null);						
+			 	 	      100000,10000,100000,null,null,null);					
 
-
-
-
--- tao cac views can thiet giup cau truy van duoc gon gang hon
-drop view if exists topphiendaugia;
-create view topphiendaugia
-as 
-select p.maphien, sp.masp, sp.tensp, count(ct.nguoidaugia) as soluotdau,
-	   p.nguoigiugia , p.giahientai, p.thgiankt,
-	   h.urlhinhanh
-
-from phiendaugia p left join chitietphien ct
-	 on (p.maphien = ct.maphien) ,
-	 sanpham sp , hinhanh h
-where p.sanpham = sp.masp and sp.masp = h.masp
-group by ct.maphien
-;
 
 
 

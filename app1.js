@@ -1,5 +1,6 @@
 var express = require('express'),
     handlebars = require('express-handlebars'),
+    helpers = require('handlebars-helpers')(),
     handlebars_sections = require('express-handlebars-sections'),
     bodyParser = require('body-parser'),
     morgan = require('morgan'),
@@ -26,6 +27,8 @@ app.engine('hbs', handlebars({
             });
             return nf.to(n);
         }
+
+
     }
 }));
 app.set('view engine', 'hbs');
