@@ -139,7 +139,6 @@ INSERT into chitietphien(maphien,thoigian,nguoidaugia,giadau)
 INSERT into chitietphien(maphien,thoigian,nguoidaugia,giadau)
 			 VALUES(2,STR_TO_DATE('12-01-2014 00:01:00','%m-%d-%Y %H:%i:%s'),'user1',110000);              
 
-
 -- table phien daugia
 INSERT INTO phiendaugia(sanpham,thgianbd,thgiankt,giakhoidiem,buocgia,giahientai,nguoigiugia,giamuangay,tinhtrang)
 			 	 VALUES(1, STR_TO_DATE('12-01-2014 00:00:00','%m-%d-%Y %H:%i:%s'),
@@ -149,12 +148,6 @@ INSERT INTO phiendaugia(sanpham,thgianbd,thgiankt,giakhoidiem,buocgia,giahientai
 			 	 VALUES(2, STR_TO_DATE('12-01-2014 00:00:00','%m-%d-%Y %H:%i:%s'),
 			 	 	       STR_TO_DATE('12-02-2014 00:00:00','%m-%d-%Y %H:%i:%s'),
 			 	 	      100000,10000,100000,null,null,null);					
-
-
-
-
-
-
 
 -- tao khoa ngoai xen ke tao du lieu mau
 
@@ -232,6 +225,3 @@ alter table ketquadaugia
 	add constraint fk_ketqua_phien
 	foreign key (maphien)
 	references  phiendaugia(maphien);
-
-
-
