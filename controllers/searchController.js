@@ -1,30 +1,22 @@
 var express = require('express');
-var top5rePo = require('../models/Top5bidRepo');
+var searchRepo = require('../models/searchRepo');
 var r = express.Router();
 
 r.get('/', function(req, res) {
-    top5rePo.loadTop5()
+    searchRepo.getBidByProductID
         .then(function(rows) {
             var vm = {
                 layoutVM: res.locals.layoutVM,
-                top5hot: rows[0],
-                top5max: rows[1],
-                top5end: rows[2]
+                products: rows
             };
             // in ra test thu
-            console.log(rows[0]);
-            console.log(rows[1]);
-            console.log(rows[2]);
+            console.log(rows);
 
-            res.render('home/index', vm);
+            //res.render('home/index', vm);
         }).fail(function(err) {
             console.log(err);
             res.end('fail');
         });
 });
-
-
-
-
 
 module.exports = r;

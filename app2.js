@@ -5,9 +5,9 @@ var express = require('express'),
     morgan = require('morgan'),
     path = require('path'),
     wnumb = require('wnumb'),
-    homeController = require('./controllers/homeController')
-    ;
-    
+    homeController = require('./controllers/homeController'),
+    searchController = require('./controllers/searchController');
+
 
 var app = express();
 
@@ -20,7 +20,7 @@ app.engine('hbs', handlebars({
     partialsDir: 'views/_partials/',
     helpers: {
         section: handlebars_sections(),
-        number_format: function (n) {
+        number_format: function(n) {
             var nf = wnumb({
                 thousand: '.'
             });
@@ -40,6 +40,8 @@ app.use(bodyParser.urlencoded({
 }));
 
 app.use('/', homeController);
+app.use('/search', searchController);
 
-
-app.listen(3000);
+app.listen(3000, function() {
+    console.log("Server is running...")
+});
