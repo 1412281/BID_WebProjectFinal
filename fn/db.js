@@ -24,7 +24,6 @@ exports.load = function(sql) {
         if (error)
             d.reject(error);
         // throw error;
-
         d.resolve(rows);
     });
 

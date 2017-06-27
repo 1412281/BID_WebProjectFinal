@@ -3,22 +3,24 @@ var mustache = require('mustache'),
     mysql = require('mysql'),
     db = require('../fn/db');
 
-var getIdProductByName = function(name) {
+
+
+exports.getIdProductByName = function(name) {
     var sql = "select masp from sanpham where tensp like '%" + name + "%'";
     return db.load(sql);
 }
 
-var getIDProductByType = function(type) {
+exports.getIDProductByType = function(type) {
     var sql = "select masp from sanpham where loai = " + type;
     return db.load(sql);
 }
 
-var getBidByProductID = function(id) {
+exports.getBidByProductID = function(id) {
     var sql = "select * from phiendaugia where sanpham = " + id + "";
     return db.load(sql);
 }
 
-var getBidByProductName = function(name) {
+exports.getBidByProductName = function(name) {
     var d = q.defer();
 
     getIdProductByName(name).then(function(rows) {
@@ -31,13 +33,9 @@ var getBidByProductName = function(name) {
                 }
                 // console.log(phien);
             }).then(function() {
-                d.resolve(rows);
+                d.resolve(array);
             });
         }
     });
     return d.promise;
 }
-
-getBidByProductName("trai").then(function(rows) {
-    console.log(rows);
-});

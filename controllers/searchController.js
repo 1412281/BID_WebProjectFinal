@@ -12,7 +12,7 @@ r.get('/', function(req, res) {
             // in ra test thu
             console.log(rows);
 
-            //res.render('home/index', vm);
+            res.render('home/index', vm);
         }).fail(function(err) {
             console.log(err);
             res.end('fail');
