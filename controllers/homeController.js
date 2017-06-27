@@ -34,7 +34,6 @@ r.get('/:id;:idsp',function(req,res){
 		res.redirect('/');
 	}
 	
-	
 	topbidRepo.loadByID(data.maphien, data.masp)
 		.then(function(pRows){
 			console.log(pRows[1]);	
@@ -50,7 +49,6 @@ r.get('/:id;:idsp',function(req,res){
 		});
 
 });
-
 
 
 module.exports = r;
