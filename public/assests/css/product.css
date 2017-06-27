@@ -16,6 +16,10 @@
     font-weight: bold;
     color: red;
     padding: 5px 0 5px 0;
+     white-space: nowrap;
+     overflow: hidden;
+     text-overflow: ellipsis;
+    
 }
 
 .guestnumber {
@@ -232,6 +236,7 @@ div.tab button.active {
     padding: 6px 12px;
     border: 0px solid #ccc;
     border-top: none;
+    background-color: whitesmoke;
 }
 
 .tablehead{
@@ -242,3 +247,11 @@ div.tab button.active {
 .tablerow{
     background-color: whitesmoke;
 }
+
+#avatar{
+    height: 150px;
+}
+.thumbnail{
+    
+}
+

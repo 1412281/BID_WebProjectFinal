@@ -23,7 +23,7 @@
             <div class="container" id="tenSanPham">
                 <div id="details">
                     <div class="detailtitle">
-                        Tên:{{sanpham.tensp}}
+                        {{sanpham.tensp}}
                     </div>
                 </div>
                 <div class="detailImage col-md-3 thumbnail">
@@ -33,6 +33,14 @@
                     <div class="guestnumber">ID: {{sanpham.masp}}</div>
                     <div class="guestnumber">Loại: {{sanpham.tenloai}}</div>
                     <br>       
+                    <div class="pull-left">
+                        <button class="btn btn-warning" data-toggle="modal" data-target="#addProduct">Cập nhật</button>
+                    </div>
+                    <br>
+                    <br>
+                     <div class="pull-left">
+                        <button class="btn btn-success">Đăng bán</button>
+                    </div>
                 </div>
                 <div class="col-md-4 detailinfo" id="chitietsanpham">
                          
@@ -62,10 +70,91 @@
         </div>
 	</div>
 	<div class="col-md-1"></div>
+
+<div id="addProduct" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header" id="dialog-header" style="background-color:#F0AD4E;">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Cập nhật sản phẩm</h4>
+                </div>
+                <form class="form-horizontal" method="post" action="/seller/updateproduct">
+                <div class="modal-body">
+                        
+                        <div class="form-group">
+                            <label class="control-label col-md-3" for="Ten">Mã sản phẩm</label>
+                            <div class="col-md-6">
+                                <input type="text" name="masanpham" class="form-control" readonly="true" value="{{sanpham.masp}}">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-3" for="Ten">Tên sản phẩm</label>
+                            <div class="col-md-6">
+                                <input type="text" name="tensanpham" class="form-control" placeholder="Tên sản phẩm" aria-describedby="sizing-addon1" required="true" value="{{sanpham.tensp}}">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-3" for="Ten">Loại sản phẩm</label>
+                            <div class="col-md-6">
+                                <select class="form-control" name="loai" id="">
+                                {{#each danhsachloai}}
+                                   
+                                        <option value="{{maloai}}">{{tenloai}}</option>
+                                    
+                                {{/each}}
+                            </select>
+                            </div>
+                        </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-md-2" for="gioithieu">Giới thiệu</label>
+                    </div>
+                    
+                        <div class="col-md-2"></div>
+                        <textarea name="gioithieu"  class="form-control col-md-8">{{sanpham.motaHTML}}</textarea>
+                    <div class="col-md-2"></div>        
+            </div>
+            
+            <br>
+          <div class="modal-footer" id="dialog-footer">
+            <br>
+            
+            <button class="btn btn-warning" type="submit">Cập nhật</button>
+          </div>
+
+          </form>
+        </div>
+       </div>
+    </div>
+
+    
+
+
+
+
 </div>
 {{#section 'js'}}
     
 	<script src="/assests/js/home.js" type="text/javascript" charset="utf-8"></script>
+    <script src="https://cloud.tinymce.com/stable/tinymce.min.js?apiKey=wqgcrhcokac6s7fcrd1ullikqbe1tnr8ycxlkffrrgskresl"></script>
+    <script>
+     tinymce.init({
+            selector: 'textarea',
+            theme: 'modern',
+            plugins: [
+               'advlist autolink lists link image charmap print preview hr anchor pagebreak',
+               'tinymcespellchecker']
+         });
+
+    function getHTML()
+        {
+            var HTML = tinyMCE.activeEditor.getContent();
+             
+        }
+    </script>
+
 
 {{/section}}
 

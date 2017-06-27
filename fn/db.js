@@ -36,7 +36,7 @@ exports.load = function(sql) {
 exports.insert = function(sql) {
     
     var d = q.defer();
-
+    var id ;
     var connection = mysql.createConnection({
         host: _HOST,
         user: _USER,
@@ -52,11 +52,12 @@ exports.insert = function(sql) {
             d.reject(error);
         } else {
             d.resolve(value.insertId);
+            console.log(value.insertId);
+            id = value.insertId;
         }
     });
 
     connection.end();
-
     return d.promise;
 }
 
