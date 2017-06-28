@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th6 28, 2017 lúc 04:46 SA
+-- Thời gian đã tạo: Th6 28, 2017 lúc 04:52 SA
 -- Phiên bản máy phục vụ: 5.7.14
 -- Phiên bản PHP: 5.6.25
 
@@ -299,17 +299,18 @@ CREATE TABLE `users` (
   `diachi` varchar(100) NOT NULL,
   `email` varchar(30) NOT NULL,
   `diemcong` int(11) DEFAULT NULL,
-  `diemtru` int(11) DEFAULT NULL
+  `diemtru` int(11) DEFAULT NULL,
+  `roll` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Đang đổ dữ liệu cho bảng `users`
 --
 
-INSERT INTO `users` (`tenuser`, `matkhau`, `hoten`, `diachi`, `email`, `diemcong`, `diemtru`) VALUES
-('admin', 'admin', 'nguyen thanh huong', 'quan 1', 'nth193@gmail.com', 0, 0),
-('user1', 'user1', 'user1', 'hcm', 'hanhphuclagi00@gmail.com', 0, 0),
-('user2', 'user2', 'user2', 'hcm', 'longlangdasoi@yahoo.com.vn', 0, 0);
+INSERT INTO `users` (`tenuser`, `matkhau`, `hoten`, `diachi`, `email`, `diemcong`, `diemtru`, `roll`) VALUES
+('admin', 'admin', 'nguyen thanh huong', 'quan 1', 'nth193@gmail.com', 0, 0, 1),
+('user1', 'user1', 'user1', 'hcm', 'hanhphuclagi00@gmail.com', 0, 0, 0),
+('user2', 'user2', 'user2', 'hcm', 'longlangdasoi@yahoo.com.vn', 0, 0, 0);
 
 -- --------------------------------------------------------
 
