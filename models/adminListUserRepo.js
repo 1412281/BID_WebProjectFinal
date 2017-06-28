@@ -2,7 +2,7 @@ var mustache = require('mustache'),
 	q = require('q'),
 	db = require('../fn/db');
 
-exports.listuser = function(){
-	var sql = 'select u.tenuser, u.email, u.ngaytao, u.trangthai from users u, loaiusers lu where lu.maloaiusers = u.loaiuser and lu.maloaiusers = 2';
+exports.listuserpact = function(){
+	var sql = 'select u.tenuser, u.email, u.ngaytao, lqh.tenloai from users u, loaiuser lu, loaiquyenhan lqh where lqh.maloai = u.quyenhan and lu.maloai = u.loaiuser and lu.maloai = 2';
 	return db.load(sql);
 }

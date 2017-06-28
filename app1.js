@@ -6,10 +6,11 @@ var express = require('express'),
     morgan = require('morgan'),
     path = require('path'),
     wnumb = require('wnumb'),
-    homeController = require('./controllers/homeController')
+    homeController = require('./controllers/homeController'),
+    adminListUserController = require('./controllers/adminListUserController');
+    adminListProductController = require('./controllers/adminListProductController');
     ;
     
-
 var app = express();
 
 app.use(morgan('dev'));
@@ -43,6 +44,7 @@ app.use(bodyParser.urlencoded({
 }));
 
 app.use('/', homeController);
-
-
+app.use('/admin/users', adminListUserController);
+app.use('/admin', adminListUserController);
+app.use('/admin/products', adminListProductController);
 app.listen(3000);
