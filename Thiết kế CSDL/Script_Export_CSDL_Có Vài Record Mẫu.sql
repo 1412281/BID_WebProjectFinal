@@ -1,4 +1,4 @@
--- MySQL dump 10.13  Distrib 5.7.12, for Win64 (x86_64)
+﻿-- MySQL dump 10.13  Distrib 5.7.12, for Win64 (x86_64)
 --
 -- Host: localhost    Database: daugia
 -- ------------------------------------------------------
@@ -334,9 +334,9 @@ DROP TABLE IF EXISTS `users`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `users` (
-  `tenuser` varchar(30) NOT NULL,
-  `matkhau` varchar(30) NOT NULL,
-  `hoten` varchar(100) NOT NULL,
+  `tenuser` varchar(20) NOT NULL,
+  `matkhau` varchar(128) NOT NULL,
+  `hoten` varchar(30) NOT NULL,
   `diachi` varchar(100) NOT NULL,
   `email` varchar(30) NOT NULL,
   `diemcong` int(11) DEFAULT NULL,

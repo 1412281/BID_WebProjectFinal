@@ -1,19 +1,15 @@
-create database daugia;
-
-use daugia;
-
--- create Tables
+﻿-- create Tables
 
 create table users(
 	tenuser varchar(30) not null,
-	matkhau varchar(30) not null,
-	hoten  varchar(100) not null,
+	matkhau varchar(128) not null,
+	hoten  varchar(30) not null,
 	diachi varchar(100) not null,
 	email varchar(30) not null,
 	diemcong int,
 	diemtru int,
 	primary key (tenuser)
-);
+)ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 create table  nhanxet(
 	id int auto_increment,
@@ -21,42 +17,42 @@ create table  nhanxet(
 	tennguoinhanxet varchar(30) not null,
 	noidung varchar(200),
 	primary key (id)
-);
+)ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 create table seller(
 	tenuser varchar(30) not null,
 	quyenduocban boolean not null,
 	thoigianxinban date,
 	primary key (tenuser)
-);
+)ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 create table sanpham(
 	masp int auto_increment not null,
 	tensp varchar(200) not null,
 	nguoidang varchar(30) not null,
 	loai int not null,
-	motaHTML varchar(500),
+	motaHTML varchar(1000),
 	primary key (masp)
-);
+)ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 create table hinhanh(
 	masp int not null,
 	urlhinhanh varchar(100) not null
-);
+)ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 create table yeuthich(
 	id int auto_increment not null,
 	tenuser varchar(30) not null,
 	masp int not null,
 	primary key (id)
-);
+)ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 create table loaisp(
 	maloai int auto_increment,
 	tenloai varchar(100),
 
 	primary key (maloai)
-);
+)ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 create table phiendaugia(
 	maphien int auto_increment,
@@ -70,14 +66,14 @@ create table phiendaugia(
 	giamuangay int,
 	tinhtrang varchar(30),
 	primary key(maphien)
-);
+)ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 create table daugiatudong(
 	maphien int not null,
 	nguoidaugia varchar(30) not null,
 	giamax int not null,
 	primary key(maphien,nguoidaugia)
-);
+)ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 create table ketquadaugia(
 	maphien int not null,
@@ -85,7 +81,7 @@ create table ketquadaugia(
 	gia int,
 	ghichu varchar(200),
 	primary key (maphien)
-);
+)ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 create table chitietphien(
 	id int auto_increment,
@@ -94,13 +90,13 @@ create table chitietphien(
 	nguoidaugia varchar(30) not null,
 	giadau int, 
 	primary key(id)
-);
+)ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 create table nguoimuabiloai(
 	maphien int not null,
 	nguoibiloai varchar(30) ,
 	primary key (maphien,nguoibiloai)
-);
+)ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 
 
@@ -149,13 +145,6 @@ INSERT INTO phiendaugia(sanpham,thgianbd,thgiankt,giakhoidiem,buocgia,giahientai
 			 	 VALUES(2, STR_TO_DATE('12-01-2014 00:00:00','%m-%d-%Y %H:%i:%s'),
 			 	 	       STR_TO_DATE('12-02-2014 00:00:00','%m-%d-%Y %H:%i:%s'),
 			 	 	      100000,10000,100000,null,null,null);					
-
-
-
-
-
-
-
 -- tao khoa ngoai xen ke tao du lieu mau
 
 alter table nhanxet
