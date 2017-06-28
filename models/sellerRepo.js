@@ -108,12 +108,11 @@ exports.loadChiTietPhienByID = function(maphien, masp) {
 
 exports.themmotasanpham = function(masp, motathem) {
     var obj = {
-        MASP: masp,
+        masp: masp,
         motathem: motathem
     };
-    var sql = mustache.render('update sanpham set motaHTML = concat(motaHTML,"{{motathem}}") where masp={{masp}}',
-        obj
-    );
+    var sql ='update sanpham set motaHTML = concat(motaHTML,"'+motathem+'") where masp='+masp;
+    console.log(sql);
     return db.update(sql);
 }
 
@@ -147,6 +146,30 @@ exports.KICK = function(maphien1, user1) {
         });
     });
 }
+
+exports.guicomment = function(noidung) {
+    var data = {
+        nguoinhancomment: noidung.nguoinhancomment,
+        comment: noidung.comment,
+        diem : noidung.congtru
+        
+    };
+    console.log(data);
+    
+    var sql = mustache.render("insert into nhanxet(tenuser,tennguoinhanxet,noidung,loai) values('{{nguoinhancomment}}','','{{comment}}',{{diem}})",
+        data
+    );
+
+    console.log("Them nhan xet");
+    console.log(sql);
+
+
+
+
+    return db.insert(sql);
+}
+
+
 
 
 // exports.loadByID = function(maphien,masp){

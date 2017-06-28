@@ -77,4 +77,69 @@ r.post('/logout', restrict, function(req, res) {
     res.redirect('/');
 });
 
+
+r.get('/profile',restrict,function(req, res) {
+    console.log("Profile...............");
+
+    console.log(req.session.user.tenuser);
+
+
+     accountRepo.getUserInfo(req.session.user.tenuser)
+        .then(function(rows) {
+        console.log(rows[0]);
+        var vm = {
+                layoutModels: res.locals.layoutModels,
+                thongtincanhan: rows[0][0],
+                nhanxet: rows[1]
+            };
+            console.log(rows[1]);
+                 res.render('account/profile', vm);
+            }).fail(function(err) {
+                console.log(err);
+                res.end('fail');
+
+
+    });    
+    
+});
+
+r.post('/updateinfo', restrict, function(req, res) {
+    console.log("capnhatthongtin...............");
+    
+    accountRepo.updateinfo(req.body);
+
+    res.redirect('../login/profile');
+});
+
+r.post('/changepassword', restrict, function(req, res) {
+    console.log("doimatkhau...............");
+    console.log(req.body);
+    accountRepo.getUserInfo(req.session.user.tenuser)
+        .then(function(rows) {
+        console.log(rows[0]);
+        var vm = {
+                layoutModels: res.locals.layoutModels,
+                thongtincanhan: rows[0][0],
+                nhanxet: rows[1]
+            };
+            if(vm.thongtincanhan.matkhau == req.body.passcu){
+                console.log("Pass Cu Dung");
+                accountRepo.updatepassword(req.session.user.tenuser,req.body.passmoi);
+                res.redirect('../login/profile');
+            }
+            else{
+                    res.end('Mat khau Cu khong dung');
+            }
+            }).fail(function(err) {
+                console.log(err);
+                res.end('Mat khau Cu khong dung');
+
+
+    });  
+
+    
+
+    
+});
+
 module.exports = r;

@@ -31,8 +31,8 @@
     	{{#each danhsachdangdaugia}}
 				<div class="col-md-3">
 				    <div class="thumbnail">
-				        <a href="seller/{{maphien}};{{masp}}">
-				            <img id="avatar" src="{{urlhinhanh}}" alt="..." class="img-responsive">
+				        <a href="{{maphien}};{{masp}}">
+				            <img id="avatar" src="../{{urlhinhanh}}" alt="..." class="img-responsive">
 				        </a>
 				        <div class="productprice">
 				            <div class="producttitle">{{tensp}}</div>
@@ -49,7 +49,7 @@
 				                <table align="center">
 				                    <tbody>
 				                        <tr>
-				                            <td><img src="imgs/icons/timer.png"></td>
+				                            <td><img src="../imgs/icons/timer.png"></td>
 				                            <td class="countdown" value="{{thgiankt}}"></td>
 				                            <td class="begincountdown" value="{{thgianbd}}"></td>
 				                        </tr>
@@ -66,7 +66,7 @@
 				<div class="col-md-3">
 				    <div class="thumbnail">
 				        <a href="/seller/masp={{masp}}">
-				            <img id="avatar" src="{{urlhinhanh}}" alt="..." class="img-responsive">
+				            <img id="avatar" src="../{{urlhinhanh}}" alt="..." class="img-responsive">
 				        </a>
 				        <div class="productprice">
 				            <div class="producttitle">{{tensp}}</div>
@@ -84,22 +84,18 @@
 				    	<div class="picture-end">
                             <div class="status-end"></div>
                             <a href="">
-			            		<img id="avatar" src="{{urlhinhanh}}" alt="..." class="img-responsive">
+			            		<img id="avatar" src="../{{urlhinhanh}}" alt="..." class="img-responsive">
 			       			 </a>
                         </div>
 				        <div class="productprice">
 				        
 				            <div class="producttitle">{{tensp}}</div>
-				       
-				          
-				            <div class="pull-right">
-				            	<a href="lichsubids">Lịch sử</a>
-				            </div>
 				            <div class="priceofguest">
 				            	Winner:<a href="#">{{winner}}</a>
 				            </div>
 				            <div class="pull-right">
-				            	<a href="lichsubids">Nhận xét</a>
+				            	<div class="btn btn glyphicon glyphicon-comment" title="gửi đánh giá"	 data-toggle="modal" data-target="#danhgianguoimua{{winner}}">
+	            				</div>
 				            </div>
 			            	<div class="priceofguest">{{number_format gia}} đ</div>
 
@@ -107,86 +103,128 @@
 				        </div>
 				    </div>
 				</div>
+
+	<div id="danhgianguoimua{{winner}}" class="modal fade" role="dialog">
+		<!-- Modal content-->
+			<div class="modal-content">
+			<div class="modal-header" id="dialog-header">
+			<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title">Đánh giá người thắng cuộc</h4>
+			</div>
+					<form class="form-horizontal" method="post" action="seller/comment">
+				<div class="modal-body">
+
+					<div class="form-group">
+						<label class="control-label col-md-3" for="Ten">Comment</label>
+						<div class="col-md-6">
+							<input type="hidden" name="nguoinhancomment" value="{{winner}}">
+							<input type="text" name="comment" class="form-control" placeholder="Tốt/Xấu..." aria-describedby="sizing-addon1" required="true">
+						</div>
+
+					</div>
+			
+					<div class="form-group">
+						
+						<label class="control-label col-md-3" for="Ten">Điểm</label>
+						
+						<div class="radio col-md-3">
+						  <label><input type="radio" name="congtru" value="1" checked="checked">+1</label>
+						  <label><input type="radio" name="congtru" value="-1">-1</label>
+								</div>
+							</div>
+
+				<br>
+					<div class="modal-footer" id="dialog-footer">
+					<br>
+						<button class="btn btn-success" type="submit">Gửi đánh giá</button>
+					</div>
+				</form>
+				</div>
+				</div>
+				</div>
 				{{/each}}
 		</div>
     </div>
 
 
-	   <div id="addProduct" class="modal fade" role="dialog">
-        <div class="modal-dialog">
+	<div id="addProduct" class="modal fade" role="dialog">
+   		 <div class="modal-dialog">
 
-            <!-- Modal content-->
-            <div class="modal-content">
-                <div class="modal-header" id="dialog-header">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title">Thêm sản phẩm</h4>
-                </div>
-                <form class="form-horizontal" method="post" action="" enctype="multipart/form-data">
-                <div class="modal-body">
-              
-                        <div class="form-group">
-                            <label class="control-label col-md-3" for="Ten">Tên sản phẩm</label>
-                            <div class="col-md-6">
-                                <input type="text" name="tensanpham" class="form-control" placeholder="Tên sản phẩm" aria-describedby="sizing-addon1" required="true">
-                            </div>
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header" id="dialog-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Thêm sản phẩm</h4>
+            </div>
+            <form class="form-horizontal" method="post" action="" enctype="multipart/form-data">
+            <div class="modal-body">
+          
+                    <div class="form-group">
+                        <label class="control-label col-md-3" for="Ten">Tên sản phẩm</label>
+                        <div class="col-md-6">
+                            <input type="text" name="tensanpham" class="form-control" placeholder="Tên sản phẩm" aria-describedby="sizing-addon1" required="true">
                         </div>
-                        <div class="form-group">
-                            <label class="control-label col-md-3" for="Ten">Loại sản phẩm</label>
-                            <div class="col-md-6">
-                                <select class="form-control" name="loai" id="">
-                                {{#each danhsachloai}}
-								<option value="{{maloai}}">{{tenloai}}</option>
-								{{/each}}
-							</select>
-                            </div>
-                        </div>
-                    
-                    <div class="row">
-                        <label class="control-label col-md-2" for="Ten" style="text-align: right;"> Chọn ảnh</label>
-                        
-
-
-
-						
-						
-
-                        
-                        	
-						<input name="danhsachanh" type="file" accept="image/*" multiple  required="true" />
-						
-                       
-
-
-
-
                     </div>
                     <div class="form-group">
-                        <label class="control-label col-md-2" for="gioithieu">Giới thiệu</label>
+                        <label class="control-label col-md-3" for="Ten">Loại sản phẩm</label>
+                        <div class="col-md-6">
+                            <select class="form-control" name="loai" id="">
+                            {{#each danhsachloai}}
+							<option value="{{maloai}}">{{tenloai}}</option>
+							{{/each}}
+						</select>
+                        </div>
                     </div>
+                
+                <div class="row">
+                    <label class="control-label col-md-2" for="Ten" style="text-align: right;"> Chọn ảnh</label>
                     
-                        <div class="col-md-2"></div>
-                        <textarea name="gioithieu"  class="form-control col-md-8"></textarea>
-					<div class="col-md-2"></div>		
-			</div>
-			
-			<br>
-		  <div class="modal-footer" id="dialog-footer">
-		  	<br>
-		  	
-		    <button class="btn btn-success" type="submit">Thêm</button>
-		  </div>
 
-		  </form>
+
+
+					
+					
+
+                    
+                    	
+					<input name="danhsachanh" type="file" accept="image/*" multiple  required="true" />
+					
+                   
+
+
+
+
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-md-2" for="gioithieu">Giới thiệu</label>
+                </div>
+                
+                    <div class="col-md-2"></div>
+                    <textarea name="gioithieu"  class="form-control col-md-8"></textarea>
+				<div class="col-md-2"></div>		
 		</div>
-       </div>
+		
+		<br>
+	  <div class="modal-footer" id="dialog-footer">
+	  	<br>
+	  	
+	    <button class="btn btn-success" type="submit">Thêm</button>
+	  </div>
+
+	  </form>
 	</div>
+   </div>
 	</div>
 
 
-</div>
+
 	
 
-</div>
+
+
+	
+
+
 <div class="col-md-1"></div>
 
 {{#section 'js'}}
