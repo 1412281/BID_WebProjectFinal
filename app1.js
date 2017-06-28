@@ -9,6 +9,7 @@ var express = require('express'),
     homeController = require('./controllers/homeController'),
     adminListUserController = require('./controllers/adminListUserController');
     adminListProductController = require('./controllers/adminListProductController');
+    adminListCategoryController = require('./controllers/adminListCategoryController')
     ;
     
 var app = express();
@@ -47,4 +48,5 @@ app.use('/', homeController);
 app.use('/admin/users', adminListUserController);
 app.use('/admin', adminListUserController);
 app.use('/admin/products', adminListProductController);
+app.use('/admin/categories', adminListCategoryController);
 app.listen(3000);

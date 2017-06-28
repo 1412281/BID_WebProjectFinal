@@ -1,9 +1,9 @@
 var express = require('express');
-var adminListProductsRepo =  require('../models/adminListProductsRepo');
+var adminListProductsRepo =  require('../models/adminListProductRepo');
 var r = express.Router();
 
 r.get('/', function(req,res){
-	adminListProductsRepo.listuserpact()
+	adminListProductsRepo.listproductpact()
 		.then(function(rows){
 			var vm = {
 				layoutVM: res.locals.layoutVM,
