@@ -64,6 +64,13 @@ r.post('/updateproduct',function(req,res){
 	res.redirect('/seller/masp='+req.body.masanpham);
 });
 
+r.post('/auctionproduct',function(req,res){
+	console.log(req.body);
+	sellerRepo.dangsanpham(req.body);
+	 	
+	res.redirect('/seller/masp='+req.body.masanpham);
+});
+
 
 
 module.exports = r;

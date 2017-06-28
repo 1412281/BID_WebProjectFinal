@@ -3,10 +3,10 @@
 drop view if exists soluotdaugia;
 create view soluotdaugia
 as 
-select ct.maphien, count(*) as soluotdau
+select p.maphien, count(ct.giadau) as soluotdau
 
-from chitietphien ct  
-group by ct.maphien
+from phiendaugia p left outer join chitietphien ct on (p.maphien = ct.maphien)
+group by p.maphien
 ;
 -- topphiendaugia giup loc ra cac phien dau gia con trong thoi han. bo qua cac phien dau gia da ket thuc
 drop view if exists topphiendaugia;
@@ -15,11 +15,15 @@ as
 select p.maphien, sp.masp, sp.tensp, sp.nguoidang as nguoiban,sp.motaHTML, luot.soluotdau,
 	   p.nguoigiugia , p.giahientai,p.buocgia,p.giamuangay ,p.thgianbd, p.thgiankt,
 	   h.urlhinhanh
-from phiendaugia p, soluotdaugia luot,
+from phiendaugia p,
+	 soluotdaugia luot,
 	 sanpham sp , hinhanh h
-where p.sanpham = sp.masp and p.maphien=luot.maphien and sp.masp = h.masp and (datediff(p.thgiankt, now()) > 0 )  
+where p.sanpham = sp.masp and p.maphien = luot.maphien and sp.masp = h.masp and (datediff(p.thgiankt, now()) > 0 )  
 group by p.maphien
 ;
+
+
+
 
 -- views san pham danh cho seller truy xuat
 

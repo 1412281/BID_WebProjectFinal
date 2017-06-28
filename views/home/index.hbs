@@ -31,7 +31,12 @@
 				            <div class="producttitle">{{tensp}}</div>
 				            <div class="guestnumber">Bids: {{soluotdau}}</div>
 				            <div class="priceofguest">
-				            	<a href="#">{{nguoigiugia}}</a>:{{number_format giahientai}} đ</div>	
+
+				            	 {{#if giahientai}}
+				            	<a href="#">{{nguoigiugia}}</a>:{{number_format giahientai}} đ
+				            {{/if}}	
+				            	</div>	
+				            	
 				            <div class="timer">
 				                <table align="center">
 				                    <tbody>
@@ -64,7 +69,9 @@
 					            <div class="producttitle">{{tensp}}</div>
 					            <div class="guestnumber">Bids: {{soluotdau}}</div>
 					            <div class="priceofguest">
-					            	<a href="#">{{nguoigiugia}}</a>:{{number_format giahientai}} đ</div>	
+					            	 {{#if giahientai}}
+				            	<a href="#">{{nguoigiugia}}</a>:{{number_format giahientai}} đ
+				            {{/if}}	</div>	
 					            <div class="timer">
 					                <table align="center">
 					                    <tbody>
@@ -97,7 +104,9 @@
 				            <div class="producttitle">{{tensp}}</div>
 				            <div class="guestnumber">Bids: {{soluotdau}}</div>
 				            <div class="priceofguest">
-				            	<a href="#">{{nguoigiugia}}</a>:{{number_format giahientai}} đ</div>	
+				            	 {{#if giahientai}}
+				            	<a href="#">{{nguoigiugia}}</a>:{{number_format giahientai}} đ
+				            {{/if}}	</div>	
 				            <div class="timer">
 				                <table align="center">
 				                    <tbody>

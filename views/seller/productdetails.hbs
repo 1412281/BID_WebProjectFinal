@@ -2,6 +2,8 @@
 <link rel="stylesheet" type="text/css" href="/assests/css/biddetails.css">
 <link rel="stylesheet" type="text/css" href="/assests/css/home.css">
 <link rel="stylesheet" type="text/css" href="/assests/css/product.css">
+ 
+  <link rel="stylesheet" href="/assests/bootstrap-datetimepicker.css" />
 
 {{/section}}
 
@@ -39,7 +41,7 @@
                     <br>
                     <br>
                      <div class="pull-left">
-                        <button class="btn btn-success">Đăng bán</button>
+                        <button class="btn btn-success" data-toggle="modal" data-target="#AuctionProduct">Đăng bán</button>
                     </div>
                 </div>
                 <div class="col-md-4 detailinfo" id="chitietsanpham">
@@ -73,7 +75,6 @@
 
 <div id="addProduct" class="modal fade" role="dialog">
         <div class="modal-dialog">
-
             <!-- Modal content-->
             <div class="modal-content">
                 <div class="modal-header" id="dialog-header" style="background-color:#F0AD4E;">
@@ -130,7 +131,100 @@
     </div>
 
     
+<div id="AuctionProduct" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header" id="dialog-header" style="background-color: #5CB85C;">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Đăng bán sản phẩm</h4>
+                </div>
+                
 
+                <form class="form-horizontal" method="post" action="/seller/auctionproduct">
+                <div class="modal-body" style="background-color:; ">
+                     <div class="form-group">
+                        <label class="control-label col-md-3" for="Ten"></label>
+                        <div class="col-md-6">
+                             <img src="../{{sanpham.urlhinhanh}}" alt="">
+                        </div>
+                    </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-3" for="Ten">Mã sản phẩm</label>
+                            <div class="col-md-6">
+                                <input type="text" name="masanpham" class="form-control" readonly="true" value="{{sanpham.masp}}">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-3" for="Ten">Tên sản phẩm</label>
+                            <div class="col-md-6">
+                                <input type="text" name="tensanpham" class="form-control" readonly="true" aria-describedby="sizing-addon1" required="true" value="{{sanpham.tensp}}">
+                            </div>
+                        </div>
+
+                         <div class="form-group">
+                            <label class="control-label col-md-3" for="Ten">Giá khởi điểm</label>
+                            <div class="col-md-6">
+                                <input type="number" name="giakhoidiem" class="form-control" aria-describedby="sizing-addon1" required="true">
+                            </div>
+                        </div>
+                         <div class="form-group">
+                            <label class="control-label col-md-3" for="Ten">Bước giá</label>
+                            <div class="col-md-6">
+                                <input type="number" name="buocgia" class="form-control" aria-describedby="sizing-addon1" required="true">
+                            </div>
+                        </div>
+                         <div class="form-group">
+                            <label class="control-label col-md-3" for="Ten">Giá mua ngay</label>
+                            <div class="col-md-6">
+                                <input type="number" name="giamuangay" class="form-control" aria-describedby="sizing-addon1">
+                            </div>
+                        </div>
+                         <div class="form-group">
+                            <label class="control-label col-md-3" for="Ten">Thời gian bắt đầu</label>
+                            <div class="col-md-6">
+                                   <div class="controls input-append date form_datetime1" data-date-format="dd MM yyyy - HH:ii p" data-link-field="dtp_input1">
+                                    <input  class="form-control" type="text" value="" readonly>
+                                    <span class="add-on"><i class="icon-remove"></i></span>
+                                    <span class="add-on"><i class="icon-th"></i></span>
+
+                                </div>
+                                <input name="thgianbd" type="hidden" id="mirror_field1" value="" readonly />
+                            </div>
+                        </div>
+                         <div class="form-group">
+                            <label class="control-label col-md-3" for="Ten">Thời gian kết thúc</label>
+                            <div class="col-md-6">
+                                
+                                    <div class="controls input-append date form_datetime2" data-date-format="dd MM yyyy - HH:ii p" data-link-field="dtp_input1">
+                                    <input  class="form-control" type="text" value="" readonly>
+                                    <span class="add-on"><i class="icon-remove"></i></span>
+                                    <span class="add-on"><i class="icon-th"></i></span>
+                                </div>   
+                                  <input name="thgiankt" type="hidden" id="mirror_field2" value="" readonly />
+                            </div>
+                        </div>
+                        
+
+
+                
+
+
+                    
+                    <div class="col-md-2"></div>        
+            </div>
+            
+            <br>
+          <div class="modal-footer" id="dialog-footer">
+            <br>
+            
+            <button class="btn btn-success" type="submit">Đăng bán</button>
+          </div>
+
+          </form>
+        </div>
+       </div>
+    </div>
 
 
 
@@ -139,6 +233,8 @@
     
 	<script src="/assests/js/home.js" type="text/javascript" charset="utf-8"></script>
     <script src="https://cloud.tinymce.com/stable/tinymce.min.js?apiKey=wqgcrhcokac6s7fcrd1ullikqbe1tnr8ycxlkffrrgskresl"></script>
+     <script type="text/javascript" src="/assests/moment.min.js"></script>
+  <script type="text/javascript" src="/assests/bootstrap-datetimepicker.js"></script>
     <script>
      tinymce.init({
             selector: 'textarea',
@@ -148,11 +244,38 @@
                'tinymcespellchecker']
          });
 
-    function getHTML()
-        {
-            var HTML = tinyMCE.activeEditor.getContent();
-             
-        }
+ $('.form_datetime1').datetimepicker({
+        //language:  'fr',
+        weekStart: 1,
+        todayBtn:  1,
+        autoclose: 1,
+        todayHighlight: 1,
+        startView: 2,
+        forceParse: 0,
+        showMeridian: 1,
+        linkField: "mirror_field1",
+        linkFormat: "yyyy-mm-dd hh:ii"
+    });
+ $('.form_datetime2').datetimepicker({
+        //language:  'fr',
+        weekStart: 1,
+        todayBtn:  1,
+        autoclose: 1,
+        todayHighlight: 1,
+        startView: 2,
+        forceParse: 0,
+        showMeridian: 1,
+        linkField: "mirror_field2",
+        linkFormat: "yyyy-mm-dd hh:ii"
+        //useCurrent: false //Important! See issue #1075
+    });
+
+        // $(".form_datetime1").on("dp.change", function (e) {
+        //     $('.form_datetime2').data("DateTimePicker").minDate(e.date);
+        // });
+        // $(".form_datetime2").on("dp.change", function (e) {
+        //     $('.form_datetime1').data("DateTimePicker").maxDate(e.date);
+        // });
     </script>
 
 

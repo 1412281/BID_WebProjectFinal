@@ -9,7 +9,7 @@ r.get('/', function(req,res){
 				
 				top5hot: rows[0],
 				top5max: rows[1],
-				top5end: rows[2] 
+				top5end: rows[2]
 			};
 			// in ra test thu
 			// console.log(rows[0]);

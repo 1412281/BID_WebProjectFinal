@@ -75,6 +75,27 @@ exports.themsanpham = function(sanpham, danhsachhinh){
 	return null;
 
 }
+
+exports.dangsanpham= function(phienmoi){
+	// add sanpham first
+	var obj1 = {
+        masp: phienmoi.masanpham,
+        giakhoidiem: phienmoi.giakhoidiem,
+        buocgia: phienmoi.buocgia,
+        giamuangay: phienmoi.giamuangay,
+        thgianbd: phienmoi.thgianbd,
+        thgiankt: phienmoi.thgiankt
+    };
+	var sql = mustache.render("INSERT INTO phiendaugia(sanpham,thgianbd,thgiankt,giakhoidiem,buocgia,giamuangay) VALUES({{masp}}, STR_TO_DATE('{{thgianbd}}','%Y-%m-%d %H:%i'),STR_TO_DATE('{{thgiankt}}','%Y-%m-%d %H:%i'),{{giakhoidiem}},{{buocgia}},{{giamuangay}})",
+		obj1
+	);
+
+	console.log(sql);
+	return db.insert(sql);
+
+}
+
+
 // exports.loadByID = function(maphien,masp){
 // 	 var obj = {
 //         ID: maphien,
