@@ -10,6 +10,7 @@ var express = require('express'),
     searchController = require('./controllers/searchController'),
     accountController = require('./controllers/accountController'),
     layoutController = require('./controllers/layoutController'),
+    handle403 = require('./midle-wares/handle-403'),
     sellController = require('./controllers/sellController.js');
 var session = require('express-session');
 var MySQLStore = require('express-mysql-session')(session);
@@ -69,10 +70,11 @@ app.use(session({
         }
     }),
 }));
+
 app.use(layoutController);
 app.use('/seller', sellController);
 app.use('/', homeController);
 app.use('/search', searchController);
 app.use('/login', accountController);
-
+app.use(handle403);
 app.listen(3000);

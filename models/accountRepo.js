@@ -25,6 +25,7 @@ exports.signIn = function(req) {
                 tenuser: rows[0].tenuser,
                 hoten: rows[0].hoten,
                 email: rows[0].email,
+                permission: rows[0].permission
             }
             d.resolve(user);
         } else {

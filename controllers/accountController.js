@@ -74,7 +74,7 @@ r.post('/logout', restrict, function(req, res) {
     req.session.isLogged = false;
     req.session.user = null;
     req.session.cookie.expires = new Date(Date.now() - 1000);
-    res.redirect(req.headers.referer);
+    res.redirect('/');
 });
 
 module.exports = r;
