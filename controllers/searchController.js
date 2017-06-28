@@ -15,6 +15,7 @@ r.get('/:name?/:type?', function(req, res) {
     searchRepo.getBidByProduct(data.name, data.type)
         .then(function(rows) {
             var vm = {
+                layoutModels: res.locals.layoutModels,
                 layoutVM: res.locals.layoutVM,
                 products: rows
             };

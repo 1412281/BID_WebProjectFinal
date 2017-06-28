@@ -3,7 +3,7 @@ var mysql = require('mysql'),
 
 var _HOST = '127.0.0.1',
     _USER = 'root',
-    _PWD = '123456',
+    _PWD = '',
     _DB = 'daugia';
 
 exports.load = function(sql) {
@@ -23,7 +23,7 @@ exports.load = function(sql) {
     connection.query(sql, function(error, rows, fields) {
         if (error)
             d.reject(error);
-            // throw error;
+        // throw error;
 
         d.resolve(rows);
     });
@@ -34,9 +34,9 @@ exports.load = function(sql) {
 }
 
 exports.insert = function(sql) {
-    
+
     var d = q.defer();
-    var id ;
+    var id;
     var connection = mysql.createConnection({
         host: _HOST,
         user: _USER,
@@ -62,7 +62,7 @@ exports.insert = function(sql) {
 }
 
 exports.update = function(sql) {
-    
+
     var d = q.defer();
 
     var connection = mysql.createConnection({
@@ -88,7 +88,7 @@ exports.update = function(sql) {
 }
 
 exports.delete = function(sql) {
-    
+
     var d = q.defer();
 
     var connection = mysql.createConnection({
