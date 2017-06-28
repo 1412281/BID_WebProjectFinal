@@ -66,6 +66,7 @@
     padding: 5px;
     height: 220px;
     float: left;
+    margin-right: 20px;
 }
 
 .detailinfo {
@@ -253,5 +254,9 @@ div.tab button.active {
 }
 .thumbnail{
     
+}
+
+#daidien {
+     height: 200px;
 }
 

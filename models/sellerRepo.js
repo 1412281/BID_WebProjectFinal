@@ -3,7 +3,7 @@ var mustache = require('mustache'),
 	db = require('../fn/db');
 
 exports.loadsanphamban = function(){
-	var sql = 'select * from topphiendaugia where nguoiban="user1" ;select * from sanphamchuadang where nguoidang="user1";select * from sanphamdaban where nguoidang="user1"; select * from loaisp';
+	var sql = 'select * from topphiendaugia where nguoiban="user1" ; select * from sanphamchuadang where nguoidang="user1"; select * from sanphamdaban where nguoidang="user1"; select * from loaisp';
 	return db.load(sql);
 }
 
@@ -93,6 +93,59 @@ exports.dangsanpham= function(phienmoi){
 	console.log(sql);
 	return db.insert(sql);
 
+}
+
+exports.loadChiTietPhienByID = function(maphien,masp){
+	 var obj = {
+        ID: maphien,
+        MASP: masp
+    };
+	var sql =mustache.render('select * from topphiendaugia where maphien={{ID}}; select * from daugia.hinhanh where masp={{MASP}}; select * from chitietphien where maphien={{ID}} order by giadau desc',
+		obj
+		);
+	return db.load(sql);
+}
+
+exports.themmotasanpham = function(masp, motathem){
+	 var obj = {
+        MASP: masp,
+        motathem: motathem
+    };
+	var sql =mustache.render('update sanpham set motaHTML = concat(motaHTML,"{{motathem}}") where masp={{masp}}',
+		obj
+		);
+	return db.update(sql);
+}
+
+exports.KICK = function(maphien1,user1){
+	 var data = {
+        maphien: maphien1,
+        user: user1
+    };
+
+	// xóa chi tiết phiên trước
+	var sql =mustache.render('delete from chitietphien where maphien={{maphien}} and nguoidaugia="{{user}}"',
+		data
+		);
+	
+	console.log(sql);
+	
+	db.delete(sql).then(function(sodong){
+			// thêm vào người mua bị loại
+		var sql2 =mustache.render('insert into nguoimuabiloai(maphien,nguoibiloai) values({{maphien}},"{{user}}")',
+		data
+		);	
+		console.log(sql2);
+		db.insert(sql2).then(function(kq){
+		// cập nhật người giữ giá và giá hiện tại trong phiên
+			var sql3 =mustache.render('update phiendaugia p set giahientai = (select max(ct.giadau) from chitietphien ct where p.maphien = ct.maphien), nguoigiugia = (select ct.nguoidaugia from chitietphien ct where p.maphien = ct.maphien and ct.giadau = (select max(ct.giadau) from chitietphien ct where p.maphien = ct.maphien)) where p.maphien={{maphien}}',
+			data
+			);	
+			console.log(sql3);
+			return db.update(sql3);
+
+		});
+	});
 }
 
 

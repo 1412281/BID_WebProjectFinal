@@ -18,7 +18,7 @@ select p.maphien, sp.masp, sp.tensp, sp.nguoidang as nguoiban,sp.motaHTML, luot.
 from phiendaugia p,
 	 soluotdaugia luot,
 	 sanpham sp , hinhanh h
-where p.sanpham = sp.masp and p.maphien = luot.maphien and sp.masp = h.masp and (datediff(p.thgiankt, now()) > 0 )  
+where p.sanpham = sp.masp and p.maphien = luot.maphien and sp.masp = h.masp and (datediff(p.thgiankt, now()) > 0 ) and p.tinhtrang is not null
 group by p.maphien
 ;
 

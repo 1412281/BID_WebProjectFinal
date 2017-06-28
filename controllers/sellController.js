@@ -24,6 +24,7 @@ r.get('/', function(req,res){
 });
 
 
+
 r.post('/',upload.any(),function(req,res){
 		console.log(req.body);
 
@@ -32,7 +33,36 @@ r.post('/',upload.any(),function(req,res){
 	res.redirect('/seller');
 });
 
+r.get('/:id;:idsp',function(req,res){
 
+	var data  = {
+		"maphien": req.params.id,
+		"masp": req.params.idsp
+	}
+	console.log(data);
+
+	if(!data.maphien){
+		res.redirect('/');
+	}
+	
+	
+	sellerRepo.loadChiTietPhienByID(data.maphien, data.masp)
+		.then(function(pRows){
+			// console.log(pRows[1]);	
+
+
+			var vm = {
+				layoutVM: res.locals.layoutVM,
+                bid: pRows[0][0],
+                giatieptheo: pRows[0][0].buocgia + pRows[0][0].giahientai,
+                imageurls : pRows[1],
+                chitietphien: pRows[2]
+			};
+			
+			res.render('seller/bid-details.hbs',vm);
+		});
+
+});
 
 r.get('/masp=:masp',function(req,res){
 	var data  = {
@@ -71,6 +101,30 @@ r.post('/auctionproduct',function(req,res){
 	res.redirect('/seller/masp='+req.body.masanpham);
 });
 
+r.post('/:id;:idsp/themmota',function(req,res){
+	
+	var data  = {
+		"maphien": req.params.id,
+		"masp": req.params.idsp
+	}
 
+	console.log(req.body);
+	sellerRepo.themmotasanpham(data.masp, req.body.motathem);
+	 	
+	res.redirect('/seller/'+data.maphien+";"+data.masp);
+});
+
+r.get('/KICK/:maphien;:tenuser',function(req,res){
+	
+	var data  = {
+		maphien: req.params.maphien,
+		user: req.params.tenuser
+	}
+
+	console.log(data);
+	sellerRepo.KICK(data.maphien, data.user);
+	 	
+	res.redirect('/seller');
+});
 
 module.exports = r;

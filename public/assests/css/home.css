@@ -22,3 +22,7 @@ body{
 .panel-body{
 	background-color: whitesmoke;
 }
+
+.imgresponsive{
+	height: 200px;
+}
