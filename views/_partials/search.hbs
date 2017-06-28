@@ -1,0 +1,20 @@
+<form class="navbar-form navbar-left searchForm" action="">
+    <div class="form-group">
+        <input id="name" type="text" class="form-control" placeholder="Tìm kiếm sản phẩm..." name="name" autofocus>
+    </div>
+    <button id="searchBtn" type="button" class="btn btn-default">
+                            <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                        </button>
+
+</form>
+
+<script type="text/javascript" src="/assests/jquery-3.1.1.min.js"></script>
+<script>
+    $("#searchBtn").on("click", function() {
+        var name = $("#name").val();
+        console.log(name);
+        var url = window.location.protocol + "/?name=" + name;
+        document.location = url;
+    });
+   
+</script>

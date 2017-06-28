@@ -1,0 +1,43 @@
+{{#section 'css'}}
+<link rel="stylesheet" type="text/css" href="/assests/css/home.css">
+<link rel="stylesheet" type="text/css" href="/assests/css/product.css">
+{{/section}}
+
+{{#section 'title'}}
+    Trang chủ
+{{/section}}
+
+
+<div class="row">
+    {{#each products}}
+				<div class="col-md-3">
+				    <div class="thumbnail">
+				        <a href="product-bid-details.html#">
+				            <img src="{{urlhinhanh}}" alt="..." class="img-responsive">
+				        </a>
+				        <div class="productprice">
+				            <div class="producttitle">{{tensp}}</div>
+				            <div class="guestnumber">Bids: {{soluotdau}}</div>
+				            <div class="priceofguest">
+				            	<a href="#">{{nguoigiugia}}</a>:{{number_format giahientai}} đ</div>	
+				            <div class="timer">
+				                <table align="center">
+				                    <tbody>
+				                        <tr>
+				                            <td><img src="imgs/icons/timer.png"></td>
+				                            <td class="countdown" value="{{thgiankt}}"></td>
+				                        </tr>
+				                    </tbody>
+				                </table>
+				            </div>
+				            <div class="pull-right">
+				                <a href="{{maphien}}" class="btn btn-danger btn-sm" role="button">Đặt giá</a>
+				            </div>
+				            <div class="pricetext">{{number_format giahientai}} đ</div>
+				        </div>
+				    </div>
+				</div>
+				{{/each}}
+
+</div>
+
