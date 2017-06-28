@@ -39,8 +39,6 @@ r.get('/:id;:idsp',function(req,res){
     topbidRepo.loadByID(data.maphien, data.masp)
         .then(function(pRows){
             // console.log(pRows[1]);   
-
-
             var vm = {
                 layoutVM: res.locals.layoutVM,
                 bid: pRows[0][0],
