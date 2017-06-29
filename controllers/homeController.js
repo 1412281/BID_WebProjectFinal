@@ -5,17 +5,6 @@ var r = express.Router();
 var dateFormat = require('dateformat');
 var q = require('q');
 
-r.get('/', function(req,res){
-    topbidRepo.loadTop5()
-        .then(function(rows){
-            var vm = {
-                
-                top5hot: rows[0],
-                top5max: rows[1],
-                top5end: rows[2] 
-            };
-
-
 r.get('/', function(req, res) {
     topbidRepo.loadTop5()
         .then(function(rows) {
@@ -31,11 +20,6 @@ r.get('/', function(req, res) {
             // console.log(rows[1]);
             // console.log(rows[2]);
             
-            res.render('home/index',vm);
-            }).fail(function(err){
-                console.log(err);
-                res.end('fail');
-
             res.render('home/index', vm);
         }).fail(function(err) {
             console.log(err);
@@ -70,12 +54,6 @@ r.get('/:id;:idsp', function(req, res) {
                 imageurls : pRows[1],
                 chitietphien: pRows[2]
             };
-            
-            res.render('bids/bid-details.hbs',vm);
-                imageurls: pRows[1],
-                chitietphien: ctphien
-            };
-
             res.render('bids/bid-details.hbs', vm);
         });
 
@@ -234,7 +212,6 @@ checkAutoBid = function(data) {
                 }
                 insertBid(newCT);
             }
-
         }
     });
 }
