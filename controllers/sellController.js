@@ -2,15 +2,19 @@ var express = require('express');
 var sellerRepo = require('../models/sellerRepo');
 var multer = require('multer');
 var upload = multer({ dest: 'public/upload' });
+
 var r = express.Router();
 
 r.get('/', function(req, res) {
-    // if ((res.locals.layoutModels != null) && (res.locals.layoutModels.curUser.permission != 1)) {
-    //     console.log("redirecttttttttttttttttt");
-    //     res.redirect(403, '/');
-    //     return false;
-    // }
-
+    if (res.locals.layoutModels == null) {
+        res.redirect('/login');
+        return false;
+    }
+    if ((res.locals.layoutModels != null) && (res.locals.layoutModels.curUser.permission != 1)) {
+        console.log("redirecttttttttttttttttt");
+        res.redirect(403, '/login');
+        return false;
+    }
     sellerRepo.loadsanphamban()
         .then(function(rows) {
             var vm = {
@@ -20,7 +24,7 @@ r.get('/', function(req, res) {
                 danhsachdaban: rows[2],
                 danhsachloai: rows[3]
             };
-           
+            console.log(rows[2]);
             res.render('seller/listproducts', vm);
         }).fail(function(err) {
             console.log(err);
@@ -31,7 +35,7 @@ r.get('/', function(req, res) {
 
 
 r.post('/', upload.any(), function(req, res) {
-    
+    console.log(req.body);
 
     sellerRepo.themsanpham(req.body, req.files);
 
@@ -44,6 +48,8 @@ r.get('/:id;:idsp', function(req, res) {
         "maphien": req.params.id,
         "masp": req.params.idsp
     }
+    console.log(data);
+
     if (!data.maphien) {
         res.redirect('/');
     }
@@ -81,6 +87,7 @@ r.get('/masp=:masp', function(req, res) {
 
 
             };
+            console.log(rows2);
             res.render('seller/productdetails', vm);
         }).fail(function(err) {
             console.log(err);
@@ -90,11 +97,14 @@ r.get('/masp=:masp', function(req, res) {
 });
 
 r.post('/updateproduct', function(req, res) {
+    console.log(req.body);
     sellerRepo.updatesanpham(req.body);
+
     res.redirect('/seller/masp=' + req.body.masanpham);
 });
 
 r.post('/auctionproduct', function(req, res) {
+    console.log(req.body);
     sellerRepo.dangsanpham(req.body);
 
     res.redirect('/seller/masp=' + req.body.masanpham);
@@ -106,11 +116,12 @@ r.post('/:id;:idsp/themmota', function(req, res) {
         "maphien": req.params.id,
         "masp": req.params.idsp
     }
+
+    console.log(req.body);
     sellerRepo.themmotasanpham(data.masp, req.body.motathem);
 
     res.redirect('/seller/' + data.maphien + ";" + data.masp);
 });
-
 
 r.get('/KICK/:maphien;:tenuser', function(req, res) {
 
@@ -119,20 +130,10 @@ r.get('/KICK/:maphien;:tenuser', function(req, res) {
         user: req.params.tenuser
     }
 
+    console.log(data);
     sellerRepo.KICK(data.maphien, data.user);
 
     res.redirect('/seller');
 });
-
-r.post('/comment',function(req, res) {
-    console.log('Post Comment');
-    console.log(req.body);
-
-    sellerRepo.guicomment(req.body);
-    
-        res.redirect('/');
-       
-});
-
 
 module.exports = r;

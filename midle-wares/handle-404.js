@@ -1,4 +1,4 @@
 module.exports = function(req, res) {
-    res.statusCode = 404;
-    res.end('NOT FOUND!');
+    //res.statusCode = 404;
+    res.render('error/404');
 }

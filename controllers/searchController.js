@@ -16,16 +16,19 @@ r.get('/:name?/:type?', function(req, res) {
         .then(function(rows) {
             var vm = {
                 layoutModels: res.locals.layoutModels,
-                layoutVM: res.locals.layoutVM,
                 products: rows
             };
             // in ra test thu
             console.log(rows);
-
+            if (rows.length == 0) {
+                console.log("0000000000000000");
+                res.render('error/ProductNotFound');
+                return false;
+            }
             res.render('search/index', vm);
         }).fail(function(err) {
             console.log(err);
-            res.end('fail');
+            res.render('error/ProductNotFound');
         });
 });
 
