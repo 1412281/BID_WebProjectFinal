@@ -1,0 +1,170 @@
+{{#section 'css'}}
+<link rel="stylesheet" type="text/css" href="/assests/css/biddetails.css">
+<link rel="stylesheet" type="text/css" href="/assests/css/home.css">
+<link rel="stylesheet" type="text/css" href="/assests/css/product.css">
+
+{{/section}}
+
+{{#section 'title'}}
+    Thông tin cá nhân
+{{/section}}
+
+
+<div class="row">
+	<div class="col-md-1"></div>
+	<div class="col-md-10">
+    <div class="panel panel-info">
+        <div class="panel-heading">
+            <div class="pull-right">
+                <div class="btn btn-warning glyphicon glyphicon-edit" title="Cập nhật thông tin" data-toggle="modal" data-target="#capnhatthongtin">
+                </div>
+            </div>
+            <div class="pull-right">
+                 <div class="btn btn-block" title="đổi mật khẩu" data-toggle="modal" data-target="#doimatkhau"> Đổi mật khẩu
+                </div>
+            </div>
+            <h3 class="panel-title">Thông tin cá nhân</h3>
+
+        </div>
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                    <span>username:{{thongtincanhan.tenuser}}</span><br><br>
+                    <span>Email: {{thongtincanhan.email}}</span><br><br>
+                </div>
+                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                    <span>Họ và tên: {{thongtincanhan.hoten}}</span><br><br>
+                    <span>Địa chỉ: {{thongtincanhan.diachi}}</span><br><br>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div>
+        <table class="table table-responsive">
+        <caption>Đánh giá thành viên</caption>
+            <thead>
+                <tr>
+                    <th>Người nhận xét</th>
+                    <th>Comment</th>
+                    <th>Điểm: {{thongtincanhan.danhgia}}%</th>
+                </tr>
+            </thead>
+            <tbody>
+            {{#each nhanxet}}
+                <tr>
+                    <td>{{tengnuoinhanxet}}</td>
+                    <td>{{noidung}}</td>
+                    <td>{{loai}}</td>
+                </tr>
+            {{/each}}
+            </tbody>
+        </table>
+    </div>
+	
+	<div class="col-md-1"></div>
+
+
+    <div id="capnhatthongtin" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header" id="dialog-header" style="background-color:#F0AD4E;">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Cập nhật thông tin</h4>
+                </div>
+                <form class="form-horizontal" method="post" action="../login/updateinfo">
+                <div class="modal-body">
+                        
+                        <div class="form-group">
+                            <label class="control-label col-md-3" for="Ten">username</label>
+                            <div class="col-md-6">
+                                <input type="text" name="tenuser" class="form-control" readonly="true" value="{{thongtincanhan.tenuser}}">
+                            </div>
+                        </div>
+                       <div class="form-group">
+                            <label class="control-label col-md-3" for="Ten">Họ tên</label>
+                            <div class="col-md-6">
+                                <input type="text" name="hoten" class="form-control" value="{{thongtincanhan.hoten}}" required="true">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-3" for="Ten">Email</label>
+                            <div class="col-md-6">
+                                <input type="text" name="email" class="form-control" required="true" value="{{thongtincanhan.email}}">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-3" for="Ten">Địa chỉ</label>
+                            <div class="col-md-6">
+                                <input type="text" name="diachi" class="form-control" required="true" value="{{thongtincanhan.diachi}}">
+                            </div>
+                        </div>
+                    <div class="col-md-2"></div>        
+            </div>
+            
+            <br>
+          <div class="modal-footer" id="dialog-footer">
+            <br>
+            
+            <button class="btn btn-warning" type="submit">Cập nhật</button>
+          </div>
+
+          </form>
+        </div>
+       </div>
+    </div>
+
+    
+
+ <div id="doimatkhau" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header" id="dialog-header" style="background-color:#F0AD4E;">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Cập nhật thông tin</h4>
+                </div>
+                <form class="form-horizontal" method="post" action="../login/changepassword">
+                <div class="modal-body">
+                        <div class="form-group">
+                            <label class="control-label col-md-3" for="Ten">Pass cũ</label>
+                            <div class="col-md-6">
+                                <input type="password" name="passcu" class="form-control" required="true" >
+                            </div>
+                        </div>
+
+                         <div class="form-group">
+                            <label class="control-label col-md-3" for="Ten">Pass mới</label>
+                            <div class="col-md-6">
+                                <input type="password" name="passmoi" class="form-control" required="true" >
+                            </div>
+                        </div>
+                    <div class="col-md-2"></div>        
+            </div>
+            
+            <br>
+          <div class="modal-footer" id="dialog-footer">
+            <br>
+            
+            <button class="btn btn-warning" type="submit">Đổi mật khẩu</button>
+          </div>
+
+          </form>
+        </div>
+       </div>
+    </div>
+
+
+</div>
+{{#section 'js'}}
+    
+	<script src="/assests/js/home.js" type="text/javascript" charset="utf-8"></script>
+    
+
+{{/section}}
+
+          
+    
+
+

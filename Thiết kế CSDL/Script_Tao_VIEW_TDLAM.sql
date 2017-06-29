@@ -52,3 +52,19 @@ where sp.loai = l.maloai and sp.masp = h.masp  and sp.masp = p.sanpham and p.map
 group by sp.masp
 order by sp.loai
 ;
+drop view if exists tongdanhgia;
+create view tongdanhgia
+as
+select nx.tenuser, count(*) as tong from nhanxet nx group by tenuser;
+
+
+
+drop view if exists thongtinuser;
+create view thongtinuser
+as
+select u.*, (100*count(nx.loai)/t.tong)  as danhgia
+from users u , nhanxet nx, tongdanhgia t
+where u.tenuser = nx.tenuser and nx.loai = '1'
+group by u.tenuser
+; 
+

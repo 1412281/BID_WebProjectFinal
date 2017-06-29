@@ -48,6 +48,42 @@ exports.register = function(data) {
     return db.insert(sql);
 }
 
+exports.getUserInfo = function(username) {
+    var data = {
+        tenuser: username
+    }
+    console.log("input:"+ data.tenuser);
+    var sql = mustache.render("select * from thongtinuser where tenuser='{{tenuser}}';",data);
+    sql+="select * from nhanxet where tenuser='"+data.tenuser+"' ";
+    console.log(sql);
+    return db.load(sql);
+}
+
+exports.updateinfo = function(userinfo) {
+    var data = {
+        tenuser: userinfo.tenuser,
+        hoten: userinfo.hoten ,
+        email: userinfo.email ,
+        diachi:userinfo.diachi
+    }
+    console.log("input:"+ data.tenuser);
+    var sql = mustache.render("update users set hoten='{{hoten}}',email='{{email}}', diachi='{{diachi}}' where tenuser='{{tenuser}}';", 
+        data);
+    console.log(sql);
+    return db.update(sql);
+}
+
+exports.updatepassword = function(tenuser, passmoi) {
+    var data = {
+        tenuser: tenuser,
+        passmoi: passmoi
+    }
+    var sql = mustache.render("update users set matkhau='{{passmoi}}' where tenuser='{{tenuser}}';", 
+        data);
+    console.log(sql);
+    return db.update(sql);
+}
+
 
 // var data = {
 //     tenuser: "1",
