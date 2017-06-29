@@ -84,6 +84,25 @@ exports.updatepassword = function(tenuser, passmoi) {
     return db.update(sql);
 }
 
+exports.loaddangdaugia = function(tenuser) {
+    var data = {
+        tenuser: tenuser
+    }
+    var sql = mustache.render("select p.* from topphiendaugia p, chitietphien ct where p.maphien = ct.maphien and ct.nguoidaugia = '{{tenuser}}' group by p.maphien", 
+        data);
+    console.log(sql);
+    return db.load(sql);
+}
+exports.loadyeuthich = function(tenuser) {
+    var data = {
+        tenuser: tenuser
+    }
+    var sql = mustache.render("select p.*,h.urlhinhanh from yeuthich y, sanpham sp, hinhanh h, topphiendaugia p where y.masp = sp.masp and sp.masp  = h.masp and y.tenuser = '{{tenuser}}' and p.masp = sp.masp group by sp.masp; select p.*,sp.tensp,  kq.*,h.urlhinhanh from yeuthich y,phiendaugia p, hinhanh h, ketquadaugia kq, sanpham sp where y.masp = p.sanpham and sp.masp  = h.masp and y.tenuser = '{{tenuser}}' and sp.masp=p.sanpham and  kq.maphien = p.maphien group by y.masp", 
+        data);
+    console.log(sql);
+    return db.load(sql);
+}
+
 
 // var data = {
 //     tenuser: "1",

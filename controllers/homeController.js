@@ -58,6 +58,37 @@ r.get('/:id;:idsp', function(req, res) {
 
 });
 
+r.get('/:id-:idsp', function(req, res) {
+
+    var data = {
+        "maphien": req.params.id,
+        "masp": req.params.idsp
+    }
+    console.log("da ket thuc");
+
+    if (!data.maphien) {
+        res.redirect('/');
+    }
+
+
+    topbidRepo.loadresultByID(data.maphien, data.masp)
+        .then(function(pRows) {
+            console.log(pRows[0]);   
+            console.log(pRows[1]);
+            console.log(pRows[2]);   
+
+            var vm = {
+                layoutModels: res.locals.layoutModels,
+                resultbid: pRows[0][0],
+                imageurls: pRows[1],
+                chitietphien: pRows[2]
+            };
+
+            res.render('bids/result-details.hbs', vm);
+        });
+
+});
+
 
 
 

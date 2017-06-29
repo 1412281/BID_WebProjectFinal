@@ -1,0 +1,106 @@
+{{#section 'css'}}
+<link rel="stylesheet" type="text/css" href="/assests/css/biddetails.css">
+<link rel="stylesheet" type="text/css" href="/assests/css/home.css">
+<link rel="stylesheet" type="text/css" href="/assests/css/product.css">
+
+{{/section}}
+
+{{#section 'title'}}
+    Thông tin phiên đấu giá
+{{/section}}
+
+
+
+
+<div class="row">
+	<div class="col-md-1"></div>
+	<div class="col-md-10">
+		 <div class="row">
+            <div class="row center-block">
+                <a href="/">Trang chủ</a> > Thông tin đấu giá
+            </div>
+            <br>
+            <div class="container" id="tenSanPham">
+
+                <div id="details">
+                    <div class="detailtitle">
+                        {{resultbid.tensp}}
+                    </div>
+                </div>
+                <div class="detailImage col-md-3 thumbnail">
+                    <div class="status-end"></div>
+                    <img id="avatar" src="{{resultbid.urlhinhanh}}" alt="" class="imageavatar">
+                </div>
+                <div class="col-md-4 detailinfo" id="chitietsanpham">
+                    <div id="masophien">ID: {{resultbid.maphien}}</div>
+                    <div id="nguoidang">Người bán: <a href="#">{{resultbid.nguoidang}}</a></div>
+                    <div id="thgianBD">Bắt đầu:&nbsp;  {{moment resultbid.thgianbd format="YYYY-MM-DD HH:mm:ss"}}</div>	
+                    <div id="thgianKT">Kết thúc: {{moment resultbid.thgiankt format="YYYY-MM-DD HH:mm:ss"}}</div>
+                    <br>
+                      <div id="giahientai" class="detailtitle">
+				            	 Winner: <a href="#">{{resultbid.winner}}</a> <br>    {{number_format resultbid.gia}} đ
+                      </div>
+                </div>
+                <div class="col-md-4" id="luotdaugia" style="width: 35%;">
+                    <div>
+                        <table class="table" border="1" style="margin-right: 0px;">
+                         <thead>
+                             <tr class="tablehead">
+                                <th>Số tiền</th>
+                                <th>Thời gian</th>
+                                <th>Người ra giá</th>
+                            </tr>
+                         </thead>
+                        <tbody>
+                       {{#each chitietphien}}
+                        <tr class="tablerow">
+                           <td>{{number_format giadau}}đ</td> 
+                           <td>{{moment thoigian format="DD/MM/YY HH:mm"}}</td> 
+                           <td>
+                           <a href="">{{nguoidaugia}}</a>
+                           </td>
+                        </tr>
+                        {{/each}}
+                        </tbody>
+                        </table>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div id="thumb-zone">
+            <ul>
+                <a id="thumb-control-left" href="javascript:void(0);"></a>
+                <a id="thumb-control-right" href="javascript:void(0);"></a>
+                
+                {{#each imageurls}}
+                <li>
+                    <img src="{{urlhinhanh}}" onmouseover="changeavatar('{{urlhinhanh}}')"/>
+                </li>
+                {{/each}}
+            </ul>
+        </div>
+        <br>
+        <div class="tab nav nav-tabs">
+            <button class="tablinks" onclick="opentab(event,'gioithieu')">Giới thiệu</button>
+            </div>
+        <div id="gioithieu" class="tabcontent detaildescription" style="display: block;">
+            <div id="motahtml">
+                {{resultbid.motaHTML}}
+            </div>
+
+            
+        </div>
+	</div>
+	<div class="col-md-1"></div>
+</div>
+{{#section 'js'}}
+    
+	<script src="/assests/js/home.js" type="text/javascript" charset="utf-8"></script>
+
+{{/section}}
+
+          
+    
+
+

@@ -68,3 +68,6 @@ where u.tenuser = nx.tenuser and nx.loai = '1'
 group by u.tenuser
 ; 
 
+
+
+

@@ -128,16 +128,40 @@ r.get('/dangdaugia',restrict,function(req, res) {
     console.log(req.session.user.tenuser);
 
 
-     accountRepo.loaddanhsachdaugia(req.session.user.tenuser)
+    accountRepo.loaddangdaugia(req.session.user.tenuser)
         .then(function(rows) {
-        console.log(rows[0]);
+        console.log(rows);
         var vm = {
                 layoutModels: res.locals.layoutModels,
-                thongtincanhan: rows[0][0],
-                nhanxet: rows[1]
+                danhsachdangthamgia: rows
             };
-            console.log(rows[1]);
-                 res.render('account/profile', vm);
+                 res.render('account/listbids', vm);
+            }).fail(function(err) {
+                console.log(err);
+                res.end('fail');
+
+
+    });    
+    
+});
+
+
+r.get('/yeuthich',restrict,function(req, res) {
+    console.log("Danh sach yeu thich...............");
+
+    console.log(req.session.user.tenuser);
+
+
+    accountRepo.loadyeuthich(req.session.user.tenuser)
+        .then(function(rows) {
+        console.log(rows[0]);
+        console.log(rows[1]);
+        var vm = {
+                layoutModels: res.locals.layoutModels,
+                yeuthichdangdaugia: rows[0],
+                yeuthichketthuc: rows[1]
+            };
+                 res.render('account/favorite', vm);
             }).fail(function(err) {
                 console.log(err);
                 res.end('fail');

@@ -78,7 +78,7 @@ var x = setInterval(function(){
 		var timer = document.getElementsByClassName("countdown")[i];
 		var begintime = document.getElementsByClassName("begincountdown")[i];
 
-
+		
 	
 		var countDownDate = new Date(timer.getAttribute("value")).getTime();
 		var begin = new Date(begintime.getAttribute("value")).getTime();
