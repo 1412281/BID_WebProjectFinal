@@ -2,6 +2,7 @@ var express = require('express');
 var sellerRepo = require('../models/sellerRepo');
 var multer = require('multer');
 var upload = multer({ dest: 'public/upload' });
+var restrict = require('../midle-wares/restrict');
 
 var r = express.Router();
 
@@ -134,6 +135,18 @@ r.get('/KICK/:maphien;:tenuser', function(req, res) {
     sellerRepo.KICK(data.maphien, data.user);
 
     res.redirect('/seller');
+});
+
+r.post('/comment',restrict, function(req, res) {
+
+    var data = {
+        nguoinhancomment: req.body.nguoinhancomment,
+        nguoiguicomment: req.session.user.tenuser,
+        comment: req.body.comment,
+        diem: req.body.congtru
+    }
+    sellerRepo.guicomment(data);
+    res.redirect('../seller');
 });
 
 module.exports = r;

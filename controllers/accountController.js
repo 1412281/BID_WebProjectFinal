@@ -1,6 +1,7 @@
 var express = require('express');
 var accountRepo = require('../models/accountRepo');
 var r = express.Router();
+var sellerRepo = require('../models/sellerRepo');
 var request = require('request');
 var restrict = require('../midle-wares/restrict');
 var crypto = require('crypto');
@@ -65,14 +66,11 @@ r.post('/signin', function(req, res) {
     console.log(data);
     accountRepo.signIn(data).then(function(user) {
         console.log(user);
-        if (user.length === 0) {
+        if (user == null) {
             console.log("NO");
-<<<<<<< HEAD
-            res.end('Đăng nhập không đúng');
 
-=======
             res.send("Đăng nhập không thành công");
->>>>>>> ca3ed59ad05d4f056168dbe3e029f5a23da682e4
+            res.end('asdasd');
         } else {
             console.log("YES");
             req.session.isLogged = true;
@@ -174,6 +172,43 @@ r.get('/yeuthich', restrict, function(req, res) {
 
 });
 
+r.get('/dathang', restrict, function(req, res) {
+    console.log("Danh sach da thang...............");
+
+    console.log(req.session.user.tenuser);
+
+
+    accountRepo.loaddathang(req.session.user.tenuser)
+        .then(function(rows) {
+            console.log(rows);
+            var vm = {
+                layoutModels: res.locals.layoutModels,
+                danhsachdathang: rows
+            };
+            res.render('account/winbids', vm);
+        }).fail(function(err) {
+            console.log(err);
+            res.end('fail');
+        });
+
+});
+
+r.post('/comment', restrict, function(req, res) {
+    console.log("capnhatthongtin...............");
+
+    var data = {
+        nguoinhancomment: req.body.nguoinhancomment,
+        nguoiguicomment: req.session.user.tenuser,
+        comment: req.body.comment,
+        diem: req.body.congtru
+    }
+    sellerRepo.guicomment(data);
+
+    res.redirect('../login/profile');
+});
+
+
+
 r.post('/updateinfo', restrict, function(req, res) {
     console.log("capnhatthongtin...............");
 
@@ -185,6 +220,8 @@ r.post('/updateinfo', restrict, function(req, res) {
 r.post('/changepassword', restrict, function(req, res) {
     console.log("doimatkhau...............");
     console.log(req.body);
+    var ePWD = crypto.createHash('md5').update(req.body.passcu).digest('hex');
+    var ePWD_new = crypto.createHash('md5').update(req.body.passmoi).digest('hex');
     accountRepo.getUserInfo(req.session.user.tenuser)
         .then(function(rows) {
             console.log(rows[0]);
@@ -193,9 +230,9 @@ r.post('/changepassword', restrict, function(req, res) {
                 thongtincanhan: rows[0][0],
                 nhanxet: rows[1]
             };
-            if (vm.thongtincanhan.matkhau == req.body.passcu) {
+            if (vm.thongtincanhan.matkhau ==ePWD ) {
                 console.log("Pass Cu Dung");
-                accountRepo.updatepassword(req.session.user.tenuser, req.body.passmoi);
+                accountRepo.updatepassword(req.session.user.tenuser, ePWD_new);
                 res.redirect('../login/profile');
             } else {
                 res.end('Mat khau Cu khong dung');

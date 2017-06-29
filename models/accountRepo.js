@@ -103,6 +103,16 @@ exports.loadyeuthich = function(tenuser) {
     return db.load(sql);
 }
 
+exports.loaddathang = function(tenuser) {
+    var data = {
+        tenuser: tenuser
+    }
+    var sql = mustache.render("select  kq.*, sp.masp,sp.nguoidang,sp.tensp,h.urlhinhanh,p.thgiankt from ketquadaugia kq, sanpham sp, phiendaugia p, hinhanh h where  kq.maphien=p.maphien and sp.masp=p.sanpham and h.masp = sp.masp and winner = '{{tenuser}}' group by kq.maphien;", 
+        data);
+    console.log(sql);
+    return db.load(sql);
+}
+
 
 // var data = {
 //     tenuser: "1",

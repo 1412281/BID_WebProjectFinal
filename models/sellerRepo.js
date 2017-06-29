@@ -150,13 +150,14 @@ exports.KICK = function(maphien1, user1) {
 exports.guicomment = function(noidung) {
     var data = {
         nguoinhancomment: noidung.nguoinhancomment,
+        nguoiguicomment: noidung.nguoiguicomment,
         comment: noidung.comment,
-        diem : noidung.congtru
+        diem : noidung.diem
         
     };
     console.log(data);
     
-    var sql = mustache.render("insert into nhanxet(tenuser,tennguoinhanxet,noidung,loai) values('{{nguoinhancomment}}','','{{comment}}',{{diem}})",
+    var sql = mustache.render("insert into nhanxet(tenuser,tennguoinhanxet,noidung,loai) values('{{nguoinhancomment}}','{{nguoiguicomment}}','{{comment}}',{{diem}})",
         data
     );
 
