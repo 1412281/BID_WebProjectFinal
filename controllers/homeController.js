@@ -16,6 +16,23 @@ r.get('/', function(req, res) {
                 top5max: rows[1],
                 top5end: rows[2]
             };
+
+
+            for (var i = 0; i < vm.top5hot.length; ++i) {
+                if (vm.top5hot[i].nguoigiugia != null) {
+                    vm.top5hot[i].nguoigiugia = mahoa(vm.top5hot[i].nguoigiugia);
+                }
+            }
+            for (var i = 0; i < vm.top5max.length; ++i) {
+                if (vm.top5max[i].nguoigiugia != null) {
+                    vm.top5max[i].nguoigiugia = mahoa(vm.top5max[i].nguoigiugia);
+                }
+            }
+            for (var i = 0; i < vm.top5end.length; ++i) {
+                if (vm.top5end[i].nguoigiugia != null) {
+                    vm.top5end[i].nguoigiugia = mahoa(vm.top5end[i].nguoigiugia);
+                }
+            }
             console.log(vm.layoutModels);
             // in ra test thu
             // console.log(rows[0]);
