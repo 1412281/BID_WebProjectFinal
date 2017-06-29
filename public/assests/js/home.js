@@ -10,7 +10,7 @@
 // $('.support-mes #close-support').on('click', function() {
 //     $('.support-mes').hide();
 // })
-
+var SOPHUT = 10 ;
 var motahtml = $("#motahtml").text(),
 	newhtml = $.parseHTML(motahtml);
 
@@ -71,19 +71,13 @@ function opentab(evt, tabName) {
 
 
 var x = setInterval(function(){
-
 	var listtimer = document.getElementsByClassName("countdown");
 	var listbegin = document.getElementsByClassName("begincountdown");
 	for(i = 0; i<listtimer.length;i++ ){
 		var timer = document.getElementsByClassName("countdown")[i];
 		var begintime = document.getElementsByClassName("begincountdown")[i];
-
-		
-	
 		var countDownDate = new Date(timer.getAttribute("value")).getTime();
 		var begin = new Date(begintime.getAttribute("value")).getTime();
-
-		
 		// Get todays date and time
 	    var now = new Date().getTime();
 	    
@@ -124,12 +118,20 @@ var x = setInterval(function(){
 	    		string ="00:00:00";
 	    }
 	    var  distance2 = begin-now;
+	    var thgianmoidang = - distance2; // thời gian bắt đầu cách đây chưa đầy 5 phút 
+	    if(thgianmoidang < SOPHUT*60*1000 ){// nếu mới đăng ko quá SOPHUT thì Timer nổi hơn
+	    	timer.setAttribute("style", "color: red; font-size : 25px;");
+	    	
+	    	if((seconds) % (2) == 0 ){
+	    		string = "   New   ";
+	    	}
+	    }
+
+
 	    if(distance2 > 0 ){// chua bat dau
 	    		string ="Coming soon ("+ Math.floor((distance2) / (1000 * 60 * 60))+"h)" ;
-	    		timer.setAttribute("style", "color: red;");
+	    		timer.setAttribute("style", "color: blue;");
 	    }
-	    
 	    timer.innerHTML = string;
-
 	}
 }, 1000);

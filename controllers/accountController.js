@@ -71,7 +71,12 @@ r.post('/signin', function(req, res) {
         console.log(user);
         if (user.length === 0) {
             console.log("NO");
+<<<<<<< HEAD
+            res.end('Đăng nhập không đúng');
+
+=======
             res.send("Đăng nhập không thành công");
+>>>>>>> ca3ed59ad05d4f056168dbe3e029f5a23da682e4
         } else {
             console.log("YES");
             req.session.isLogged = true;
