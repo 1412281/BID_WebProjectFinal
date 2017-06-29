@@ -1,0 +1,87 @@
+{{#section 'css'}}
+<link rel="stylesheet" type="text/css" href="/assests/css/home.css">
+<link rel="stylesheet" type="text/css" href="/assests/css/product.css">
+<link rel="stylesheet" type="text/css" href="/assests/css/dialogAddproduct.css">
+{{/section}}
+
+{{#section 'title'}}
+    Yêu thích
+    
+{{/section}}
+
+<div class="col-md-1"></div>
+<div class="col-md-10">
+
+
+<!-- Page Content -->
+<div class="panel">
+
+<h1>Sản phẩm yêu thích của bạn</h1>
+	<div class="panel-title">
+		<div class="tab nav nav-tabs" style="background-color: #ccc; border-radius: 10px;">
+	            <button class="tablinks" onclick="opentab(event,'dangdaugia')">Đang/Sắp đấu giá</button>
+	            <button class="tablinks" onclick="opentab(event,'daban')">Đã kết thúc</button>
+	    </div>
+	</div>
+	<div class="panel-body">
+    	<div id="dangdaugia" class="tabcontent" style="display: block;">
+    	{{#each yeuthichdangdaugia}}
+				<div class="col-md-3">
+				    <div class="thumbnail">
+				        <a href="../{{maphien}};{{masp}}">
+				            <img id="avatar" src="../{{urlhinhanh}}" alt="..." class="img-responsive">
+				        </a>
+				        <div class="productprice">
+				            <div class="producttitle">{{tensp}}</div>
+				            <div class="guestnumber">Bids: {{soluotdau}}</div>
+				            <div class="priceofguest">
+				            {{#if giahientai}}
+				            	<a href="#">{{nguoigiugia}}</a>:{{number_format giahientai}} đ
+				            {{/if}}	
+				            </div>
+				            <div class="timer">
+				                <table align="center">
+				                    <tbody>
+				                        <tr>
+				                            <td><img src="../imgs/icons/timer.png"></td>
+				                            <td class="countdown" value="{{thgiankt}}"></td>
+				                            <td class="begincountdown" value="{{thgianbd}}"></td>
+				                        </tr>
+				                    </tbody>
+				                </table>
+				            </div> 
+				        </div>
+				    </div>
+				</div>
+		{{/each}}
+		</div>
+		<div id="daban" class="tabcontent">
+    	{{#each yeuthichketthuc}}
+				<div class="col-md-3">
+				    <div class="thumbnail" style="width: 100%;">
+				    	<div class="picture-end">
+                            <div class="status-end"></div>
+                            <a href="../{{maphien}}-{{sanpham}}">
+			            		<img id="avatar" src="../{{urlhinhanh}}" alt="..." class="img-responsive">
+			       			 </a>
+                        </div>
+				        <div class="productprice">
+				        
+				            <div class="producttitle">{{tensp}}</div>
+				            <div class="priceofguest">
+				            	Winner:<a href="#">{{winner}}</a>
+				            </div>
+			            	<div class="priceofguest">{{number_format gia}} đ</div>
+				        </div>
+				    </div>
+				</div>
+
+				{{/each}}
+				</div>
+<div class="col-md-1"></div>
+
+{{#section 'js'}}
+	<script src="/assests/js/home.js" type="text/javascript" charset="utf-8"></script>
+	 {{!-- <script src="/assests/js/bootstrap3-wysihtml5.min.js" type="text/javascript" charset="utf-8"></script> --}}
+    {{!-- // <script type="text/javascript " src="/assests/js/dropzone.js"></script> --}}
+{{/section}}

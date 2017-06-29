@@ -1,5 +1,4 @@
 {{#section 'css'}}
-<link rel="stylesheet" type="text/css" href="/assests/css/home.css">
 <link rel="stylesheet" type="text/css" href="/assests/css/product.css">
 {{/section}}
 
@@ -25,25 +24,31 @@
 				<div class="col-md-3">
 				    <div class="thumbnail">
 				        <a href="{{maphien}};{{masp}}">
-				            <img src="{{urlhinhanh}}" alt="..." class="img-responsive">
+				            <img id="daidien" src="{{urlhinhanh}}" alt="..." class="imgresponsive">
 				        </a>
 				        <div class="productprice">
 				            <div class="producttitle">{{tensp}}</div>
 				            <div class="guestnumber">Bids: {{soluotdau}}</div>
 				            <div class="priceofguest">
-				            	<a href="#">{{nguoigiugia}}</a>:{{number_format giahientai}} đ</div>	
+
+				            	 {{#if giahientai}}
+				            	<a href="#">{{nguoigiugia}}</a>:{{number_format giahientai}} đ
+				            {{/if}}	
+				            	</div>	
+				            	
 				            <div class="timer">
 				                <table align="center">
 				                    <tbody>
 				                        <tr>
 				                            <td><img src="imgs/icons/timer.png"></td>
 				                            <td class="countdown" value="{{thgiankt}}"></td>
+				                             <td class="begincountdown" value="{{thgianbd}}"></td>
 				                        </tr>
 				                    </tbody>
 				                </table>
 				            </div>
 				            <div class="pull-right">
-				                <a href="{{maphien}}" class="btn btn-danger btn-sm" role="button">Đặt giá</a>
+				                <a href="{{maphien}};{{masp}}" class="btn btn-danger btn-sm" role="button">Đặt giá</a>
 				            </div>
 				            <div class="pricetext">{{number_format giahientai}} đ</div>
 				        </div>
@@ -58,19 +63,22 @@
 					<div class="col-md-3">
 					    <div class="thumbnail">
 					        <a href="{{maphien}};{{masp}}">
-					            <img src="{{urlhinhanh}}" alt="..." class="img-responsive">
+					            <img id="daidien" src="{{urlhinhanh}}" alt="..." class="imgresponsive">
 					        </a>
 					        <div class="productprice">
 					            <div class="producttitle">{{tensp}}</div>
 					            <div class="guestnumber">Bids: {{soluotdau}}</div>
 					            <div class="priceofguest">
-					            	<a href="#">{{nguoigiugia}}</a>:{{number_format giahientai}} đ</div>	
+					            	 {{#if giahientai}}
+				            	<a href="#">{{nguoigiugia}}</a>:{{number_format giahientai}} đ
+				            {{/if}}	</div>	
 					            <div class="timer">
 					                <table align="center">
 					                    <tbody>
 					                        <tr>
 					                            <td><img src="imgs/icons/timer.png"></td>
 					                            <td class="countdown" value="{{thgiankt}}"></td>
+					                             <td class="begincountdown" value="{{thgianbd}}"></td>
 					                        </tr>
 					                    </tbody>
 					                </table>
@@ -91,19 +99,22 @@
 				<div class="col-md-3">
 				    <div class="thumbnail">
 				        <a href="{{maphien}};{{masp}}">
-				            <img src="{{urlhinhanh}}" alt="..." class="img-responsive">
+				            <img id="daidien" src="{{urlhinhanh}}" alt="..." class="imgresponsive">
 				        </a>
 				        <div class="productprice">
 				            <div class="producttitle">{{tensp}}</div>
 				            <div class="guestnumber">Bids: {{soluotdau}}</div>
 				            <div class="priceofguest">
-				            	<a href="#">{{nguoigiugia}}</a>:{{number_format giahientai}} đ</div>	
+				            	 {{#if giahientai}}
+				            	<a href="#">{{nguoigiugia}}</a>:{{number_format giahientai}} đ
+				            {{/if}}	</div>	
 				            <div class="timer">
 				                <table align="center">
 				                    <tbody>
 				                        <tr>
 				                            <td><img src="imgs/icons/timer.png"></td>
 				                            <td class="countdown" value="{{thgiankt}}"></td>
+				                             <td class="begincountdown" value="{{thgianbd}}"></td>
 				                        </tr>
 				                    </tbody>
 				                </table>

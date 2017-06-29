@@ -23,7 +23,7 @@ exports.load = function(sql) {
     connection.query(sql, function(error, rows, fields) {
         if (error)
             d.reject(error);
-            // throw error;
+        // throw error;
 
         d.resolve(rows);
     });
@@ -34,9 +34,9 @@ exports.load = function(sql) {
 }
 
 exports.insert = function(sql) {
-    
-    var d = q.defer();
 
+    var d = q.defer();
+    var id;
     var connection = mysql.createConnection({
         host: _HOST,
         user: _USER,
@@ -52,16 +52,17 @@ exports.insert = function(sql) {
             d.reject(error);
         } else {
             d.resolve(value.insertId);
+            console.log(value.insertId);
+            id = value.insertId;
         }
     });
 
     connection.end();
-
     return d.promise;
 }
 
 exports.update = function(sql) {
-    
+
     var d = q.defer();
 
     var connection = mysql.createConnection({
@@ -87,7 +88,7 @@ exports.update = function(sql) {
 }
 
 exports.delete = function(sql) {
-    
+
     var d = q.defer();
 
     var connection = mysql.createConnection({

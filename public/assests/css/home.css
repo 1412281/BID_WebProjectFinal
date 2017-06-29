@@ -2,7 +2,9 @@
 
 body{
 	padding-top: 60px;
+	background-color: whitesmoke ;
 }
+
 .panel{
 	padding-top : 1px;
 	padding-bottom: 1px;
@@ -15,4 +17,12 @@ body{
 .thumbnail{
 	padding-top : 1px;
 	padding-bottom: 1px;
+}
+
+.panel-body{
+	background-color: whitesmoke;
+}
+
+.imgresponsive{
+	height: 200px;
 }

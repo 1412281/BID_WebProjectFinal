@@ -1,0 +1,184 @@
+{{#section 'css'}}
+<link rel="stylesheet" type="text/css" href="/assests/css/biddetails.css">
+<link rel="stylesheet" type="text/css" href="/assests/css/home.css">
+<link rel="stylesheet" type="text/css" href="/assests/css/product.css">
+
+{{/section}}
+
+{{#section 'title'}}
+    Thông tin phiên đấu giá
+{{/section}}
+
+
+
+
+<div class="row">
+	<div class="col-md-1"></div>
+	<div class="col-md-10">
+		 <div class="row">
+            <div class="row center-block">
+                <a href="/">Trang chủ</a> > Thông tin đấu giá
+            </div>
+            <br>
+            <div class="container" id="tenSanPham">
+
+                <div id="details">
+                    <div class="detailtitle">
+                        {{bid.tensp}}
+                    </div>
+                </div>
+                
+                <div class="col-md-6 detailinfo" id="chitietsanpham">
+                    <div class="detailImage thumbnail">
+                        <img id="avatar" src="../{{bid.urlhinhanh}}" alt="" class="imageavatar">
+                    </div>
+                    <div id="masophien">ID: {{bid.maphien}}</div>
+                    <div id="nguoidang">Người bán: <a href="#">{{bid.nguoiban}}</a></div>
+                    <div id="thgianBD">Bắt đầu:&nbsp;  {{moment bid.thgianbd format="YYYY-MM-DD HH:mm:ss"}}</div>	
+                    <div id="thgianKT">Kết thúc: {{moment bid.thgiankt format="YYYY-MM-DD HH:mm:ss"}}</div>
+                    <div class="timer">
+                        <table align="center">
+                            <tbody>
+                                <tr>
+                                    <td><img src="../imgs/icons/timer.png"></td>
+                                    <td class="countdown" value="{{bid.thgiankt}}"></td>
+                                    <td class="begincountdown" value="{{bid.thgianbd}}"></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <br>
+                      <div id="giahientai" class="detailtitle">
+				            	<a href="#">{{bid.nguoigiugia}}</a>:    {{number_format bid.giahientai}} đ
+                      </div>
+
+                        <div id="thumb-zone">
+                            <ul>
+                                <a id="thumb-control-left" href="javascript:void(0);"></a>
+                                <a id="thumb-control-right" href="javascript:void(0);"></a>
+                                
+                                {{#each imageurls}}
+                                <li>
+                                    <img src="../{{urlhinhanh}}" onmouseover="changeavatar('../{{urlhinhanh}}')"/>
+                                </li>
+                                {{/each}}
+                            </ul>
+                        </div>
+                        <br>
+                        <div class="tab nav nav-tabs">
+                            <button class="tablinks" onclick="opentab(event,'gioithieu')">Giới thiệu</button>
+                             <div class="pull-right" style="margin: 10px;">
+                    <div class="btn btn-danger glyphicon glyphicon-plus" title="Thêm mô tả"    data-toggle="modal" data-target="#addmota">
+                    </div>
+                </div>
+                        </div>
+                        <div id="gioithieu" class="tabcontent detaildescription" style="display: block;">
+                            <div id="motahtml">
+                                {{bid.motaHTML}}
+                            </div>
+
+                            
+                        </div>
+
+
+                </div>
+                <div class="col-md-4" id="luotdaugia" style="width: 35%;">
+                    <div>Lượt đấu giá: {{bid.soluotdau}}</div>
+                    <div>
+                        <table class="table" border="1" style="margin-right: 0px;">
+                         <thead>
+                             <tr class="tablehead">
+                                <th>Số tiền</th>
+                                <th>Thời gian</th>
+                                <th>Người ra giá</th>
+                            </tr>
+                         </thead>
+                        <tbody>
+                       
+                       
+                       {{#each chitietphien}}
+                        <tr class="tablerow">
+                           <td>{{number_format giadau}}đ</td> 
+                           <td>{{moment thoigian format="DD/MM/YY HH:mm"}}</td> 
+                           <td>
+                           <a href="">{{nguoidaugia}}</a>
+
+                          <a class="btn btn-danger glyphicon glyphicon-remove"
+                        href='KICK/{{maphien}};{{nguoidaugia}}' 
+                        onclick="return confirm('Bạn có muốn Kick {{nguoidaugia}} ra khỏi phiên?')" data-toggle="tooltip" title="Delete"
+                                  ></a>
+                           </td>
+                        </tr>
+
+                        {{/each}}
+
+                        </tbody>
+                        </table>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+   
+
+
+
+
+	</div>
+	<div class="col-md-1"></div>
+
+
+
+
+
+    <div id="addmota" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header" id="dialog-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Thêm mô tả</h4>
+                </div>
+                <form class="form-horizontal" method="post" action="{{bid.maphien}};{{bid.masp}}/themmota">
+                <div class="modal-body">
+                        <div class="col-md-2"></div>
+                        <textarea name="motathem"  class="form-control col-md-8"></textarea>
+                    <div class="col-md-2"></div>        
+            </div>
+            
+            <br>
+          <div class="modal-footer" id="dialog-footer">
+            <br>
+            
+            <button class="btn btn-success" type="submit">Thêm mô tả</button>
+          </div>
+
+          </form>
+        </div>
+       </div>
+    </div>
+</div>
+
+
+{{#section 'js'}}
+    
+	<script src="/assests/js/home.js" type="text/javascript" charset="utf-8"></script>
+    <script src="https://cloud.tinymce.com/stable/tinymce.min.js"></script>
+    <script>
+
+     tinymce.init({
+            selector: 'textarea',
+            theme: 'modern',
+            plugins: [
+               'advlist autolink lists link image charmap print preview hr anchor pagebreak',
+               'tinymcespellchecker']
+         });
+    </script>
+
+{{/section}}
+
+          
+    
+
+

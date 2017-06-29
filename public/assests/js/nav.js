@@ -12,15 +12,37 @@ $('#loginModal').on('shown.bs.modal', function() {
     });
 });
 $('#regModal').on('shown.bs.modal', function() {
-    $('#regModal #username').focus();
-    $('#regModal #email').on('keydown', function() {
-        $(document).keypress(function(e) {
-            if (e.which == 13) {
-                console.log('reg');
+    console.log('show');
+    $('#registerForm').on('submit', function() {
+        console.log('re');
+
+        $(this).ajaxSubmit({
+            error: function(xhr) {
+                status('Error: ' + xhr.status);
+            },
+            success: function(response) {
+                console.log(response);
+
             }
+
         });
+        //Very important line, it disable the page refresh.
+        return false;
     });
-    $('#regModal .btn.btn-primary').on('click', function() {
-        console.log('reg');
+});
+$('#registerForm').on('submit', function() {
+    console.log('re');
+
+    $(this).ajaxSubmit({
+        error: function(xhr) {
+            status('Error: ' + xhr.status);
+        },
+        success: function(response) {
+            console.log(response);
+
+        }
+
     });
+    //Very important line, it disable the page refresh.
+    return false;
 });
