@@ -3,6 +3,7 @@ var topbidRepo = require('../models/TopbidRepo');
 var bidRepo = require('../models/bidRepo');
 var r = express.Router();
 var dateFormat = require('dateformat');
+var q = require('q');
 
 
 
@@ -47,9 +48,7 @@ r.get('/:id;:idsp', function(req, res) {
 
             var ctphien = pRows[2];
             for (var i = 0; i < ctphien.length; ++i) {
-                console.log(ctphien[i].nguoidaugia);
                 ctphien[i].nguoidaugia = mahoa(ctphien[i].nguoidaugia);
-                console.log(ctphien[i].nguoidaugia);
             }
             var vm = {
                 layoutModels: res.locals.layoutModels,
@@ -78,7 +77,6 @@ mahoa = function(data) {
 }
 
 
-console.log(mahoa("a"));
 
 r.get('/:id-:idsp', function(req, res) {
 
@@ -117,49 +115,107 @@ r.post('/bid', function(req, res) {
     }
 
     var data = {
+        giahientai: req.body.giahientai,
         giadau: req.body.giadau,
         maphien: req.body.maphien,
         nguoidaugia: req.body.user,
         buocgia: req.body.buocgia,
+        autoBid: req.body.autoBid,
         date: dateFormat(Date.now(), "isoDateTime")
     }
     console.log(data);
-    bidRepo.insertCtphien(data).then(function() {
-        bidRepo.updatePhien(data).then(function() {
+    if (data.autoBid) {
+        bidRepo.getAutoBid(data.maphien).then(function(rows) {
+            if (rows.length > 0) {
+                var curMax = {
+                    giadau: parseInt(data.giadau) + parseInt(data.buocgia),
+                    maphien: rows[0].maphien,
+                    nguoidaugia: rows[0].nguoidaugia,
+                    date: dateFormat(Date.now(), "isoDateTime"),
+                }
+                if (data.giadau < rows[0].giamax) {
+                    console.log("be hon");
+                    insertBid(data).then(function() {
+                        insertBid(curMax).then(function() {
+                            res.redirect(req.get('referer'));
+                        })
+                    })
+                } else if (data.giadau == rows[0].giamax) {
+                    console.log("bang");
+                    curMax.giadau = rows[0].giamax;
+                    insertBid(data).then(function() {
+                        insertBid(curMax).then(function() {
+                            res.redirect(req.get('referer'));
+                        })
+                    })
+                } else {
+                    console.log("lon hon");
+                    data.giadau = parseInt(rows[0].giamax) + parseInt(data.buocgia);
+                    curMax.giadau = rows[0].giamax;
+                    insertBid(curMax).then(function() {
+                        insertBid(data).then(function() {
+                            data.giadau = req.body.giadau;
+                            bidRepo.updateAutoBid(data).then(function() {
+                                res.redirect(req.get('referer'));
+                            });
+
+                        })
+                    })
+                }
+            } else {
+                data.giadau = parseInt(data.giahientai) + parseInt(data.buocgia);
+                insertBid(data).then(function() {
+                    data.giadau = req.body.giadau;
+                    bidRepo.insertAutoBid(data).then(function() {
+                        res.redirect(req.get('referer'));
+                    });
+                });
+            }
+        });
+    }
+    if (!data.autoBid) {
+        insertBid(data).then(function() {
             console.log("bid thanh cong");
 
-            checkAutoBid(data);
+            checkAutoBid(data).then(function() {
+                res.redirect(req.get('referer'));
 
-            res.redirect(req.get('referer'));
+            }).fail(function() {
+                res.redirect(req.get('referer'));
+
+            });
         }).fail(function() {
-            res.end('fail');
             res.redirect(req.get('referer'));
-        });;
-
-    }).fail(function() {
-        res.end('fail');
-        res.redirect(req.get('referer'));
-    });
-    console.log(data);
+        });
+    }
 
 });
+
+insertBid = function(data) {
+    d = q.defer();
+    bidRepo.insertCtphien(data).then(function() {
+        bidRepo.updatePhien(data).then(function(rows) {
+            d.resolve(rows);
+        });
+    });
+    return d.promise;
+}
 
 checkAutoBid = function(data) {
     bidRepo.getAutoBid(data.maphien).then(function(rows) {
         if (rows.length > 0) {
-            if (rows[0].giamax > data.giadau) {
-                var giad = parseInt(data.giadau) + parseInt(data.buocgia)
+            if (rows[0].giamax >= data.giadau && (rows[0].nguoidaugia != data.nguoidaugia)) {
                 var newCT = {
                     giadau: parseInt(data.giadau) + parseInt(data.buocgia),
                     maphien: rows[0].maphien,
                     nguoidaugia: rows[0].nguoidaugia,
                     date: dateFormat(Date.now(), "isoDateTime"),
-
                 }
                 console.log(newCT);
-                bidRepo.insertCtphien(newCT).then(function() {
-                    bidRepo.updatePhien(newCT);
-                });
+                if (rows[0].giamax == data.giadau) {
+                    newCT.giadau = parseInt(data.giadau);
+                }
+                insertBid(newCT);
             }
 
         }
