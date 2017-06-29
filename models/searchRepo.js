@@ -10,15 +10,21 @@ exports.getBidByProduct = function(name, type) {
     var data = {
         name,
         type,
-        sq: "select * from search where"
+        sq: "select * from search"
     }
+    var sql;
     if (name != "" && type != "") {
-        var sql = mustache.render("{{sq}} tensp like '%{{name}}%' AND loai = '{{type}}'", data);
+        sql = mustache.render("{{sq}} where tensp like '%{{name}}%' AND loai = '{{type}}'", data);
 
     } else if (name != "") {
-        var sql = mustache.render("{{sq}} tensp like '%{{name}}%'", data);
+        sql = mustache.render("{{sq}} where tensp like '%{{name}}%'", data);
     } else if (type != "") {
-        var sql = mustache.render("{{sq}} loai = '{{type}}'", data);
+        if (type == '0') {
+            data.type = '';
+            sql = mustache.render("{{sq}}", data);
+        } else {
+            sql = mustache.render("{{sq}} where loai = '{{type}}'", data);
+        }
     }
     console.log(sql);
     return db.load(sql);

@@ -1,7 +1,8 @@
 var express = require('express');
 var topbidRepo = require('../models/TopbidRepo');
+var bidRepo = require('../models/bidRepo');
 var r = express.Router();
-
+var dateFormat = require('dateformat');
 
 
 
@@ -58,7 +59,26 @@ r.get('/:id;:idsp', function(req, res) {
 
 });
 
+r.post('/bid', function(req, res) {
+    var data = {
+        giadau: req.body.giadau,
+        maphien: req.body.maphien,
+        nguoidaugia: req.body.user,
+        date: dateFormat(Date.now(), "isoDateTime")
+    }
 
+    console.log(data);
+    bidRepo.bid(data).then(function() {
+        console.log("bid thanh cong");
+        var url = '/';
+
+        res.redirect(url);
+    }).fail(function() {
+        res.end('fail');
+    });
+    console.log(data);
+
+});
 
 
 module.exports = r;

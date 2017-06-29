@@ -59,12 +59,16 @@
 				            	<a href="#">{{bid.nguoigiugia}}</a>:    {{number_format bid.giahientai}} đ
                       </div>
                      
-                    <form class="pull-left" method="post">
-                        <input id="giatieptheo" type="text" class="form-control required" onkeypress="return isNumber(event)" placeholder="Đặt giá" value="{{number_format giatieptheo}}" required="true"></input>
-                    </form>
+                    <form class="pull-left" method="post" action="bid">
+                        <input type="text" name="maphien" value="{{bid.maphien}}" hidden="true"/>
+                        <input type="text" name="user" value="{{ layoutModels.curUser.tenuser}}" hidden="true"/>
+
+                        <input id="giatieptheo" name="giadau" type="text" class="form-control required" onkeypress="return isNumber(event)" placeholder="Đặt giá" value="{{number_format giatieptheo}}" required="true"></input>
                     <div class="pull-right">
                         <button type="submit" class="btn btn-danger btn-sm" role="button">Đặt giá </button>
                     </div>
+                    </form>
+                    
                 </div>
                 <div class="col-md-4" id="luotdaugia" style="width: 35%;">
                     <div>Lượt đấu giá: {{bid.soluotdau}}</div>
