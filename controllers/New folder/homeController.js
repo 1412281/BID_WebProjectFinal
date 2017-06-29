@@ -59,7 +59,15 @@ r.get('/:id;:idsp', function(req, res) {
 
 });
 
-
+<<<<<<< HEAD
+r.post('/bid', function(req, res) {
+    var data = {
+        giadau: req.body.giadau,
+        maphien: req.body.maphien,
+        nguoidaugia: req.body.user,
+        date: dateFormat(Date.now(), "isoDateTime")
+    }
+=======
 r.get('/:id-:idsp', function(req, res) {
 
     var data = {
@@ -75,9 +83,9 @@ r.get('/:id-:idsp', function(req, res) {
 
     topbidRepo.loadresultByID(data.maphien, data.masp)
         .then(function(pRows) {
-            console.log(pRows[0]);
+            console.log(pRows[0]);   
             console.log(pRows[1]);
-            console.log(pRows[2]);
+            console.log(pRows[2]);   
 
             var vm = {
                 layoutModels: res.locals.layoutModels,
@@ -91,13 +99,8 @@ r.get('/:id-:idsp', function(req, res) {
 
 });
 
-r.post('/bid', function(req, res) {
-    var data = {
-        giadau: req.body.giadau,
-        maphien: req.body.maphien,
-        nguoidaugia: req.body.user,
-        date: dateFormat(Date.now(), "isoDateTime")
-    }
+>>>>>>> c3e080292c94c7180a81cc5085701d42cf6968ad
+
     console.log(data);
     bidRepo.bid(data).then(function() {
         console.log("bid thanh cong");
