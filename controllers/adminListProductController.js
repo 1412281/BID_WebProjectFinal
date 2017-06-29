@@ -3,14 +3,14 @@ var adminListProductsRepo =  require('../models/adminListProductRepo');
 var r = express.Router();
 
 r.get('/', function(req,res){
-	if (res.locals.layoutModels == null) {
+	/*if (res.locals.layoutModels == null) {
         res.redirect('/home/login');
         return false;
     }
     if ((res.locals.layoutModels != null) && (res.locals.layoutModels.curUser.permission != 2)) {
         res.redirect(403, '/home/login');
         return false;
-    }
+    }*/
 	adminListProductsRepo.listproductpact()
 		.then(function(rows){
 			var vm = {

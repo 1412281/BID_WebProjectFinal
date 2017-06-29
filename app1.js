@@ -21,7 +21,7 @@ var i18n = require("i18n");
 var validate = require('form-validate');
 var session = require('express-session');
 var MySQLStore = require('express-mysql-session')(session);
-
+var emailController = require('./controllers/emailController');
 
 var app = express();
 app.use(morgan('dev'));
@@ -66,7 +66,7 @@ app.use('/admin/products', adminListProductController);
 app.use('/admin/categories', categoryController);
 app.use('/admin/approvals', adminListApproveController);
 app.use('/admin/sessions', adminListSessionController);
-
+app.use('/admin', emailController);
 app.use(session({
     secret: 'Z7X7gXzoKBT8h18jwXBEP4T0kJ8=',
     resave: false,

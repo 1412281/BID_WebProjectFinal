@@ -47,6 +47,13 @@ exports.register = function(data) {
     var sql = mustache.render("{{ins}} ('{{tenuser}}','{{matkhau}}','{{hoten}}','{{diachi}}','{{email}}','0', '0', '0')", obj);
     return db.insert(sql);
 }
+exports.getUser = function(username) {
+    var data = {
+        tenuser: username
+    }
+    var sql = mustache.render('select * from users where tenuser="{{tenuser}}"',data);
+    return db.load(sql);
+}
 
 exports.getUserInfo = function(username) {
     var data = {
@@ -78,7 +85,7 @@ exports.updatepassword = function(tenuser, passmoi) {
         tenuser: tenuser,
         passmoi: passmoi
     }
-    var sql = mustache.render("update users set matkhau='{{passmoi}}' where tenuser='{{tenuser}}';", 
+    var sql = mustache.render("update users set matkhau='{{passmoi}}' where tenuser='{{tenuser}}'", 
         data);
     console.log(sql);
     return db.update(sql);

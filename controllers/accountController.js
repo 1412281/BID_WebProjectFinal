@@ -6,7 +6,6 @@ var request = require('request');
 var restrict = require('../midle-wares/restrict');
 var crypto = require('crypto');
 
-
 r.get('/', function(req, res) {
     res.render('home/login');
 });
