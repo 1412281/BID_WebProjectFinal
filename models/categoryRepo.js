@@ -14,11 +14,11 @@ exports.loadAll = function() {
 
 exports.loadDetail = function(id) {
 	var d = q.defer();
-    var obj = {
+    var entity = {
         maloai: id
     };
     var sql = mustache.render(
-        'select * from loaisp where maloai = {{maloai}}',obj);
+        'select * from loaisp where maloai = {{maloai}}',entity);
 
     db.load(sql).then(function(rows) {
         d.resolve(rows[0]);
@@ -45,7 +45,10 @@ exports.update = function(entity) {
     return db.update(sql);
 }
 
-exports.delete = function(entity) {
+exports.delete = function(id) {
+    var entity = {
+        maloai: id
+    };
     var sql = mustache.render(
         'delete from loaisp where maloai = {{maloai}}',
         entity

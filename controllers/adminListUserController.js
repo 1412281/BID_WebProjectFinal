@@ -18,4 +18,16 @@ r.get('/', function(req,res){
 				res.end('fail');
 			});
 });
+
+r.delete('/delete/:id', function(req, res){
+    var id = req.params.id;
+    console.log(id);
+    adminListUserRepo.delete(id).then(function(data) {
+        res.location('/admin/users');
+        res.redirect('/admin/users');
+    }).catch(function(err) {
+        console.log(err);
+        res.end('delete fail');
+    });
+ });
 module.exports = r;
