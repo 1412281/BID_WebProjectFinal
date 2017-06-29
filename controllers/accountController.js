@@ -3,11 +3,29 @@ var accountRepo = require('../models/accountRepo');
 var r = express.Router();
 var request = require('request');
 var restrict = require('../midle-wares/restrict');
+var crypto = require('crypto');
+
+
+r.get('/', function(req, res) {
+
+    res.render('home/login');
+
+
+});
+
+r.get('/register', function(req, res) {
+    if (req.session.isLogged === true) {
+        next();
+    } else {
+        res.render('home/register');
+    }
+
+});
 
 r.post('/register', function(req, res) {
     if (req.body['g-recaptcha-response'] === undefined || req.body['g-recaptcha-response'] === '' || req.body['g-recaptcha-response'] === null) {
-        //return res.json({ "responseCode": 1, "responseDesc": "Please select captcha" });
-
+        return res.json({ "responseCode": 1, "responseDesc": "Please select captcha" });
+        //return false;
     }
     // Put your secret key here.
     var secretKey = "6LcyKScUAAAAAIzb7F4uAa7LkGMIPjSgbHG_xdL8";
@@ -18,30 +36,31 @@ r.post('/register', function(req, res) {
         body = JSON.parse(body);
         // Success will be true or false depending upon captcha validation.
         if (body.success !== undefined && !body.success) {
-            //return res.json({ "responseCode": 1, "responseDesc": "Failed captcha verification" });
+            return res.json({ "responseCode": 1, "responseDesc": "Failed captcha verification" });
+            //return false;
         }
         //res.json({ "responseCode": 0, "responseDesc": "Sucess" }); 
-        {
-
+        var ePWD = crypto.createHash('md5').update(req.body.password).digest('hex');
+        var data = {
+            tenuser: req.body.tenuser,
+            matkhau: ePWD,
+            hoten: req.body.hoten,
+            email: req.body.email
         }
+        accountRepo.register(data).then(function(result) {
+            res.redirect('/login');
+        });
+        console.log(data);
+        res.redirect('/login');
     });
 
-    var data = {
-        tenuser: req.body.tenuser,
-        matkhau: req.body.password,
-        hoten: req.body.hoten,
-        email: req.body.email
-    }
-    accountRepo.register(data).then(function(result) {
-        res._write(result);
-    });
-    console.log(data);
 });
 
 r.post('/signin', function(req, res) {
+    var ePWD = crypto.createHash('md5').update(req.body.password).digest('hex');
     var data = {
         tenuser: req.body.tenuser,
-        password: req.body.password
+        password: ePWD
     }
     console.log(data);
     accountRepo.signIn(data).then(function(user) {

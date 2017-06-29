@@ -9,23 +9,27 @@
 
 
 <div class="row">
+
     {{#each products}}
 				<div class="col-md-3">
 				    <div class="thumbnail">
-				        <a href="product-bid-details.html#">
-				            <img src="{{urlhinhanh}}" alt="..." class="img-responsive">
+				        <a href="{{maphien}};{{masp}}">
+				            <img id="daidien" src="{{urlhinhanh}}" alt="..." class="imgresponsive">
 				        </a>
 				        <div class="productprice">
 				            <div class="producttitle">{{tensp}}</div>
 				            <div class="guestnumber">Bids: {{soluotdau}}</div>
 				            <div class="priceofguest">
-				            	<a href="#">{{nguoigiugia}}</a>:{{number_format giahientai}} đ</div>	
+				            	 {{#if giahientai}}
+				            	<a href="#">{{nguoigiugia}}</a>:{{number_format giahientai}} đ
+				            {{/if}}	</div>	
 				            <div class="timer">
 				                <table align="center">
 				                    <tbody>
 				                        <tr>
 				                            <td><img src="imgs/icons/timer.png"></td>
 				                            <td class="countdown" value="{{thgiankt}}"></td>
+				                             <td class="begincountdown" value="{{thgianbd}}"></td>
 				                        </tr>
 				                    </tbody>
 				                </table>
@@ -41,3 +45,8 @@
 
 </div>
 
+{{#section 'js'}}
+
+	<script src="/assests/js/home.js" type="text/javascript" charset="utf-8"></script>
+	
+{{/section}}

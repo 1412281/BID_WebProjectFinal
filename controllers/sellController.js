@@ -6,9 +6,13 @@ var upload = multer({ dest: 'public/upload' });
 var r = express.Router();
 
 r.get('/', function(req, res) {
+    if (res.locals.layoutModels == null) {
+        res.redirect('/login');
+        return false;
+    }
     if ((res.locals.layoutModels != null) && (res.locals.layoutModels.curUser.permission != 1)) {
         console.log("redirecttttttttttttttttt");
-        res.redirect(403, '/');
+        res.redirect(403, '/login');
         return false;
     }
     sellerRepo.loadsanphamban()

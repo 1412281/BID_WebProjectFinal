@@ -12,6 +12,8 @@ var express = require('express'),
     layoutController = require('./controllers/layoutController'),
     handle403 = require('./midle-wares/handle-403'),
     sellController = require('./controllers/sellController.js');
+var i18n = require("i18n");
+var validate = require('form-validate');
 var session = require('express-session');
 var MySQLStore = require('express-mysql-session')(session);
 
@@ -38,6 +40,11 @@ app.engine('hbs', handlebars({
     }
 }));
 app.set('view engine', 'hbs');
+
+i18n.configure({
+    locales: ['en', 'de'],
+    directory: __dirname + '/locales'
+});
 
 app.use(express.static(
     path.resolve(__dirname, 'public')
@@ -71,10 +78,16 @@ app.use(session({
     }),
 }));
 
+var validationConfig = {
+    //You can configure certain aspects of the validation module 
+};
+app.use(validate(app, validationConfig));
+
 app.use(layoutController);
-app.use('/seller', sellController);
+
 app.use('/', homeController);
 app.use('/search', searchController);
 app.use('/login', accountController);
+app.use('/seller', sellController);
 app.use(handle403);
 app.listen(3000);
