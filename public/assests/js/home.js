@@ -122,7 +122,11 @@ var x = setInterval(function(){
 	    if(thgianmoidang < SOPHUT*60*1000 ){// nếu mới đăng ko quá SOPHUT thì Timer nổi hơn
 	    	timer.setAttribute("style", "color: red; font-size : 25px;");
 	    	
+<<<<<<< HEAD
 	    	if((seconds) % (2) == 0 ){
+=======
+	    	if((seconds) % (4) == 0 ){
+>>>>>>> master
 	    		string = "   New   ";
 	    	}
 	    }

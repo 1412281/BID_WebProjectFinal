@@ -1,8 +1,11 @@
+<<<<<<< HEAD
     <nav class="navbar navbar-inverse navbar-fixed-top ">
         <div class="container-fluid">
             <!-- Brand and toggle get grouped for better mobile display -->
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+=======
+>>>>>>> master
 <nav class="navbar navbar-inverse navbar-fixed-top ">
     <div class="container-fluid">
         <!-- Brand and toggle get grouped for better mobile display -->
@@ -16,6 +19,7 @@
                 </button>
             <a class="navbar-brand" href="/">Home</a>
         </div>
+<<<<<<< HEAD
 
         <!-- Collect the nav links, forms, and other content for toggling -->
         {{> search }}
@@ -35,6 +39,34 @@
                 </li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
+=======
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        {{> search }}
+
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+                <li><a href="#">Đang đấu giá</a></li>
+                <li><a href="#">Kết thúc</a></li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Loại sản phẩm <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="/search?type=1">Công nghệ</a></li>
+                        <li><a href="/search?type=2">Thời trang</a></li>
+                        <li><a href="/search?type=3">Gia dụng</a></li>
+                        <li><a href="/search?type=4">Khác</a></li>
+                    </ul>
+                </li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                {{#if layoutModels.isSeller}}
+                <li>
+                    <a href="/seller">Quản lý sản phẩm</a>
+                </li>
+                {{/if}}
+                
+
+>>>>>>> master
              {{#if layoutModels.isLogged }}
              
                 <li class="dropdown">
@@ -142,10 +174,13 @@
             </div>
 
         </div>
-        <!-- /.modal-dialog -->
-    </div>
         <!-- /.modal-content -->
     </div>
+<<<<<<< HEAD
+        <!-- /.modal-content -->
+    </div>
+=======
+>>>>>>> master
     <!-- /.modal-dialog -->
 </div>
 

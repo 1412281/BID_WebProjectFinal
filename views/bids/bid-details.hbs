@@ -2,6 +2,12 @@
 <link rel="stylesheet" type="text/css" href="/assests/css/biddetails.css">
 <link rel="stylesheet" type="text/css" href="/assests/css/home.css">
 <link rel="stylesheet" type="text/css" href="/assests/css/product.css"> {{/section}} {{#section 'title'}} Thông tin phiên đấu giá {{/section}}
+<<<<<<< HEAD
+=======
+
+
+
+>>>>>>> master
 
 <div class="row">
     <div class="col-md-1"></div>
@@ -65,7 +71,11 @@
                                 <input type="checkbox" name="autoBid"> Tự động đặt giá
                             <div class="pull-right">
                                 {{#if layoutModels.isLogged}}
+<<<<<<< HEAD
                                 <button type="submit" class="btn btn-danger btn-sm" role="button">Đặt giá </button> 
+=======
+                                <button type="submit" class="btn btn-danger btn-sm" role="button" onclick="return confirm('Bạn có chắc chắn muốn đặt giá cho sản phẩm: {{bid.tensp}} ?')">Đặt giá </button> 
+>>>>>>> master
                                 
                                 {{else}}
                                 <a class="btn btn-danger" href="" data-target="#loginModal" data-toggle="modal">Đặt giá </a>                               

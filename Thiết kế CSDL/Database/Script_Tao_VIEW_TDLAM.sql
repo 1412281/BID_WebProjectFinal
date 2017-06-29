@@ -18,13 +18,21 @@ select p.maphien, sp.masp, sp.tensp, sp.nguoidang as nguoiban,sp.motaHTML, luot.
 from phiendaugia p,
 	 soluotdaugia luot,
 	 sanpham sp , hinhanh h
+<<<<<<< HEAD
 where p.sanpham = sp.masp and p.maphien = luot.maphien and sp.masp = h.masp and (datediff(p.thgiankt, now()) > 0 ) and p.tinhtrang is not null
+=======
+where p.sanpham = sp.masp and p.maphien = luot.maphien and sp.masp = h.masp and p.thgiankt>= now() and p.tinhtrang is not null
+>>>>>>> master
 group by p.maphien
 ;
 
 
 
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> master
 -- views san pham danh cho seller truy xuat
 
 drop view if exists sanphamchuadang;
@@ -36,6 +44,12 @@ where sp.loai = l.maloai and sp.masp = h.masp
 	  and(sp.masp not in (select top.masp
 			from topphiendaugia top
 		))
+<<<<<<< HEAD
+=======
+	  and(sp.masp not in (select p.sanpham
+			from phiendaugia p, ketquadaugia kq where p.maphien=kq.maphien
+		))
+>>>>>>> master
 group by sp.masp
 order by sp.loai
 ;
@@ -62,11 +76,20 @@ select nx.tenuser, count(*) as tong from nhanxet nx group by tenuser;
 drop view if exists thongtinuser;
 create view thongtinuser
 as
+<<<<<<< HEAD
 select u.*, (100*count(nx.loai)/t.tong)  as danhgia
 from users u , nhanxet nx, tongdanhgia t
 where u.tenuser = nx.tenuser and nx.loai = '1'
 group by u.tenuser
 ; 
+=======
+select u.*, ((100.0*count(nx.loai))/t.tong)  as danhgia
+from users u , nhanxet nx, tongdanhgia t
+where u.tenuser = nx.tenuser and nx.loai = '1' and t.tenuser = nx.tenuser
+group by nx.tenuser
+; 
+
+>>>>>>> master
 drop view if exists search;
 create view search as
 select p.maphien, s.masp, s.tensp, s.loai, p.giahientai, p.nguoigiugia, p.giamuangay, p.thgianbd, p.thgiankt, h.urlhinhanh
