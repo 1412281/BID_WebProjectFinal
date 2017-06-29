@@ -62,14 +62,19 @@
                         <form class="pull-left" method="post" action="bid" id="datgia">
                             <input type="text" name="maphien" value="{{bid.maphien}}" hidden="true" />
                             <input type="text" name="user" value="{{ layoutModels.curUser.tenuser}}" hidden="true" />
-
+                            <input type="text" name="buocgia" value="{{ bid.buocgia}}" hidden="true" />
                             <input id="giatieptheo" name="giadau" type="text" class="form-control required" onkeypress="return isNumber(event)" placeholder="Đặt giá"
-                                value="{{number_format giatieptheo}}" required="true"></input>
+                                value="{{number_format giatieptheo}}" required="true"/>
+                                <input type="checkbox" name="auto"> Tự động đặt giá
                             <div class="pull-right">
                                 {{#if layoutModels.isLogged}}
-                                <button type="submit" class="btn btn-danger btn-sm" role="button">Đặt giá </button> {{else}}
-                                <a class="btn btn-danger" href="" data-target="#loginModal" data-toggle="modal">Đặt giá </a>                                {{/if}}
+                                <button type="submit" class="btn btn-danger btn-sm" role="button">Đặt giá </button> 
+                                
+                                {{else}}
+                                <a class="btn btn-danger" href="" data-target="#loginModal" data-toggle="modal">Đặt giá </a>                               
+                                 {{/if}}
                             </div>
+
                         </form>
                     </div>
                 </div>
@@ -91,7 +96,7 @@
                                     <td>{{number_format giadau}}đ</td>
                                     <td>{{moment thoigian format="DD/MM/YY HH:mm"}}</td>
                                     <td>
-                                       {{nguoidaugia}}
+                                        {{nguoidaugia}}
                                     </td>
                                 </tr>
 

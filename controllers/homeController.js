@@ -113,8 +113,6 @@ r.get('/:id-:idsp', function(req, res) {
 
 r.post('/bid', function(req, res) {
     if (res.locals.layoutModels.curUser == null) {
-        res.redirect('/login');
-        console.log("login");
         return false;
     }
 
@@ -122,12 +120,15 @@ r.post('/bid', function(req, res) {
         giadau: req.body.giadau,
         maphien: req.body.maphien,
         nguoidaugia: req.body.user,
+        buocgia: req.body.buocgia,
         date: dateFormat(Date.now(), "isoDateTime")
     }
     console.log(data);
     bidRepo.insertCtphien(data).then(function() {
         bidRepo.updatePhien(data).then(function() {
             console.log("bid thanh cong");
+
+            checkAutoBid(data);
 
             res.redirect(req.get('referer'));
         }).fail(function() {
@@ -143,5 +144,26 @@ r.post('/bid', function(req, res) {
 
 });
 
+checkAutoBid = function(data) {
+    bidRepo.getAutoBid(data.maphien).then(function(rows) {
+        if (rows.length > 0) {
+            if (rows[0].giamax > data.giadau) {
+                var giad = parseInt(data.giadau) + parseInt(data.buocgia)
+                var newCT = {
+                    giadau: parseInt(data.giadau) + parseInt(data.buocgia),
+                    maphien: rows[0].maphien,
+                    nguoidaugia: rows[0].nguoidaugia,
+                    date: dateFormat(Date.now(), "isoDateTime"),
+
+                }
+                console.log(newCT);
+                bidRepo.insertCtphien(newCT).then(function() {
+                    bidRepo.updatePhien(newCT);
+                });
+            }
+
+        }
+    });
+}
 
 module.exports = r;
