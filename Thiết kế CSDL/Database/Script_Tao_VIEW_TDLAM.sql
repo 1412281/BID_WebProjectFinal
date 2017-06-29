@@ -67,7 +67,11 @@ from users u , nhanxet nx, tongdanhgia t
 where u.tenuser = nx.tenuser and nx.loai = '1'
 group by u.tenuser
 ; 
-
-
+drop view if exists search;
+create view search as
+select p.maphien, s.masp, s.tensp, s.loai, p.giahientai, p.nguoigiugia, p.giamuangay, p.thgianbd, p.thgiankt, h.urlhinhanh
+from phiendaugia p, sanpham s, soluotdaugia luot, hinhanh h
+where p.sanpham = s.masp AND p.maphien = luot.maphien AND h.masp = s.masp
+group by p.maphien 
 
 
