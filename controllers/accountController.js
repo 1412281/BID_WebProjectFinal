@@ -67,8 +67,12 @@ r.post('/signin', function(req, res) {
         console.log(user);
         if (user.length === 0) {
             console.log("NO");
+<<<<<<< HEAD
             res.end('Đăng nhập không đúng');
 
+=======
+            res.send("Đăng nhập không thành công");
+>>>>>>> ca3ed59ad05d4f056168dbe3e029f5a23da682e4
         } else {
             console.log("YES");
             req.session.isLogged = true;
@@ -80,10 +84,8 @@ r.post('/signin', function(req, res) {
             //     req.session.cookie.maxAge = hour;
             // }
             console.log("re");
-            var url = '/';
-            // if (req.query.retUrl) {
-            //     url = req.query.retUrl;
-            // }
+            var url = req.get('referer');
+
             res.redirect(url);
         }
     })
@@ -98,32 +100,32 @@ r.post('/logout', restrict, function(req, res) {
 });
 
 
-r.get('/profile',restrict,function(req, res) {
+r.get('/profile', restrict, function(req, res) {
     console.log("Profile...............");
 
     console.log(req.session.user.tenuser);
 
 
-     accountRepo.getUserInfo(req.session.user.tenuser)
+    accountRepo.getUserInfo(req.session.user.tenuser)
         .then(function(rows) {
-        console.log(rows[0]);
-        var vm = {
+            console.log(rows[0]);
+            var vm = {
                 layoutModels: res.locals.layoutModels,
                 thongtincanhan: rows[0][0],
                 nhanxet: rows[1]
             };
             console.log(rows[1]);
-                 res.render('account/profile', vm);
-            }).fail(function(err) {
-                console.log(err);
-                res.end('fail');
+            res.render('account/profile', vm);
+        }).fail(function(err) {
+            console.log(err);
+            res.end('fail');
 
 
-    });    
-    
+        });
+
 });
 
-r.get('/dangdaugia',restrict,function(req, res) {
+r.get('/dangdaugia', restrict, function(req, res) {
     console.log("Dang Dau Gia...............");
 
     console.log(req.session.user.tenuser);
@@ -131,23 +133,23 @@ r.get('/dangdaugia',restrict,function(req, res) {
 
     accountRepo.loaddangdaugia(req.session.user.tenuser)
         .then(function(rows) {
-        console.log(rows);
-        var vm = {
+            console.log(rows);
+            var vm = {
                 layoutModels: res.locals.layoutModels,
                 danhsachdangthamgia: rows
             };
-                 res.render('account/listbids', vm);
-            }).fail(function(err) {
-                console.log(err);
-                res.end('fail');
+            res.render('account/listbids', vm);
+        }).fail(function(err) {
+            console.log(err);
+            res.end('fail');
 
 
-    });    
-    
+        });
+
 });
 
 
-r.get('/yeuthich',restrict,function(req, res) {
+r.get('/yeuthich', restrict, function(req, res) {
     console.log("Danh sach yeu thich...............");
 
     console.log(req.session.user.tenuser);
@@ -155,26 +157,26 @@ r.get('/yeuthich',restrict,function(req, res) {
 
     accountRepo.loadyeuthich(req.session.user.tenuser)
         .then(function(rows) {
-        console.log(rows[0]);
-        console.log(rows[1]);
-        var vm = {
+            console.log(rows[0]);
+            console.log(rows[1]);
+            var vm = {
                 layoutModels: res.locals.layoutModels,
                 yeuthichdangdaugia: rows[0],
                 yeuthichketthuc: rows[1]
             };
-                 res.render('account/favorite', vm);
-            }).fail(function(err) {
-                console.log(err);
-                res.end('fail');
+            res.render('account/favorite', vm);
+        }).fail(function(err) {
+            console.log(err);
+            res.end('fail');
 
 
-    });    
-    
+        });
+
 });
 
 r.post('/updateinfo', restrict, function(req, res) {
     console.log("capnhatthongtin...............");
-    
+
     accountRepo.updateinfo(req.body);
 
     res.redirect('../login/profile');
@@ -185,30 +187,29 @@ r.post('/changepassword', restrict, function(req, res) {
     console.log(req.body);
     accountRepo.getUserInfo(req.session.user.tenuser)
         .then(function(rows) {
-        console.log(rows[0]);
-        var vm = {
+            console.log(rows[0]);
+            var vm = {
                 layoutModels: res.locals.layoutModels,
                 thongtincanhan: rows[0][0],
                 nhanxet: rows[1]
             };
-            if(vm.thongtincanhan.matkhau == req.body.passcu){
+            if (vm.thongtincanhan.matkhau == req.body.passcu) {
                 console.log("Pass Cu Dung");
-                accountRepo.updatepassword(req.session.user.tenuser,req.body.passmoi);
+                accountRepo.updatepassword(req.session.user.tenuser, req.body.passmoi);
                 res.redirect('../login/profile');
-            }
-            else{
-                    res.end('Mat khau Cu khong dung');
-            }
-            }).fail(function(err) {
-                console.log(err);
+            } else {
                 res.end('Mat khau Cu khong dung');
+            }
+        }).fail(function(err) {
+            console.log(err);
+            res.end('Mat khau Cu khong dung');
 
 
-    });  
+        });
 
-    
 
-    
+
+
 });
 
 module.exports = r;

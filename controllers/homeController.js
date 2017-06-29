@@ -1,7 +1,8 @@
 var express = require('express');
 var topbidRepo = require('../models/TopbidRepo');
+var bidRepo = require('../models/bidRepo');
 var r = express.Router();
-
+var dateFormat = require('dateformat');
 
 
 
@@ -44,19 +45,40 @@ r.get('/:id;:idsp', function(req, res) {
         .then(function(pRows) {
             // console.log(pRows[1]);	
 
-
+            var ctphien = pRows[2];
+            for (var i = 0; i < ctphien.length; ++i) {
+                console.log(ctphien[i].nguoidaugia);
+                ctphien[i].nguoidaugia = mahoa(ctphien[i].nguoidaugia);
+                console.log(ctphien[i].nguoidaugia);
+            }
             var vm = {
                 layoutModels: res.locals.layoutModels,
                 bid: pRows[0][0],
+                nguoigg: mahoa(pRows[0][0].nguoigiugia),
                 giatieptheo: pRows[0][0].buocgia + pRows[0][0].giahientai,
                 imageurls: pRows[1],
-                chitietphien: pRows[2]
+                chitietphien: ctphien
             };
 
             res.render('bids/bid-details.hbs', vm);
         });
 
 });
+
+mahoa = function(data) {
+    var result = "";
+    for (var i = 0; i < data.length; ++i) {
+        if (i % 2 == 0) {
+            result += data[i];
+        } else {
+            result += '*';
+        }
+    }
+    return result;
+}
+
+
+console.log(mahoa("a"));
 
 r.get('/:id-:idsp', function(req, res) {
 
@@ -73,9 +95,9 @@ r.get('/:id-:idsp', function(req, res) {
 
     topbidRepo.loadresultByID(data.maphien, data.masp)
         .then(function(pRows) {
-            console.log(pRows[0]);   
+            console.log(pRows[0]);
             console.log(pRows[1]);
-            console.log(pRows[2]);   
+            console.log(pRows[2]);
 
             var vm = {
                 layoutModels: res.locals.layoutModels,
@@ -89,7 +111,59 @@ r.get('/:id-:idsp', function(req, res) {
 
 });
 
+r.post('/bid', function(req, res) {
+    if (res.locals.layoutModels.curUser == null) {
+        return false;
+    }
 
+    var data = {
+        giadau: req.body.giadau,
+        maphien: req.body.maphien,
+        nguoidaugia: req.body.user,
+        buocgia: req.body.buocgia,
+        date: dateFormat(Date.now(), "isoDateTime")
+    }
+    console.log(data);
+    bidRepo.insertCtphien(data).then(function() {
+        bidRepo.updatePhien(data).then(function() {
+            console.log("bid thanh cong");
 
+            checkAutoBid(data);
+
+            res.redirect(req.get('referer'));
+        }).fail(function() {
+            res.end('fail');
+            res.redirect(req.get('referer'));
+        });;
+
+    }).fail(function() {
+        res.end('fail');
+        res.redirect(req.get('referer'));
+    });
+    console.log(data);
+
+});
+
+checkAutoBid = function(data) {
+    bidRepo.getAutoBid(data.maphien).then(function(rows) {
+        if (rows.length > 0) {
+            if (rows[0].giamax > data.giadau) {
+                var giad = parseInt(data.giadau) + parseInt(data.buocgia)
+                var newCT = {
+                    giadau: parseInt(data.giadau) + parseInt(data.buocgia),
+                    maphien: rows[0].maphien,
+                    nguoidaugia: rows[0].nguoidaugia,
+                    date: dateFormat(Date.now(), "isoDateTime"),
+
+                }
+                console.log(newCT);
+                bidRepo.insertCtphien(newCT).then(function() {
+                    bidRepo.updatePhien(newCT);
+                });
+            }
+
+        }
+    });
+}
 
 module.exports = r;

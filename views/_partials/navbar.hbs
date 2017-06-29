@@ -22,10 +22,10 @@
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Loại sản phẩm <span class="caret"></span></a>
                     <ul class="dropdown-menu">
-                        <li><a href="#">Công nghệ</a></li>
-                        <li><a href="#">Thời trang</a></li>
-                        <li><a href="#">Gia dụng</a></li>
-                        <li><a href="#">Khác</a></li>
+                        <li><a href="/search?type=1">Công nghệ</a></li>
+                        <li><a href="/search?type=2">Thời trang</a></li>
+                        <li><a href="/search?type=3">Gia dụng</a></li>
+                        <li><a href="/search?type=4">Khác</a></li>
                     </ul>
                 </li>
             </ul>
@@ -46,7 +46,7 @@
              {{else}}
             
                 <li><a href="" data-target="#loginModal" data-toggle="modal">Đăng nhập</a></li>
-                <li><a href="" data-target="#regModal" data-toggle="modal">Đăng ký</a></li>- +
+                <li><a href="" data-target="#regModal" data-toggle="modal">Đăng ký</a></li>
             
             {{/if}}
             </ul>
@@ -82,7 +82,7 @@
                         <a href="">Quên mật khẩu ?</a>
                     </div>
                     <div class="form-group">
-                        <a href="login/register">Đăng ký tài khoản mới.</a>
+                        <a href="" data-target="#regModal" data-toggle="modal">Đăng ký tài khoản mới.</a>
                     </div>
                     <button type="submit" class="btn btn-primary">Đăng nhập</button>
                     <button type="button" class="btn btn-default" data-dismiss="modal">Hủy</button>

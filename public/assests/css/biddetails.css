@@ -1,14 +1,22 @@
 #giatieptheo {
-	font-size: 18px;
-	font-weight: bold;
-	color: red;
-	width: 200px;
+    font-size: 18px;
+    font-weight: bold;
+    color: red;
+    width: 200px;
 }
+
 #giahientai {
-	font-size: 20px;
-	font-weight: bold;
-	color: darkred;
+    font-size: 18px;
+    font-weight: bold;
+    color: darkred;
 }
-#luotdaugia{
-	font-weight: bold;
+
+#luotdaugia {
+    font-weight: bold;
+}
+
+#nguoigiugia {
+    font-size: 15px;
+    font-weight: bold;
+    color: blue;
 }
