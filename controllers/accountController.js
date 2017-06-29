@@ -7,26 +7,29 @@ var restrict = require('../midle-wares/restrict');
 var crypto = require('crypto');
 
 
-r.get('/', function(req, res) {
 
-    res.render('home/login');
-
-
-});
 
 r.get('/register', function(req, res) {
     if (req.session.isLogged === true) {
         next();
     } else {
-        res.render('home/register');
+        res.render('home/index');
+    }
+
+});
+
+r.get('/signin', function(req, res) {
+    if (req.session.isLogged === true) {
+        next();
+    } else {
+        res.render('home/index');
     }
 
 });
 
 r.post('/register', function(req, res) {
     if (req.body['g-recaptcha-response'] === undefined || req.body['g-recaptcha-response'] === '' || req.body['g-recaptcha-response'] === null) {
-        return res.json({ "responseCode": 1, "responseDesc": "Please select captcha" });
-        //return false;
+        res.end("Please select captcha");
     }
     // Put your secret key here.
     var secretKey = "6LcyKScUAAAAAIzb7F4uAa7LkGMIPjSgbHG_xdL8";
@@ -37,7 +40,8 @@ r.post('/register', function(req, res) {
         body = JSON.parse(body);
         // Success will be true or false depending upon captcha validation.
         if (body.success !== undefined && !body.success) {
-            return res.json({ "responseCode": 1, "responseDesc": "Failed captcha verification" });
+            res.end("Failed captcha verification");
+            //return res.json({ "responseCode": 1, "responseDesc": "Failed captcha verification" });
             //return false;
         }
         //res.json({ "responseCode": 0, "responseDesc": "Sucess" }); 
@@ -98,9 +102,8 @@ r.post('/logout', restrict, function(req, res) {
     req.session.isLogged = false;
     req.session.user = null;
     req.session.cookie.expires = new Date(Date.now() - 1000);
-    var url = req.get('referer');
 
-    res.redirect(url);
+    res.redirect('../');
 });
 
 
@@ -236,7 +239,7 @@ r.post('/changepassword', restrict, function(req, res) {
                 thongtincanhan: rows[0][0],
                 nhanxet: rows[1]
             };
-            if (vm.thongtincanhan.matkhau ==ePWD ) {
+            if (vm.thongtincanhan.matkhau == ePWD) {
                 console.log("Pass Cu Dung");
                 accountRepo.updatepassword(req.session.user.tenuser, ePWD_new);
                 res.redirect('../login/profile');

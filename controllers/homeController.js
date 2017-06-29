@@ -77,12 +77,15 @@ r.get('/:id;:idsp', function(req, res) {
             };
 
             res.render('bids/bid-details.hbs', vm);
+        }).fail(function() {
+            res.end("errro");
         });
 
 });
 
 mahoa = function(data) {
     var result = "";
+    if (data == null) return result;
     for (var i = 0; i < data.length; ++i) {
         if (i % 2 == 0) {
             result += data[i];

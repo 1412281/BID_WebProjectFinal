@@ -69,7 +69,7 @@
                                 <input type="checkbox" name="autoBid"> Tự động đặt giá
                             <div class="pull-right">
                                 {{#if layoutModels.isLogged}}
-                                <button type="submit" class="btn btn-danger btn-sm" role="button">Đặt giá </button> 
+                                <button type="submit" class="btn btn-danger btn-sm" role="button" onclick="return confirm('Bạn có chắc chắn muốn đặt giá cho sản phẩm: {{bid.tensp}} ?')">Đặt giá </button> 
                                 
                                 {{else}}
                                 <a class="btn btn-danger" href="" data-target="#loginModal" data-toggle="modal">Đặt giá </a>                               
