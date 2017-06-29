@@ -101,11 +101,11 @@ r.post('/bid', function(req, res) {
     console.log(data);
     bidRepo.bid(data).then(function() {
         console.log("bid thanh cong");
-        var url = '/';
 
-        res.redirect(url);
+        res.redirect(req.get('referer'));
     }).fail(function() {
         res.end('fail');
+        res.redirect(req.get('referer'));
     });
     console.log(data);
 
