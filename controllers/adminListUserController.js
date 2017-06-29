@@ -30,4 +30,10 @@ r.delete('/delete/:id', function(req, res){
         res.end('delete fail');
     });
  });
+
+r.get('/reset/:id', function(req, res) {
+    var id = req.params.id;
+    var newpw = adminListUserRepo.randomString(8);
+    
+});
 module.exports = r;

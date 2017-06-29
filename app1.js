@@ -15,7 +15,6 @@ var express = require('express'),
     ;
     
 var app = express();
-
 app.use(morgan('dev'));
 
 app.engine('hbs', handlebars({
