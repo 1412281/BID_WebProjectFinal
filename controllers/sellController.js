@@ -38,7 +38,7 @@ r.get('/', function(req, res) {
 r.post('/', upload.any(), function(req, res) {
     console.log(req.body);
 
-    sellerRepo.themsanpham(req.body, req.files);
+    sellerRepo.themsanpham(req.session.user.tenuser, req.body, req.files);
 
     res.redirect('/seller');
 });

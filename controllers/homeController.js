@@ -8,6 +8,8 @@ var q = require('q');
 
 
 r.get('/', function(req, res) {
+    
+
     topbidRepo.loadTop5()
         .then(function(rows) {
             var vm = {
@@ -133,6 +135,14 @@ r.post('/bid', function(req, res) {
     if (res.locals.layoutModels.curUser == null) {
         return false;
     }
+    bidRepo.getDiem(req.body.user).then(function(data){
+        if(data[0] == null) return;
+        if(data[0].danhgia <79) {
+            res.end('Diem cua ban duoi 80%');
+        }
+    });
+
+
 
     var data = {
         giahientai: req.body.giahientai,
@@ -242,4 +252,19 @@ checkAutoBid = function(data) {
     });
 }
 
+
+
+
+
 module.exports = r;
+
+
+r.taotimerKetThucPhien  = function() {
+
+    console.log('Khoi Tao Lai cac Timer Ket Thuc Phien dang trong thoi gian dau gia ');
+
+    topbidRepo.loadLaiTuDau();
+
+
+    
+    }

@@ -32,21 +32,22 @@ exports.updatesanpham = function(sanpham) {
     return db.update(sql);
 }
 
-exports.themsanpham = function(sanpham, danhsachhinh) {
+exports.themsanpham = function(nguoidang,sanpham, danhsachhinh) {
     // add sanpham first
     var obj1 = {
         ten: sanpham.tensanpham,
+        nguoidang: nguoidang,
         loai: sanpham.loai,
         motaHTML: sanpham.gioithieu
     };
-    var sql = mustache.render("INSERT INTO sanpham(tensp,nguoidang,loai,motaHTML) VALUES('{{ten}}','user1',{{loai}},'",
+    var sql = mustache.render("INSERT INTO sanpham(tensp,nguoidang,loai,motaHTML) VALUES('{{ten}}','{{nguoidang}}',{{loai}},'",
         obj1
     );
 
+
     sql += sanpham.gioithieu + "')";
+     console.log(sql);
     db.insert(sql).then(function(maspthem) {
-
-
         //add to hinhanh
         for (i = 0; i < 3; i++) {
             if (!danhsachhinh[i]) {
@@ -77,12 +78,16 @@ exports.themsanpham = function(sanpham, danhsachhinh) {
 }
 
 exports.dangsanpham = function(phienmoi) {
+    var giamuangay1 = phienmoi.giamuangay;
+    if(giamuangay1 == '') {
+        giamuangay1='null';
+    }
     // add sanpham first
     var obj1 = {
         masp: phienmoi.masanpham,
         giakhoidiem: phienmoi.giakhoidiem,
         buocgia: phienmoi.buocgia,
-        giamuangay: phienmoi.giamuangay,
+        giamuangay: giamuangay1,
         thgianbd: phienmoi.thgianbd,
         thgiankt: phienmoi.thgiankt
     };
@@ -91,7 +96,50 @@ exports.dangsanpham = function(phienmoi) {
     );
 
     console.log(sql);
-    return db.insert(sql);
+
+    // tạo timer làm nhiệm vụ canh hết thời gian khi sản phẩm kết thúc 
+    
+    db.insert(sql).then(function(maphien){
+        var x = setInterval(TimerKetThucPhienDauGia, 1000,maphien, obj1.thgiankt);
+    });
+
+
+
+}
+
+function TimerKetThucPhienDauGia (maphien, thoigiankt) {
+    console.log(maphien);
+
+    var hientai = new Date().getTime();
+    var seketthuc = new Date(thoigiankt).getTime();
+    var khoangcach = seketthuc-hientai;
+
+
+    console.log(khoangcach);
+
+    if(khoangcach<0){
+        // đến lúc làm nhiệm vụ thêm vào trong ketquadaugia
+        sql = "select * from phiendaugia where maphien="+maphien;
+        db.load(sql).then(function(phien){
+           if(phien[0].nguoigiugia == null){
+            console.log('khong co ai thang');
+
+           }
+           else{
+                console.log(phien[0].giahientai+"win:"+phien[0].giahientai);
+                // insert dữ liệu vào table kết quả
+                var sql ='insert into ketquadaugia(maphien,winner,gia) values('+phien[0].maphien+',"'+phien[0].nguoigiugia+'",'+phien[0].giahientai+')' ;
+                console.log(sql);
+                db.insert(sql);
+           }
+
+        });
+
+        clearInterval(this); // dừng timer này lại, nhiệm vụ kết thúc
+        
+
+
+    }
 
 }
 
