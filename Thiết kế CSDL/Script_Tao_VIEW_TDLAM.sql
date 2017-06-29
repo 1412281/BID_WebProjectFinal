@@ -69,5 +69,9 @@ group by u.tenuser
 ; 
 
 
-
+DROP VIEW IF EXISTS search;
+CREATE  VIEW search AS select p.maphien, s.masp, s.tensp, s.loai, p.giahientai, p.nguoigiugia, p.giamuangay, p.thgianbd, p.thgiankt, h.urlhinhanh
+from phiendaugia p, sanpham s, soluotdaugia luot, hinhanh h
+where p.sanpham = s.masp AND p.maphien = luot.maphien AND h.masp = s.masp
+group by p.maphien ;
 
