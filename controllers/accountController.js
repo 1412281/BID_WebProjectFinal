@@ -115,13 +115,14 @@ r.get('/profile', restrict, function(req, res) {
 
     accountRepo.getUserInfo(req.session.user.tenuser)
         .then(function(rows) {
-            console.log(rows[0]);
+
             var vm = {
                 layoutModels: res.locals.layoutModels,
                 thongtincanhan: rows[0][0],
-                nhanxet: rows[1]
+                nhanxet: rows[1],
+                phantram: rows[2][0]
             };
-            console.log(rows[1]);
+            console.log(rows[2]);
             res.render('account/profile', vm);
         }).fail(function(err) {
             console.log(err);
@@ -222,6 +223,14 @@ r.post('/updateinfo', restrict, function(req, res) {
     console.log("capnhatthongtin...............");
 
     accountRepo.updateinfo(req.body);
+
+    res.redirect('../login/profile');
+});
+
+r.post('/nangcaptaikhoan', restrict, function(req, res) {
+    console.log("nangcaptaikhoan...............");
+    console.log(req.body.tenuser);
+    accountRepo.nangcaptaikhoan(req.body.tenuser);
 
     res.redirect('../login/profile');
 });

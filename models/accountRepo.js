@@ -37,14 +37,15 @@ exports.signIn = function(req) {
 
 exports.register = function(data) {
     var data = {
-        ins: "insert into users (tenuser, matkhau, hoten, diachi, email, diemcong, diemtru) values",
+        ins: "insert into users (tenuser, matkhau, hoten, diachi, email, diemcong, diemtru,permission) values",
         tenuser: data.tenuser,
         matkhau: data.matkhau,
         hoten: data.hoten,
         diachi: data.diachi,
         email: data.email
     }
-    var sql = mustache.render("{{ins}} ('{{tenuser}}','{{matkhau}}','{{hoten}}','{{diachi}}','{{email}}','0', '0')", data);
+    var sql = mustache.render("{{ins}} ('{{tenuser}}','{{matkhau}}','{{hoten}}','{{diachi}}','{{email}}','0', '0',0)", data);
+    console.log(sql);
     return db.insert(sql);
 }
 
@@ -53,8 +54,8 @@ exports.getUserInfo = function(username) {
         tenuser: username
     }
     console.log("input:"+ data.tenuser);
-    var sql = mustache.render("select * from thongtinuser where tenuser='{{tenuser}}';",data);
-    sql+="select * from nhanxet where tenuser='"+data.tenuser+"' ";
+    var sql = mustache.render("select * from users where tenuser='{{tenuser}}';",data);
+    sql+="select * from nhanxet where tenuser='"+data.tenuser+"'; select danhgia from thongtinuser where tenuser='"+data.tenuser+"'";
     console.log(sql);
     return db.load(sql);
 }
@@ -68,6 +69,16 @@ exports.updateinfo = function(userinfo) {
     }
     console.log("input:"+ data.tenuser);
     var sql = mustache.render("update users set hoten='{{hoten}}',email='{{email}}', diachi='{{diachi}}' where tenuser='{{tenuser}}';", 
+        data);
+    console.log(sql);
+    return db.update(sql);
+}
+
+exports.nangcaptaikhoan = function(ten) {
+    var data = {
+        tenuser: ten
+    }
+    var sql = mustache.render("insert into seller(tenuser) values('{{tenuser}}')", 
         data);
     console.log(sql);
     return db.update(sql);
@@ -112,6 +123,8 @@ exports.loaddathang = function(tenuser) {
     console.log(sql);
     return db.load(sql);
 }
+
+
 
 
 // var data = {

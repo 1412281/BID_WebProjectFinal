@@ -22,6 +22,15 @@
             <div class="pull-right">
                  <div class="btn btn-block" title="đổi mật khẩu" data-toggle="modal" data-target="#doimatkhau"> Đổi mật khẩu
                 </div>
+                {{#if layoutModels.isSeller}}
+            
+                {{else}}
+                <form action="../login/nangcaptaikhoan" method="post" accept-charset="utf-8">
+                    <input type="hidden" name="tenuser" value="{{thongtincanhan.tenuser}}">
+                    <button type="submit" onclick="return confirm('Bạn có muốn đề nghị nâng cấp tài khoản?')">Nâng cấp tài khoản</button>
+                </form>
+                 {{/if}}
+                
             </div>
             <h3 class="panel-title">Thông tin cá nhân</h3>
 
@@ -47,13 +56,13 @@
                 <tr>
                     <th>Người nhận xét</th>
                     <th>Comment</th>
-                    <th>Điểm: {{thongtincanhan.danhgia}}%</th>
+                    <th>Điểm: {{phantram.danhgia}}%</th>
                 </tr>
             </thead>
             <tbody>
             {{#each nhanxet}}
                 <tr>
-                    <td>{{tengnuoinhanxet}}</td>
+                    <td>{{tennguoinhanxet}}</td>
                     <td>{{noidung}}</td>
                     <td>{{loai}}</td>
                 </tr>
