@@ -80,12 +80,7 @@ r.post('/signin', function(req, res) {
             // }
             console.log("re");
             var url = req.get('referer');
-            if (url.includes("login")) {
-                url = "/";
-            }
-            // if (req.query.retUrl) {
-            //     url = req.query.retUrl;
-            // }
+
             res.redirect(url);
         }
     })

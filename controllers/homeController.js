@@ -45,13 +45,19 @@ r.get('/:id;:idsp', function(req, res) {
         .then(function(pRows) {
             // console.log(pRows[1]);	
 
-
+            var ctphien = pRows[2];
+            for (var i = 0; i < ctphien.length; ++i) {
+                console.log(ctphien[i].nguoidaugia);
+                ctphien[i].nguoidaugia = mahoa(ctphien[i].nguoidaugia);
+                console.log(ctphien[i].nguoidaugia);
+            }
             var vm = {
                 layoutModels: res.locals.layoutModels,
                 bid: pRows[0][0],
+                nguoigg: mahoa(pRows[0][0].nguoigiugia),
                 giatieptheo: pRows[0][0].buocgia + pRows[0][0].giahientai,
                 imageurls: pRows[1],
-                chitietphien: pRows[2]
+                chitietphien: ctphien
             };
 
             res.render('bids/bid-details.hbs', vm);
@@ -59,6 +65,20 @@ r.get('/:id;:idsp', function(req, res) {
 
 });
 
+mahoa = function(data) {
+    var result = "";
+    for (var i = 0; i < data.length; ++i) {
+        if (i % 2 == 0) {
+            result += data[i];
+        } else {
+            result += '*';
+        }
+    }
+    return result;
+}
+
+
+console.log(mahoa("a"));
 
 r.get('/:id-:idsp', function(req, res) {
 
