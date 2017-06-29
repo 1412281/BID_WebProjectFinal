@@ -8,10 +8,7 @@ var crypto = require('crypto');
 
 
 r.get('/', function(req, res) {
-
     res.render('home/login');
-
-
 });
 
 r.get('/register', function(req, res) {
@@ -49,14 +46,12 @@ r.post('/register', function(req, res) {
             email: req.body.email
         }
         accountRepo.register(data).then(function(result) {
-            var url = req.get('referer');
+            //var url = req.get('referer');
 
-            res.redirect(url);
+            res.redirect('/');
         });
         console.log(data);
-        var url = req.get('referer');
-
-        res.redirect(url);
+        res.redirect('/');
     });
 
 });

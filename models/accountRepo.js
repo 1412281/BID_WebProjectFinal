@@ -36,15 +36,15 @@ exports.signIn = function(req) {
 }
 
 exports.register = function(data) {
-    var data = {
-        ins: "insert into users (tenuser, matkhau, hoten, diachi, email, diemcong, diemtru) values",
+    var obj = {
+        ins: "insert into users (tenuser, matkhau, hoten, diachi, email, diemcong, diemtru, permission) values",
         tenuser: data.tenuser,
         matkhau: data.matkhau,
         hoten: data.hoten,
-        diachi: data.diachi,
+        diachi: '',
         email: data.email
     }
-    var sql = mustache.render("{{ins}} ('{{tenuser}}','{{matkhau}}','{{hoten}}','{{diachi}}','{{email}}','0', '0')", data);
+    var sql = mustache.render("{{ins}} ('{{tenuser}}','{{matkhau}}','{{hoten}}','{{diachi}}','{{email}}','0', '0', '0')", obj);
     return db.insert(sql);
 }
 
