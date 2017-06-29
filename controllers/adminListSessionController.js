@@ -3,7 +3,7 @@ var adminListProductsRepo =  require('../models/adminListProductRepo');
 var r = express.Router();
 
 r.get('/', function(req,res){
-	adminListProductsRepo.listproductpact()
+	adminListProductsRepo.listsession()
 		.then(function(rows){
 			var vm = {
 				layoutVM: res.locals.layoutVM,
@@ -12,7 +12,7 @@ r.get('/', function(req,res){
 			// in ra test thu
 			//console.log(rows);
 			
-			res.render('admin/products',vm);
+			res.render('admin/sessions',vm);
 			}).fail(function(err){
 				console.log(err);
 				res.end('fail');
@@ -21,9 +21,9 @@ r.get('/', function(req,res){
 
 r.delete('/delete/:id', function(req, res){
     var id = req.params.id;
-    adminListProductsRepo.deleteproduct(id).then(function(data) {
-        res.location('/admin/products');
-        res.redirect('/admin/products');
+    adminListProductsRepo.deletesession(id).then(function(data) {
+        res.location('/admin/sessions');
+        res.redirect('/admin/sessions');
     }).catch(function(err) {
         console.log(err);
         res.end('delete fail');

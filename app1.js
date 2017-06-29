@@ -7,8 +7,10 @@ var express = require('express'),
     path = require('path'),
     wnumb = require('wnumb'),
     homeController = require('./controllers/homeController'),
-    adminListUserController = require('./controllers/adminListUserController');
-    adminListProductController = require('./controllers/adminListProductController');
+    adminListUserController = require('./controllers/adminListUserController'),
+    adminListProductController = require('./controllers/adminListProductController'),
+    adminListApproveController = require('./controllers/adminListApproveController'),
+    adminListSessionController = require('./controllers/adminListSessionController'),
     categoryController = require('./controllers/categoryController')
     ;
     
@@ -49,4 +51,6 @@ app.use('/admin/users', adminListUserController);
 app.use('/admin', adminListUserController);
 app.use('/admin/products', adminListProductController);
 app.use('/admin/categories', categoryController);
+app.use('/admin/approvals', adminListApproveController);
+app.use('/admin/sessions', adminListSessionController);
 app.listen(3000);

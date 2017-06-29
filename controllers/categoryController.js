@@ -39,7 +39,6 @@ r.post('/add', function(req, res) {
 r.get('/edit/:id', function(req, res) {
      var id = req.params.id;  
     categoryRepo.loadDetail(id).then(function(cat) {
-        console.log(cat);
         var vm = {
             layout: false,
             category: cat
@@ -50,7 +49,7 @@ r.get('/edit/:id', function(req, res) {
 
 r.post('/edit/:id', function(req, res) {
     categoryRepo.update(req.body).then(function(data) {
-        res.redirect('admin/categories');
+        res.redirect('../');
     })
 });
 

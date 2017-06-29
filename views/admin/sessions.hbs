@@ -9,7 +9,7 @@
         <div class="container-fluid">
             <div class="page-title">
               <div class="title_left">
-                <h1>Danh sách phiên chờ duyệt</h1>
+                <h1>Danh sách phiên đấu giá</h1>
               </div>
               <div class="title_right">
                 <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
@@ -24,33 +24,32 @@
               <div class="clearfix"></div>
             </div>
                  <table class="table table-striped projects">
-                 	<thead>
-                		<tr>
+                  <thead>
+                    <tr>
                         <th>Mã phiên</th>
-                    		<th>Tên sản phẩm</th>
-                    		<th>Loại sản phẩm</th>
+                        <th>Tên sản phẩm</th>
+                        <th>Loại sản phẩm</th>
                         <th>Người đăng</th>
                         <th>Giá khởi điểm</th>
                         <th>Bước giá</th>
                         <th>Thao tác</th>
-                		</tr>
-            		</thead>
-            		<tbody>
-              			{{#each approvals }}
-            		<tr>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{#each products }}
+                <tr>
                     <td>{{maphien}}</td>
-                		<td>{{tensp}}</td>
-                		<td>{{tenloai}}</td>
+                    <td>{{tensp}}</td>
+                    <td>{{tenloai}}</td>
                     <td>{{nguoidang}}</td>
                     <td>{{giakhoidiem}}</td>
                     <td>{{buocgia}}</td>
                     <td>
-                      <a href="/admin/approvals/approve/{{maphien}}" class="btn btn-primary btn-xs"><i class="fa fa-check"></i> Duyệt </a>
-                      <a href="" class="btn btn-danger btn-xs removeApproval" data-id="{{maphien}}"><i class="fa fa-trash-o"></i> Delete </a>
+                      <a href="" class="btn btn-danger btn-xs removeSession" data-id="{{maphien}}"><i class="fa fa-trash-o"></i> Delete </a>
                     </td>
-            		</tr>
-                		{{/each}}
-            		</tbody>
+                </tr>
+                    {{/each}}
+                </tbody>
                  </table>
             </div>
     </div>

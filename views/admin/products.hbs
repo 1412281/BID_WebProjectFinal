@@ -9,7 +9,7 @@
         <div class="container-fluid">
             <div class="page-title">
               <div class="title_left">
-                <h1>Quản lý sản phẩm</h1>
+                <h1>Danh sách sản phẩm</h1>
               </div>
               <div class="title_right">
                 <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
@@ -26,10 +26,9 @@
                  <table class="table table-striped projects">
                  	<thead>
                 		<tr>
+                        <th>Mã sản phẩm</th>
                     		<th>Tên sản phẩm</th>
                     		<th>Loại sản phẩm</th>
-                    		<th>Giá khởi điểm</th>
-                    		<th>Giá hiện tại</th>
                         <th>Người đăng</th>
                         <th>Thao tác</th>
                 		</tr>
@@ -37,13 +36,12 @@
             		<tbody>
               			{{#each products }}
             		<tr>
+                    <td>{{masp}}</td>
                 		<td>{{tensp}}</td>
                 		<td>{{tenloai}}</td>
-                    <td>{{giakhoidiem}}</td>
-                		<td>{{giahientai}}</td>
                     <td>{{nguoidang}}</td>
                     <td>
-                      <a class="btn btn-danger btn-xs"><i class="fa fa-trash-o removeProduct" href="" data-id="{{maloai}} ></i> Delete </a>
+                      <a href="" class="btn btn-danger btn-xs removeProduct" data-id="{{masp}}"><i class="fa fa-trash-o"></i> Delete </a>
                     </td>
             		</tr>
                 		{{/each}}

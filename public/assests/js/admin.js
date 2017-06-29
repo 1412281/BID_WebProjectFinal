@@ -10,35 +10,12 @@ $(document).ready(function(){
         window.location = '/admin/categories';
     });
 
-    $('.editCategory').click(function(e){
-        var id = $(this).data('id');
-        $.ajax({
-            url:'/admin/categories/edit/'+id,
-            type: 'GET',
-            success: function(){
-            }
-        });
-        window.location = '/admin/categories';
-    });
-
     $('.removeUser').click(function(e){
         var id = $(this).data('id');
         console.log(id);
         $.ajax({
             url:'/admin/users/delete/'+id,
             type: 'DELETE',
-            success: function(){
-            }
-        });
-        window.location = '/admin/users';
-    });
-
-    $('.resetUser').click(function(e){
-        var id = $(this).data('id');
-        console.log(id);
-        $.ajax({
-            url:'/admin/users/reset/'+id,
-            type: 'GET',
             success: function(){
             }
         });
@@ -68,14 +45,15 @@ $(document).ready(function(){
         window.location = '/admin/approvals';
     });
 
-    $('.acceptApproval').click(function(e){
+    $('.removeSession').click(function(e){
         var id = $(this).data('id');
         $.ajax({
-            url:'/admin/approvals/edit/'+id,
-            type: 'GET',
+            url:'/admin/sessions/delete/'+id,
+            type: 'DELETE',
             success: function(){
             }
         });
-        window.location = '/admin/approvals';
+        window.location = '/admin/sessions';
     });
+    
 });
