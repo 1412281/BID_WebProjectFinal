@@ -103,6 +103,31 @@ r.get('/profile',restrict,function(req, res) {
     
 });
 
+r.get('/dangdaugia',restrict,function(req, res) {
+    console.log("Dang Dau Gia...............");
+
+    console.log(req.session.user.tenuser);
+
+
+     accountRepo.loaddanhsachdaugia(req.session.user.tenuser)
+        .then(function(rows) {
+        console.log(rows[0]);
+        var vm = {
+                layoutModels: res.locals.layoutModels,
+                thongtincanhan: rows[0][0],
+                nhanxet: rows[1]
+            };
+            console.log(rows[1]);
+                 res.render('account/profile', vm);
+            }).fail(function(err) {
+                console.log(err);
+                res.end('fail');
+
+
+    });    
+    
+});
+
 r.post('/updateinfo', restrict, function(req, res) {
     console.log("capnhatthongtin...............");
     
