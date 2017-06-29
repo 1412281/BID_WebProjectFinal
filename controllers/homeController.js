@@ -92,6 +92,12 @@ r.get('/:id-:idsp', function(req, res) {
 });
 
 r.post('/bid', function(req, res) {
+    if (res.locals.layoutModels.curUser == null) {
+        res.redirect('/login');
+        console.log("login");
+        return false;
+    }
+
     var data = {
         giadau: req.body.giadau,
         maphien: req.body.maphien,
@@ -99,10 +105,16 @@ r.post('/bid', function(req, res) {
         date: dateFormat(Date.now(), "isoDateTime")
     }
     console.log(data);
-    bidRepo.bid(data).then(function() {
-        console.log("bid thanh cong");
+    bidRepo.insertCtphien(data).then(function() {
+        bidRepo.updatePhien(data).then(function() {
+            console.log("bid thanh cong");
 
-        res.redirect(req.get('referer'));
+            res.redirect(req.get('referer'));
+        }).fail(function() {
+            res.end('fail');
+            res.redirect(req.get('referer'));
+        });;
+
     }).fail(function() {
         res.end('fail');
         res.redirect(req.get('referer'));
