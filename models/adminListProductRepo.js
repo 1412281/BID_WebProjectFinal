@@ -18,13 +18,11 @@ exports.listapproval = function(){
 }
 
 exports.updatesessionstatus = function(id) {
-    console.log(id);
 	var entity = {
-        maphien: id,
-        tinhtrang: 'ok'
+        maphien: id
     };
     var sql = mustache.render(
-        'update phiendaugia set tinhtrang = {{tinhtrang}} where maphien = {{maphien}}',
+        'update phiendaugia set tinhtrang = "ok" where maphien = {{maphien}}',
         entity
     );
     return db.update(sql);

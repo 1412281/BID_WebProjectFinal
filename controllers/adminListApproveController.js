@@ -8,10 +8,7 @@ r.get('/', function(req,res){
 			var vm = {
 				layoutVM: res.locals.layoutVM,
 				approvals : rows
-			};
-			// in ra test thu
-			//console.log(rows);
-			
+			};			
 			res.render('admin/approvals',vm);
 			}).fail(function(err){
 				console.log(err);
@@ -32,7 +29,6 @@ r.delete('/delete/:id', function(req, res){
 
 r.get('/approve/:id', function(req, res) {
      var id = req.params.id;
-     console.log(id);
     adminListProductsRepo.updatesessionstatus(id).then(function(data) {
     	res.location('/admin/approvals');
     	res.redirect('/admin/approvals');
