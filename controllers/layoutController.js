@@ -2,12 +2,6 @@ var q = require('q');
 
 
 module.exports = function(req, res, next) {
-<<<<<<< HEAD
-
-    if (req.session.isLogged === undefined) {
-        req.session.isLogged = false;
-    }
-=======
     var isSeller = false;
     if (req.session.isLogged === undefined) {
         req.session.isLogged = false;
@@ -21,15 +15,11 @@ module.exports = function(req, res, next) {
         }
     };
 
->>>>>>> master
 
     q.all(res.locals.layoutModels = {
         isLogged: req.session.isLogged,
         curUser: req.session.user,
-<<<<<<< HEAD
-=======
         isSeller: isSeller
->>>>>>> master
     });
     console.log(req.session.user);
     next();

@@ -38,11 +38,7 @@ r.get('/', function(req, res) {
 r.post('/', upload.any(), function(req, res) {
     console.log(req.body);
 
-<<<<<<< HEAD
-    sellerRepo.themsanpham(req.body, req.files);
-=======
     sellerRepo.themsanpham(req.session.user.tenuser, req.body, req.files);
->>>>>>> master
 
     res.redirect('/seller');
 });

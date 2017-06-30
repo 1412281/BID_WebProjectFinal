@@ -36,7 +36,6 @@ exports.signIn = function(req) {
 }
 
 exports.register = function(data) {
-<<<<<<< HEAD
     var obj = {
         ins: "insert into users (tenuser, matkhau, hoten, diachi, email, diemcong, diemtru, permission) values",
         tenuser: data.tenuser,
@@ -48,6 +47,7 @@ exports.register = function(data) {
     var sql = mustache.render("{{ins}} ('{{tenuser}}','{{matkhau}}','{{hoten}}','{{diachi}}','{{email}}','0', '0', '0')", obj);
     return db.insert(sql);
 }
+
 exports.getUser = function(username) {
     var data = {
         tenuser: username
@@ -55,33 +55,14 @@ exports.getUser = function(username) {
     var sql = mustache.render('select * from users where tenuser="{{tenuser}}"',data);
     return db.load(sql);
 }
-=======
-    var data = {
-        ins: "insert into users (tenuser, matkhau, hoten, diachi, email, diemcong, diemtru,permission) values",
-        tenuser: data.tenuser,
-        matkhau: data.matkhau,
-        hoten: data.hoten,
-        diachi: data.diachi,
-        email: data.email
-    }
-    var sql = mustache.render("{{ins}} ('{{tenuser}}','{{matkhau}}','{{hoten}}','{{diachi}}','{{email}}','0', '0',0)", data);
-    console.log(sql);
-    return db.insert(sql);
-}
->>>>>>> master
 
 exports.getUserInfo = function(username) {
     var data = {
         tenuser: username
     }
     console.log("input:"+ data.tenuser);
-<<<<<<< HEAD
-    var sql = mustache.render("select * from thongtinuser where tenuser='{{tenuser}}';",data);
-    sql+="select * from nhanxet where tenuser='"+data.tenuser+"' ";
-=======
     var sql = mustache.render("select * from users where tenuser='{{tenuser}}';",data);
     sql+="select * from nhanxet where tenuser='"+data.tenuser+"'; select danhgia from thongtinuser where tenuser='"+data.tenuser+"'";
->>>>>>> master
     console.log(sql);
     return db.load(sql);
 }
@@ -100,8 +81,6 @@ exports.updateinfo = function(userinfo) {
     return db.update(sql);
 }
 
-<<<<<<< HEAD
-=======
 exports.nangcaptaikhoan = function(ten) {
     var data = {
         tenuser: ten
@@ -112,17 +91,12 @@ exports.nangcaptaikhoan = function(ten) {
     return db.update(sql);
 }
 
->>>>>>> master
 exports.updatepassword = function(tenuser, passmoi) {
     var data = {
         tenuser: tenuser,
         passmoi: passmoi
     }
-<<<<<<< HEAD
     var sql = mustache.render("update users set matkhau='{{passmoi}}' where tenuser='{{tenuser}}'", 
-=======
-    var sql = mustache.render("update users set matkhau='{{passmoi}}' where tenuser='{{tenuser}}';", 
->>>>>>> master
         data);
     console.log(sql);
     return db.update(sql);
@@ -158,11 +132,8 @@ exports.loaddathang = function(tenuser) {
 }
 
 
-<<<<<<< HEAD
-=======
 
 
->>>>>>> master
 // var data = {
 //     tenuser: "1",
 //     password: "1"

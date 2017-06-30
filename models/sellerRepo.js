@@ -32,23 +32,6 @@ exports.updatesanpham = function(sanpham) {
     return db.update(sql);
 }
 
-<<<<<<< HEAD
-exports.themsanpham = function(sanpham, danhsachhinh) {
-    // add sanpham first
-    var obj1 = {
-        ten: sanpham.tensanpham,
-        loai: sanpham.loai,
-        motaHTML: sanpham.gioithieu
-    };
-    var sql = mustache.render("INSERT INTO sanpham(tensp,nguoidang,loai,motaHTML) VALUES('{{ten}}','user1',{{loai}},'",
-        obj1
-    );
-
-    sql += sanpham.gioithieu + "')";
-    db.insert(sql).then(function(maspthem) {
-
-
-=======
 exports.themsanpham = function(nguoidang,sanpham, danhsachhinh) {
     // add sanpham first
     var obj1 = {
@@ -65,7 +48,6 @@ exports.themsanpham = function(nguoidang,sanpham, danhsachhinh) {
     sql += sanpham.gioithieu + "')";
      console.log(sql);
     db.insert(sql).then(function(maspthem) {
->>>>>>> master
         //add to hinhanh
         for (i = 0; i < 3; i++) {
             if (!danhsachhinh[i]) {
@@ -96,23 +78,16 @@ exports.themsanpham = function(nguoidang,sanpham, danhsachhinh) {
 }
 
 exports.dangsanpham = function(phienmoi) {
-<<<<<<< HEAD
-=======
     var giamuangay1 = phienmoi.giamuangay;
     if(giamuangay1 == '') {
         giamuangay1='null';
     }
->>>>>>> master
     // add sanpham first
     var obj1 = {
         masp: phienmoi.masanpham,
         giakhoidiem: phienmoi.giakhoidiem,
         buocgia: phienmoi.buocgia,
-<<<<<<< HEAD
-        giamuangay: phienmoi.giamuangay,
-=======
         giamuangay: giamuangay1,
->>>>>>> master
         thgianbd: phienmoi.thgianbd,
         thgiankt: phienmoi.thgiankt
     };
@@ -121,9 +96,7 @@ exports.dangsanpham = function(phienmoi) {
     );
 
     console.log(sql);
-<<<<<<< HEAD
-    return db.insert(sql);
-=======
+    //return db.insert(sql);
 
     // tạo timer làm nhiệm vụ canh hết thời gian khi sản phẩm kết thúc 
     
@@ -168,7 +141,6 @@ function TimerKetThucPhienDauGia (maphien, thoigiankt) {
 
 
     }
->>>>>>> master
 
 }
 

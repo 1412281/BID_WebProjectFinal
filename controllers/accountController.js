@@ -6,23 +6,15 @@ var request = require('request');
 var restrict = require('../midle-wares/restrict');
 var crypto = require('crypto');
 
-<<<<<<< HEAD
 r.get('/', function(req, res) {
     res.render('home/login');
 });
-=======
-
-
->>>>>>> master
 
 r.get('/register', function(req, res) {
     if (req.session.isLogged === true) {
         next();
     } else {
-<<<<<<< HEAD
         res.render('home/register');
-=======
-        res.render('home/index');
     }
 
 });
@@ -32,19 +24,15 @@ r.get('/signin', function(req, res) {
         next();
     } else {
         res.render('home/index');
->>>>>>> master
     }
 
 });
 
 r.post('/register', function(req, res) {
     if (req.body['g-recaptcha-response'] === undefined || req.body['g-recaptcha-response'] === '' || req.body['g-recaptcha-response'] === null) {
-<<<<<<< HEAD
-        return res.json({ "responseCode": 1, "responseDesc": "Please select captcha" });
+        //return res.json({ "responseCode": 1, "responseDesc": "Please select captcha" });
         //return false;
-=======
         res.end("Please select captcha");
->>>>>>> master
     }
     // Put your secret key here.
     var secretKey = "6LcyKScUAAAAAIzb7F4uAa7LkGMIPjSgbHG_xdL8";
@@ -55,12 +43,8 @@ r.post('/register', function(req, res) {
         body = JSON.parse(body);
         // Success will be true or false depending upon captcha validation.
         if (body.success !== undefined && !body.success) {
-<<<<<<< HEAD
-            return res.json({ "responseCode": 1, "responseDesc": "Failed captcha verification" });
-=======
             res.end("Failed captcha verification");
             //return res.json({ "responseCode": 1, "responseDesc": "Failed captcha verification" });
->>>>>>> master
             //return false;
         }
         //res.json({ "responseCode": 0, "responseDesc": "Sucess" }); 
@@ -72,14 +56,6 @@ r.post('/register', function(req, res) {
             email: req.body.email
         }
         accountRepo.register(data).then(function(result) {
-<<<<<<< HEAD
-            //var url = req.get('referer');
-
-            res.redirect('/');
-        });
-        console.log(data);
-        res.redirect('/');
-=======
             var url = req.get('referer');
 
             res.redirect(url);
@@ -88,7 +64,6 @@ r.post('/register', function(req, res) {
         var url = req.get('referer');
 
         res.redirect(url);
->>>>>>> master
     });
 
 });
@@ -130,14 +105,10 @@ r.post('/logout', restrict, function(req, res) {
     req.session.isLogged = false;
     req.session.user = null;
     req.session.cookie.expires = new Date(Date.now() - 1000);
-<<<<<<< HEAD
     var url = req.get('referer');
 
     res.redirect(url);
-=======
-
-    res.redirect('../');
->>>>>>> master
+    //res.redirect('../');
 });
 
 
@@ -149,15 +120,6 @@ r.get('/profile', restrict, function(req, res) {
 
     accountRepo.getUserInfo(req.session.user.tenuser)
         .then(function(rows) {
-<<<<<<< HEAD
-            console.log(rows[0]);
-            var vm = {
-                layoutModels: res.locals.layoutModels,
-                thongtincanhan: rows[0][0],
-                nhanxet: rows[1]
-            };
-            console.log(rows[1]);
-=======
 
             var vm = {
                 layoutModels: res.locals.layoutModels,
@@ -166,7 +128,6 @@ r.get('/profile', restrict, function(req, res) {
                 phantram: rows[2][0]
             };
             console.log(rows[2]);
->>>>>>> master
             res.render('account/profile', vm);
         }).fail(function(err) {
             console.log(err);
@@ -271,8 +232,6 @@ r.post('/updateinfo', restrict, function(req, res) {
     res.redirect('../login/profile');
 });
 
-<<<<<<< HEAD
-=======
 r.post('/nangcaptaikhoan', restrict, function(req, res) {
     console.log("nangcaptaikhoan...............");
     console.log(req.body.tenuser);
@@ -281,7 +240,6 @@ r.post('/nangcaptaikhoan', restrict, function(req, res) {
     res.redirect('../login/profile');
 });
 
->>>>>>> master
 r.post('/changepassword', restrict, function(req, res) {
     console.log("doimatkhau...............");
     console.log(req.body);
@@ -295,11 +253,7 @@ r.post('/changepassword', restrict, function(req, res) {
                 thongtincanhan: rows[0][0],
                 nhanxet: rows[1]
             };
-<<<<<<< HEAD
-            if (vm.thongtincanhan.matkhau ==ePWD ) {
-=======
             if (vm.thongtincanhan.matkhau == ePWD) {
->>>>>>> master
                 console.log("Pass Cu Dung");
                 accountRepo.updatepassword(req.session.user.tenuser, ePWD_new);
                 res.redirect('../login/profile');

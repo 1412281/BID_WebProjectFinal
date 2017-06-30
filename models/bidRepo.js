@@ -24,11 +24,8 @@ exports.getAutoBid = function(maphien) {
 }
 
 exports.insertAutoBid = function(data) {
-<<<<<<< HEAD
-=======
 
 
->>>>>>> master
     var ins = "insert into daugiatudong (maphien, nguoidaugia, giamax) values";
     var sql = mustache.render("('{{maphien}}', '{{nguoidaugia}}', '{{giadau}}')", data);
     return db.insert(ins + sql);
@@ -41,15 +38,6 @@ exports.updateAutoBid = function(data) {
     return db.update(upd + sql);
 }
 
-<<<<<<< HEAD
-=======
-exports.getDiem = function(tenuser){
-    var sql = "select danhgia from thongtinuser where tenuser='"+tenuser+"'";
-    console.log(sql);
-    return db.load(sql);
-}
-
->>>>>>> master
 // data = {
 //     maphien: "1",
 //     nguoidaugia: "2",
@@ -58,10 +46,4 @@ exports.getDiem = function(tenuser){
 // updateAutoBid(data).then(function(rows) {
 //     console.log("aaa");
 //     console.log(rows);
-<<<<<<< HEAD
 // });
-=======
-// });
-
-
->>>>>>> master
