@@ -175,8 +175,6 @@ r.post('/bid', function(req, res) {
         }
     });
 
-
-
     var data = {
         giahientai: req.body.giahientai,
         giadau: req.body.giadau,
@@ -201,16 +199,20 @@ r.post('/bid', function(req, res) {
                     insertBid(data).then(function() {
                         insertBid(curMax).then(function() {
                             res.redirect(req.get('referer'));
-                        })
-                    })
+                        }).then(function(){
+                            //thay đổi khi bị bid max chiếm
+                        });
+                    });
                 } else if (data.giadau == rows[0].giamax) {
                     console.log("bang");
                     curMax.giadau = rows[0].giamax;
                     insertBid(data).then(function() {
                         insertBid(curMax).then(function() {
                             res.redirect(req.get('referer'));
-                        })
-                    })
+                        }).then(function(){
+                            //mail: thay đổi khi bị bid max chiếm
+                        });
+                    });
                 } else {
                     console.log("lon hon");
                     data.giadau = parseInt(rows[0].giamax) + parseInt(data.buocgia);
@@ -220,10 +222,12 @@ r.post('/bid', function(req, res) {
                             data.giadau = req.body.giadau;
                             bidRepo.updateAutoBid(data).then(function() {
                                 res.redirect(req.get('referer'));
+                            }).then(function(){
+                                //mail: đấu giá tự động thành công
                             });
 
-                        })
-                    })
+                        });
+                    });
                 }
             } else {
                 data.giadau = parseInt(data.giahientai) + parseInt(data.buocgia);
@@ -231,6 +235,8 @@ r.post('/bid', function(req, res) {
                     data.giadau = req.body.giadau;
                     bidRepo.insertAutoBid(data).then(function() {
                         res.redirect(req.get('referer'));
+                    }).then(function(){
+                        //mail: đấu giá tự động thành công
                     });
                 });
             }
@@ -280,7 +286,12 @@ checkAutoBid = function(data) {
                 if (rows[0].giamax == data.giadau) {
                     newCT.giadau = parseInt(data.giadau);
                 }
-                insertBid(newCT);
+                insertBid(newCT).then(function(){
+                    //mail: thay đổi khi bị bid max chiếm
+                });
+            }
+            else{
+                //mail: đấu giá tự động thành công
             }
 
         }
@@ -302,4 +313,4 @@ r.taotimerKetThucPhien  = function() {
 
 
     
-    }
+}

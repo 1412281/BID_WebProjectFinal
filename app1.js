@@ -95,7 +95,6 @@ app.use('/', homeController);
 app.use('/search', searchController);
 app.use('/login', accountController);
 app.use('/seller', sellController);
-app.use(handle403);
 app.use('/admin/users', adminListUserController);
 app.use('/admin', adminListUserController);
 app.use('/admin/products', adminListProductController);
@@ -103,17 +102,17 @@ app.use('/admin/categories', categoryController);
 app.use('/admin/approvals', adminListApproveController);
 app.use('/admin/sessions', adminListSessionController);
 app.use('/admin', emailController);
-
+app.use(handle403);
 app.listen(3000);
 
 
 var dachay =false;
 
 
-// var xRefresh = setInterval(function(){
-//     if(dachay == false){
-//         dachay = true;        
-//         homeController.taotimerKetThucPhien();    
-//     }
+var xRefresh = setInterval(function(){
+    if(dachay == false){
+        dachay = true;        
+        homeController.taotimerKetThucPhien();    
+    }
     
-// },2000);
+},2000);

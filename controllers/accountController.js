@@ -29,7 +29,8 @@ r.get('/signin', function(req, res) {
 
 r.post('/register', function(req, res) {
     if (req.body['g-recaptcha-response'] === undefined || req.body['g-recaptcha-response'] === '' || req.body['g-recaptcha-response'] === null) {
-        res.end("Please select captcha");
+        res.end("vui lòng chọn captcha");
+        return false;
     }
     // Put your secret key here.
     var secretKey = "6LcyKScUAAAAAIzb7F4uAa7LkGMIPjSgbHG_xdL8";
@@ -41,7 +42,9 @@ r.post('/register', function(req, res) {
         // Success will be true or false depending upon captcha validation.
         if (body.success !== undefined && !body.success) {
             //res.end("Failed captcha verification");
-            return res.json({ "responseCode": 1, "responseDesc": "Failed captcha verification" });
+            res.end("sai captcha");
+            return false;
+            //return res.json({ "responseCode": 1, "responseDesc": "Failed captcha verification" });
             //return false;
         }
                 //Xác thực Email
@@ -50,9 +53,9 @@ r.post('/register', function(req, res) {
         request(url, function(error, response, body){
             body = JSON.parse(body);
             if (!body.format_valid || !body.smtp_check){
-                //res.end("Format Email or Email not valid");
+                res.end("Format Email or Email not valid");
                 console.log('ko');
-                return res.json({ "responseCode": 1, "responseDesc": "Format Email or Email not valid" });
+                //return res.json({ "responseCode": 1, "responseDesc": "Format Email or Email not valid" });
             }
             else
             {
@@ -65,13 +68,15 @@ r.post('/register', function(req, res) {
                         email: req.body.email
                 }
                 accountRepo.register(data).then(function(result) {
-                    res.redirect('/');
-                    console.log(data);
+                    res.end("Đăng ký thành công");
+                    return false;
+                    //console.log(data);
                 });
             }
-            
+            res.end("Đăng ký thành công");
+         return false;
         });
-        res.redirect('/');
+         
     });
 
 });

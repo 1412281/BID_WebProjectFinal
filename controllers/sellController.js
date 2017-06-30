@@ -133,7 +133,7 @@ r.get('/KICK/:maphien;:tenuser', function(req, res) {
 
     console.log(data);
     sellerRepo.KICK(data.maphien, data.user);
-
+    //mail: bị kích
     res.redirect('/seller');
 });
 
