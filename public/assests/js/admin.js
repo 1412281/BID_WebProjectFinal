@@ -56,4 +56,15 @@ $(document).ready(function(){
         window.location = '/admin/sessions';
     });
     
+    $('.removeUpgrade').click(function(e){
+        var id = $(this).data('id');
+        $.ajax({
+            url:'/admin/users/upgrade/'+id,
+            type: 'DELETE',
+            success: function(){
+            }
+        });
+        window.location = '/admin/upgrade_users';
+    });
+    
 });

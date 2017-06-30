@@ -32,8 +32,7 @@ r.get('/', function(req,res){
 
 r.delete('/delete/:id', function(req, res){
     var id = req.params.id;
-    console.log(id);
-    adminListUserRepo.delete(id).then(function(data) {
+    adminListUserRepo.delete(id, -1).then(function(data) {
         res.location('/admin/users');
         res.redirect('/admin/users');
     }).catch(function(err) {
@@ -43,6 +42,7 @@ r.delete('/delete/:id', function(req, res){
  });
 
 r.get('/reset/:id', function(req, res) {
+    console.log('Send mail:.........................');
     var id = req.params.id;
     accountRepo.getUser(id).then(function(user) {
         var newpw = adminListUserRepo.randomString(8);
@@ -59,7 +59,7 @@ r.get('/reset/:id', function(req, res) {
         m_html += '<p>Thân ái! AutoBid</p>';
         m_html += '<ul><li>Email: suport@tintin.vn</li><li>Phone: 18001000</li></ul>';
         emailRepo.sentmail(m_to, m_subject, m_text, m_html);
-        res.redirect('/');
+        res.redirect('/admin');
     });
 });
 module.exports = r;

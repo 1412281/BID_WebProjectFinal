@@ -21,6 +21,7 @@
             <li><a href="/"><i class="fa fa-home fa-fw"></i>Home</a></li>
         </ul>
         <!-- Top Navigation: Right Menu -->
+        <form id="frmLogout" method="POST" action="/login/logout"></form>
         <ul class="nav navbar-right navbar-top-links">
             <li class="dropdown navbar-inverse">
                 <a class="dropdown-toggle" data-toggle="dropdown" href="#">
@@ -49,17 +50,17 @@
                     <i class="fa fa-user fa-fw"></i> Admin<b class="caret"></b>
                 </a>
                 <ul class="dropdown-menu dropdown-user">
-                    <li><a href="#"><i class="fa fa-user fa-fw"></i> User Profile</a>
+                    <li><a href="login/profile"><i class="fa fa-user fa-fw"></i> User Profile</a>
                     </li>
                     <li><a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>
                     </li>
                     <li class="divider"></li>
-                    <li><a href="#"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
+                    <li><a id="logoutLink" href="javascript:;"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
                     </li>
                 </ul>
             </li>
         </ul>
-
+        
         <!-- Sidebar -->
         <div class="navbar-default sidebar" role="navigation">
             <div class="sidebar-nav navbar-collapse">
@@ -69,17 +70,17 @@
                     </li>
                     <li>
                         <a href="/admin/users"><i class="fa fa-dashboard fa-fw"></i> Quản lý tài khoản<span class="fa arrow"></span></a>
-                        <!--<ul class="nav nav-second-level">
-                            <li>
+                        <ul class="nav nav-second-level">
+                            <!--<li>
                                 <a href="/admin/new_users">Danh sách đăng ký mới</a>
-                            </li>
+                            </li>-->
                             <li>
                                 <a href="/admin/upgrade_users">Danh sách yêu cầu nâng cấp</a>
                             </li>
                             <li>
                                 <a href="/admin/users" class="active">Danh sách tài khoản</a>
                             </li>
-                        </ul>-->
+                        </ul>
                     </li>
                     <li>
                         <a href="/admin/products"><i class="fa fa-sitemap fa-fw"></i> Quản lý sản phẩm<span class="fa arrow"></span></a>
@@ -106,4 +107,9 @@
     <script src="/assests/js/metisMenu.min.js" type="text/javascript" charset="utf-8"></script>
     <script src="/assests/js/startmin.js" type="text/javascript" charset="utf-8"></script>
     <script src="/assests/js/admin.js" type="text/javascript" charset="utf-8"></script>
+    <script type="text/javascript">
+        $('#logoutLink').on('click', function () {
+            $('#frmLogout').submit();
+        });
+    </script>
 {{/section}}

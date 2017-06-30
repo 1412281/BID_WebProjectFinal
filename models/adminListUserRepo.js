@@ -11,15 +11,32 @@ exports.listuserpact = function(){
 	return db.load(sql);
 }
 
-exports.delete = function(id) {
+exports.listupgrade = function(){
+    var sql = 'select u.tenuser, u.email from users u, seller s where u.tenuser = s.tenuser';
+	return db.load(sql);
+}
+
+exports.delete = function(id, num){
     var entity = {
         tenuser: id,
-        permission: -1
+        permission: num
     };
     var sql = mustache.render(
-        'update users set permission = "{{permission}}" where tenuser = {{tenuser}}',
+        'update users set permission = {{permission}} where tenuser = "{{tenuser}}"',
         entity
     );
+    console.log('----------------' + sql);
+    return db.update(sql);
+}
+
+exports.deleteseller = function(id) {
+    var entity = {
+        tenuser: id
+    };
+    var sql = mustache.render(
+        'delete from seller where tenuser = "{{tenuser}}"',entity
+    );
+    console.log(sql);
     return db.delete(sql);
 }
 

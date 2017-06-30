@@ -17,6 +17,7 @@ var express = require('express'),
     adminListProductController = require('./controllers/adminListProductController'),
     adminListApproveController = require('./controllers/adminListApproveController'),
     adminListSessionController = require('./controllers/adminListSessionController'),
+    adminListUpgradeController = require('./controllers/adminListUpgradeController')
     sellController = require('./controllers/sellController.js');
 var i18n = require("i18n");
 var validate = require('form-validate');
@@ -102,6 +103,7 @@ app.use('/admin/categories', categoryController);
 app.use('/admin/approvals', adminListApproveController);
 app.use('/admin/sessions', adminListSessionController);
 app.use('/admin', emailController);
+app.use('/admin/upgrade_users',adminListUpgradeController);
 app.use(handle403);
 app.listen(3000);
 

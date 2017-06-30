@@ -5,7 +5,7 @@ var sellerRepo = require('../models/sellerRepo');
 var request = require('request');
 var restrict = require('../midle-wares/restrict');
 var crypto = require('crypto');
-
+var accountRepo = require('../models/accountRepo');
 
 
 
@@ -72,6 +72,7 @@ r.post('/register', function(req, res) {
                         }
 
                         accountRepo.register(data).then(function(result) {
+                            accountRepo.sendnewuser(data);
                             res.end("Đăng ký thành công");
                             return false;
                             //console.log(data);
@@ -113,9 +114,13 @@ r.post('/signin', function(req, res) {
             //     req.session.cookie.maxAge = hour;
             // }
             console.log("re");
-            var url = req.get('referer');
-
-            res.redirect(url);
+            if (user.permission == 2)
+                res.redirect('/admin');
+            else
+            {
+                var url = req.get('referer');
+                res.redirect(url);
+            }
         }
     })
 });
