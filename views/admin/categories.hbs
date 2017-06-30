@@ -1,0 +1,49 @@
+{{#section 'title'}}
+    Quản lý danh mục
+{{/section}}
+
+<div id="wrapper">
+    {{> nav_admin }}
+    <!-- Page Content -->
+    <div id="page-wrapper">
+        <div class="container-fluid">
+            <div class="page-title">
+              <div class="title_left">
+                <h1>Quản lý danh mục</h1>
+              </div>
+              <div class="title_right">
+                <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
+                  <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Nhập tên danh mục để tìm kiếm">
+                    <span class="input-group-btn">
+                      <button class="btn btn-default" type="button">Search</button>
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <div class="clearfix"></div>
+            </div>
+                 <table class="table table-striped projects">
+                 	<thead>
+                		<tr>
+                    		<th>Mã danh mục</th>
+                    		<th>Tên danh mục</th>
+                        <th>Thao tác</th>
+                		</tr>
+            		</thead>
+            		<tbody>
+              			{{#each categories }}
+            		<tr>
+                		<td>{{maloai}}</td>
+                		<td>{{tenloai}}</td>
+                    <td>
+                      <a href="/admin/categories/edit/{{maloai}}" class="btn btn-primary btn-xs"><i class="fa fa-pencil"></i> Sửa </a>
+                      <a href="" class="btn btn-danger btn-xs removeCategory" data-id="{{maloai}}"><i class="fa fa-trash-o"></i> Delete </a>
+                    </td>
+            		</tr>
+                		{{/each}}
+            		</tbody>
+                 </table>
+                 <a href="/admin/categories/add" class="btn btn-success btn-xs"><i class="glyphicon glyphicon-plus"></i> Thêm </a>
+            </div>
+    </div>
