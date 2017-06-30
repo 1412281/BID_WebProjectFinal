@@ -46,7 +46,9 @@ r.get('/reset/:id', function(req, res) {
     var id = req.params.id;
     accountRepo.getUser(id).then(function(user) {
         var newpw = adminListUserRepo.randomString(8);
+        console.log(newpw);
         var hashpw = crypto.createHash('md5').update(newpw).digest('hex');
+        console.log(haspw);
         accountRepo.updatepassword(user[0].tenuser, hashpw);
         //m_to, m_subject, m_text, m_html
         var m_to = user[0].email;

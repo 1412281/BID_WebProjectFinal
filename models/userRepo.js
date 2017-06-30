@@ -6,17 +6,14 @@ var mustache = require('mustache'),
 
 var updateInfo = function(tenuser, matkhau, hoten, diachi, email) {
     var data = {
-        upd: "update users set",
-        tenuser,
-        matkhau,
-        hoten,
-        diachi,
-        email
+        tenuser: tenuser,
+        matkhau: matkhau,
+        hoten: hoten,
+        diachi: diachi,
+        email: email
     }
 
-    // var sql = mustache.render("UPDATE users SET hoten = '{{hoten}}' diachi = '{{diachi}}' email = '{{email}}' where tenuser = '{{tenuser}}' AND matkhau = '{{matkhau}}'", data);
-    var sql = mustache.render("{{upd}} hoten = 'a', diachi = '{{diachi}}', email = '{{email}}' where tenuser = '{{tenuser}}' AND matkhau = '{{matkhau}}'", data);
-
+    var sql = mustache.render("UPDATE users SET hoten = '{{hoten}}' diachi = '{{diachi}}' email = '{{email}}' where tenuser = '{{tenuser}}' AND matkhau = '{{matkhau}}'", data);
     return db.update(sql);
 }
 
