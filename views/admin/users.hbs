@@ -1,0 +1,52 @@
+{{#section 'title'}}
+    Quản lý tài khoản
+{{/section}}
+
+<div id="wrapper">
+    {{> nav_admin }}
+    <!-- Page Content -->
+    <div id="page-wrapper">
+        <div class="container-fluid">
+            <div class="page-title">
+              <div class="title_left">
+                <h1>Quản lý tài khoản</h1>
+              </div>
+              <div class="title_right">
+                <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
+                  <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Nhập Email để tìm kiếm">
+                    <span class="input-group-btn">
+                      <button class="btn btn-default" type="button">Search</button>
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <div class="clearfix"></div>
+            </div>
+                 <table class="table table-striped projects">
+                 	<thead>
+                		<tr>
+                    		<th>Tên đăng nhập</th>
+                    		<th>Email</th>
+                    		<th>Điểm cộng</th>
+                        <th>Điểm trừ</th>
+                    		<th>Thao tác</th>
+                		</tr>
+            		</thead>
+            		<tbody>
+              			{{#each users }}
+            		<tr>
+                		<td>{{tenuser}}</td>
+                		<td>{{email}}</td>
+                		<td>{{diemcong}}</td>
+                    <td>{{diemtru}}</td>
+                		<td>
+                			<a href="/admin/users/reset/{{tenuser}}" class="btn btn-info btn-xs"><i class="fa fa-refresh"></i> Reset </a>
+                			<a href="" class="btn btn-danger btn-xs removeUser" data-id="{{tenuser}}"><i class="fa fa-trash-o"></i> Delete </a>
+                		</td>
+            		</tr>
+                		{{/each}}
+            		</tbody>
+                 </table>
+            </div>
+    </div>

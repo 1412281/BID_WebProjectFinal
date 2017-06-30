@@ -11,12 +11,18 @@ var express = require('express'),
     accountController = require('./controllers/accountController'),
     layoutController = require('./controllers/layoutController'),
     handle403 = require('./midle-wares/handle-403'),
+
+    categoryController = require('./controllers/categoryController'),
+    adminListUserController = require('./controllers/adminListUserController'),
+    adminListProductController = require('./controllers/adminListProductController'),
+    adminListApproveController = require('./controllers/adminListApproveController'),
+    adminListSessionController = require('./controllers/adminListSessionController'),
     sellController = require('./controllers/sellController.js');
 var i18n = require("i18n");
 var validate = require('form-validate');
 var session = require('express-session');
 var MySQLStore = require('express-mysql-session')(session);
-
+var emailController = require('./controllers/emailController');
 
 var app = express();
 
@@ -90,6 +96,14 @@ app.use('/search', searchController);
 app.use('/login', accountController);
 app.use('/seller', sellController);
 app.use(handle403);
+app.use('/admin/users', adminListUserController);
+app.use('/admin', adminListUserController);
+app.use('/admin/products', adminListProductController);
+app.use('/admin/categories', categoryController);
+app.use('/admin/approvals', adminListApproveController);
+app.use('/admin/sessions', adminListSessionController);
+app.use('/admin', emailController);
+
 app.listen(3000);
 
 
