@@ -36,31 +36,42 @@ r.post('/register', function(req, res) {
     // req.connection.remoteAddress will provide IP address of connected user.
     var verificationUrl = "https://www.google.com/recaptcha/api/siteverify?secret=" + secretKey + "&response=" + req.body['g-recaptcha-response'] + "&remoteip=" + req.connection.remoteAddress;
     // Hitting GET request to the URL, Google will respond with success or error scenario.
-    request(verificationUrl, function(error, response, body) {
+    request(verificationUrl, function(error, response, body) {       
         body = JSON.parse(body);
         // Success will be true or false depending upon captcha validation.
         if (body.success !== undefined && !body.success) {
-            res.end("Failed captcha verification");
-            //return res.json({ "responseCode": 1, "responseDesc": "Failed captcha verification" });
+            //res.end("Failed captcha verification");
+            return res.json({ "responseCode": 1, "responseDesc": "Failed captcha verification" });
             //return false;
         }
-        //res.json({ "responseCode": 0, "responseDesc": "Sucess" }); 
-        var ePWD = crypto.createHash('md5').update(req.body.password).digest('hex');
-        var data = {
-            tenuser: req.body.tenuser,
-            matkhau: ePWD,
-            hoten: req.body.hoten,
-            email: req.body.email
-        }
-        accountRepo.register(data).then(function(result) {
-            var url = req.get('referer');
-
-            res.redirect(url);
+                //Xác thực Email
+        var key = "72976c0564631418fe750ca7ad4d24f5";
+        var url = "http://apilayer.net/api/check?access_key=" + key + "&email=" + req.body.email + "&smtp=1&format=1";
+        request(url, function(error, response, body){
+            body = JSON.parse(body);
+            if (!body.format_valid || !body.smtp_check){
+                //res.end("Format Email or Email not valid");
+                console.log('ko');
+                return res.json({ "responseCode": 1, "responseDesc": "Format Email or Email not valid" });
+            }
+            else
+            {
+                console.log('ok');
+                var ePWD = crypto.createHash('md5').update(req.body.password).digest('hex');
+                var data = {
+                        tenuser: req.body.tenuser,
+                        matkhau: ePWD,
+                        hoten: req.body.hoten,
+                        email: req.body.email
+                }
+                accountRepo.register(data).then(function(result) {
+                    res.redirect('/');
+                    console.log(data);
+                });
+            }
+            
         });
-        console.log(data);
-        var url = req.get('referer');
-
-        res.redirect(url);
+        res.redirect('/');
     });
 
 });
