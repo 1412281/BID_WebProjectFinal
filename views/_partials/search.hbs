@@ -1,56 +1,12 @@
-<form method="GET" class="navbar-form navbar-left searchForm" action="search" id="searchForm">
+<div class="navbar-form navbar-left searchForm" action="../search" id="searchForm">
     <div class="form-group">
-        <input id="name" type="text" class="form-control" placeholder="Tìm kiếm sản phẩm..." name="name" autofocus>
+        <input id="SearchName" type="text" class="form-control" placeholder="Tìm kiếm sản phẩm..." name="name" autofocus>
     </div>
     <button id="searchBtn" type="button" class="btn btn-default">
                             <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
                         </button>
 
-</form>
+</div>
 
 <script type="text/javascript" src="/assests/jquery-3.1.1.min.js"></script>
-<script>
-    $('#seachForm').on('submit',function() {
-        var name = $("#name").val();
-        console.log(name);
-        return false;
-        var url;
-        if (document.location.href.includes('type') && document.location.href.includes('name')) {
-            u = window.location.href.replace(/(name=).*?(&)/,'$1' + name + '$2');
-            console.log(u);
-            var i = 0;
-            url = u;
-        }
-        else if (document.location.href.includes('?type')) {
-            url = window.location.href + "&name=" + name + '&';
-        }
-        
-        else {
-             url = window.location.protocol + "/search?name=" + name + '&';
-        }
-        
-        document.location = url;
-        
-    });
-    $("#searchBtn").on("click", function() {
-        var name = $("#name").val();
-        console.log(name);
-        var url;
-        if (document.location.href.includes('type') && document.location.href.includes('name')) {
-            u = window.location.href.replace(/(name=).*?(&)/,'$1' + name + '$2');
-            console.log(u);
-            var i = 0;
-            url = u;
-        }
-        else if (document.location.href.includes('?type')) {
-            url = window.location.href + "&name=" + name + '&';
-        }
-        
-        else {
-             url = window.location.protocol + "/search?name=" + name + '&';
-        }
-        
-        document.location = url;
-    });
-   
-</script>
+<script src="/assests/js/search.js" type="text/javascript" charset="utf-8"></script>

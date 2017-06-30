@@ -2,6 +2,7 @@ var express = require('express');
 var topbidRepo = require('../models/TopbidRepo');
 var bidRepo = require('../models/bidRepo');
 var r = express.Router();
+var restrict = require('../midle-wares/restrict');
 var dateFormat = require('dateformat');
 var q = require('q');
 
@@ -98,7 +99,39 @@ mahoa = function(data) {
     return result;
 }
 
+r.post('/themvaoyeuthich',restrict, function(req, res) {
 
+   
+    console.log(req.body);
+    var data = {
+        tenuser: req.session.user.tenuser,
+        masp: req.body.maspyeuthich
+    }
+    topbidRepo.themyeuthich(data);
+    res.redirect("../login/yeuthich");
+    // topbidRepo.loadByID(data.maphien, data.masp)
+    //     .then(function(pRows) {
+    //         // console.log(pRows[1]);   
+
+    //         var ctphien = pRows[2];
+    //         for (var i = 0; i < ctphien.length; ++i) {
+    //             ctphien[i].nguoidaugia = mahoa(ctphien[i].nguoidaugia);
+    //         }
+    //         var vm = {
+    //             layoutModels: res.locals.layoutModels,
+    //             bid: pRows[0][0],
+    //             nguoigg: mahoa(pRows[0][0].nguoigiugia),
+    //             giatieptheo: pRows[0][0].buocgia + pRows[0][0].giahientai,
+    //             imageurls: pRows[1],
+    //             chitietphien: ctphien
+    //         };
+
+    //         res.render('bids/bid-details.hbs', vm);
+    //     }).fail(function() {
+    //         res.end("errro");
+    //     });
+
+});
 
 r.get('/:id-:idsp', function(req, res) {
 
@@ -220,6 +253,8 @@ r.post('/bid', function(req, res) {
     }
 
 });
+
+
 
 insertBid = function(data) {
     d = q.defer();

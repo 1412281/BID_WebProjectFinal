@@ -30,7 +30,12 @@ exports.loadresultByID = function(maphien, masp) {
     console.log(sql);
     return db.load(sql);
 }
+exports.themyeuthich = function(data){
+   var sql = mustache.render('insert into yeuthich(tenuser,masp) values("{{tenuser}}",{{masp}})',data);
+   console.log(sql);
 
+   return db.insert(sql);
+}
 
 exports.loadLaiTuDau = function(){
     var sql = "select * from topphiendaugia";
