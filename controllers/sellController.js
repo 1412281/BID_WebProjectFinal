@@ -16,7 +16,7 @@ r.get('/', function(req, res) {
         res.redirect(403, '/login');
         return false;
     }
-    sellerRepo.loadsanphamban()
+    sellerRepo.loadsanphamban(req.session.user.tenuser)
         .then(function(rows) {
             var vm = {
                 layoutModels: res.locals.layoutModels,
@@ -137,7 +137,7 @@ r.get('/KICK/:maphien;:tenuser', function(req, res) {
     res.redirect('/seller');
 });
 
-r.post('/comment',restrict, function(req, res) {
+r.post('/comment', restrict, function(req, res) {
 
     var data = {
         nguoinhancomment: req.body.nguoinhancomment,

@@ -30,6 +30,11 @@
                     <a href="/seller">Quản lý sản phẩm</a>
                 </li>
                 {{/if}}
+                {{#if layoutModels.isADMIN}}
+                <li>
+                    <a href="/admin">Quản lý thành viên</a>
+                </li>
+                {{/if}}
                 
 
              {{#if layoutModels.isLogged }}

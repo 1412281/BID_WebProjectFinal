@@ -3,6 +3,7 @@ var q = require('q');
 
 module.exports = function(req, res, next) {
     var isSeller = false;
+    var isAdmin = false;
     if (req.session.isLogged === undefined) {
         req.session.isLogged = false;
     };
@@ -13,13 +14,17 @@ module.exports = function(req, res, next) {
         if (req.session.user.permission == 1) {
             isSeller = true;
         }
+        if (req.session.user.permission == 2) {
+            isAdmin = true;
+        }
     };
 
 
     q.all(res.locals.layoutModels = {
         isLogged: req.session.isLogged,
         curUser: req.session.user,
-        isSeller: isSeller
+        isSeller: isSeller,
+        isADMIN: isAdmin
     });
     console.log(req.session.user);
     next();

@@ -2,8 +2,12 @@ var mustache = require('mustache'),
     q = require('q'),
     db = require('../fn/db');
 
-exports.loadsanphamban = function() {
-    var sql = 'select * from topphiendaugia; select * from sanphamchuadang; select * from sanphamdaban; select * from loaisp';
+exports.loadsanphamban = function(nguoiban) {
+    var ob = {
+        nguoiban: nguoiban
+    }
+    var sql = mustache.render('select * from topphiendaugia where nguoiban="{{nguoiban}}" ; select * from sanphamchuadang where nguoidang="{{nguoiban}}"; select * from sanphamdaban where nguoidang="{{nguoiban}}"; select * from loaisp',
+        ob);
     return db.load(sql);
 }
 

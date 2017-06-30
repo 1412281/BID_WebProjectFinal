@@ -33,7 +33,7 @@
                 </div>
                 <div class="col-md-4 detailinfo" id="chitietsanpham">
                     <div id="masophien">ID: {{bid.maphien}}</div>
-                    <div id="nguoidang">Người bán: <a href="#">{{bid.nguoiban}}</a></div>
+                    <div id="nguoidang">Người bán: <a href="../thongtinuser{{bid.nguoiban}}">{{bid.nguoiban}}</a></div>
                     <div id="thgianBD">Bắt đầu:&nbsp; {{moment bid.thgianbd format="YYYY-MM-DD HH:mm:ss"}}</div>
                     <div id="thgianKT">Kết thúc: {{moment bid.thgiankt format="YYYY-MM-DD HH:mm:ss"}}</div>
                     <div class="timer">
@@ -72,7 +72,7 @@
                             <input type="text" name="giahientai" value="{{ bid.giahientai}}" hidden="true" />                            
                             <input type="text" name="buocgia" value="{{ bid.buocgia}}" hidden="true" />
                             <input id="giatieptheo" name="giadau" type="text" class="form-control required" onkeypress="return isNumber(event)" placeholder="Đặt giá"
-                                value="{{number_format giatieptheo}}" required="true"/>
+                                value="{{giatieptheo}}" required="true"/>
                                 <input type="checkbox" name="autoBid"> Tự động đặt giá
                             <div class="pull-right">
                                 {{#if layoutModels.isLogged}}
