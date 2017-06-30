@@ -1,3 +1,10 @@
+ALTER TABLE `daugia`.`yeuthich` 
+DROP FOREIGN KEY `fk_yeuthich_users`,
+DROP FOREIGN KEY `fk_yeuthich_sanpham`;
+ALTER TABLE `daugia`.`yeuthich` 
+DROP INDEX `fk_yeuthich_sanpham` ,
+DROP INDEX `fk_yeuthich_users` ;
+
 
 -- tao cac views can thiet giup cau truy van duoc gon gang hon
 drop view if exists soluotdaugia;

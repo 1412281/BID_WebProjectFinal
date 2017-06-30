@@ -21,6 +21,13 @@
                         {{bid.tensp}}
                     </div>
                 </div>
+                <div>
+                   <form action="../themvaoyeuthich" method="post" accept-charset="utf-8">
+                   <input type="hidden" name="maspyeuthich" value="{{bid.masp}}">
+                    <button type="submit" class="btn btn-success" onclick="return confirm('Bạn có muốn thêm vào yêu thích'?)">Thêm vào yêu thích</button>
+            
+                   </form>
+                </div>
                 <div class="detailImage col-md-3 thumbnail">
                     <img id="avatar" src="{{bid.urlhinhanh}}" alt="" class="imageavatar">
                 </div>

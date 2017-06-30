@@ -93,7 +93,13 @@ app.use(handle403);
 app.listen(3000);
 
 
+var dachay =false;
+
 
 // var xRefresh = setInterval(function(){
-//     homeController.Refresh('1');
-// },1000);
+//     if(dachay == false){
+//         dachay = true;        
+//         homeController.taotimerKetThucPhien();    
+//     }
+    
+// },2000);
