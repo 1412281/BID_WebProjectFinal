@@ -14,7 +14,36 @@
 	<button id="decBtn" type="button" class="btn btn-default">Giảm dần</button>
 	
 </div>
+<nav aria-label="Page navigation">
+        <ul class="pagination">
+            {{#if showPrevPage}}
+                <li>
 
+                    <a id="pagePre" href="javascript:;" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+            {{/if}}
+            {{#each pages }}
+                {{#if isActive }}
+                    <li class="active">
+                        <a>{{pageValue}}</a>
+                    </li>
+                {{else}}
+                    <li>
+                        <a id="pageValue" href="javascript:;" val={{pageValue}} >{{pageValue}}</a>
+                    </li>
+                {{/if}}
+            {{/each}}
+            {{#if showNextPage }}
+                <li>
+                    <a id="pageNext" href="javascript:;" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+            {{/if}}
+        </ul>
+    </nav>
 
 <div class="row">
 
@@ -64,4 +93,59 @@
 	<script src="/assests/js/home.js" type="text/javascript" charset="utf-8"></script>
 	
 <script src="/assests/js/search.js" type="text/javascript" charset="utf-8"></script>
+<script>
+	$('#pageValue').on('click', function() {
+		var pageValue = $('#pageValue').attr('val');
+     var url;
+     if (document.location.href.includes('page')) {
+         url = window.location.href.replace(/(page=).*?(&)/, '$1' + pageValue + '$2');
+     } else {
+
+         url = window.location.href + "&page=" + pageValue + '&';
+     };
+	 console.log(url);
+     document.location = url;
+ });
+ $('#pagePre').on('click', function() {
+		var pageValue = getUrlParameter('page') - 1;
+     var url;
+     if (document.location.href.includes('page')) {
+         url = window.location.href.replace(/(page=).*?(&)/, '$1' + pageValue + '$2');
+     } else {
+
+         url = window.location.href + "&page=" + pageValue + '&';
+     };
+	 console.log(url);
+     document.location = url;
+ });
+
+$('#pageNext').on('click', function() {
+		var pageValue = getUrlParameter('page') + 1;
+     var url;
+     if (document.location.href.includes('page')) {
+         url = window.location.href.replace(/(page=).*?(&)/, '$1' + pageValue + '$2');
+     } else {
+
+         url = window.location.href + "&page=" + pageValue + '&';
+     };
+	 console.log(url);
+     document.location = url;
+ });
+
+
+var getUrlParameter = function getUrlParameter(sParam) {
+    var sPageURL = decodeURIComponent(window.location.search.substring(1)),
+        sURLVariables = sPageURL.split('&'),
+        sParameterName,
+        i;
+
+    for (i = 0; i < sURLVariables.length; i++) {
+        sParameterName = sURLVariables[i].split('=');
+
+        if (sParameterName[0] === sParam) {
+            return sParameterName[1] === undefined ? true : sParameterName[1];
+        }
+    }
+};
+</script>
 {{/section}}
