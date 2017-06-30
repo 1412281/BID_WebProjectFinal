@@ -9,11 +9,25 @@
 
 
 <div class="row">
+	<span><b>Sắp xếp theo thời gian:</b> </span>
+	<button id="incBtn" type="button" class="btn btn-default">Tăng dần</button>
+	<button id="decBtn" type="button" class="btn btn-default">Giảm dần</button>
+	
+</div>
+
+
+<div class="row">
 
     {{#each products}}
 				<div class="col-md-3">
 				    <div class="thumbnail">
+						{{#if daketthuc}}
+						
+				        <a href="{{maphien}}-{{masp}}">
+						{{else}}
+						
 				        <a href="{{maphien}};{{masp}}">
+						{{/if}}
 				            <img id="daidien" src="{{urlhinhanh}}" alt="..." class="imgresponsive">
 				        </a>
 				        <div class="productprice">
@@ -49,4 +63,5 @@
 
 	<script src="/assests/js/home.js" type="text/javascript" charset="utf-8"></script>
 	
+<script src="/assests/js/search.js" type="text/javascript" charset="utf-8"></script>
 {{/section}}

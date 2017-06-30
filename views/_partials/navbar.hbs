@@ -17,17 +17,12 @@
 
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
-                <li><a href="#">Đang đấu giá</a></li>
-                <li><a href="#">Kết thúc</a></li>
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Loại sản phẩm <span class="caret"></span></a>
-                    <ul class="dropdown-menu">
+                        <li><a href="/search?type=0">Tất cả</a></li>
                         <li><a href="/search?type=1">Công nghệ</a></li>
                         <li><a href="/search?type=2">Thời trang</a></li>
                         <li><a href="/search?type=3">Gia dụng</a></li>
                         <li><a href="/search?type=4">Khác</a></li>
-                    </ul>
-                </li>
+                
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 {{#if layoutModels.isSeller}}
