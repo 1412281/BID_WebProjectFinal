@@ -5,7 +5,7 @@ var r = express.Router();
 var restrict = require('../midle-wares/restrict');
 var dateFormat = require('dateformat');
 var q = require('q');
-
+var emailRepo = require('../models/emailRepo');
 
 
 r.get('/', function(req, res) {
@@ -211,6 +211,7 @@ r.post('/bid', function(req, res) {
                             res.redirect(req.get('referer'));
                         }).then(function(){
                             //mail: thay đổi khi bị bid max chiếm
+                            emailRepo.sendbidfail(data);
                         });
                     });
                 } else {
@@ -224,6 +225,7 @@ r.post('/bid', function(req, res) {
                                 res.redirect(req.get('referer'));
                             }).then(function(){
                                 //mail: đấu giá tự động thành công
+                                emailRepo.sendbidsucess(data);
                             });
 
                         });
@@ -237,6 +239,7 @@ r.post('/bid', function(req, res) {
                         res.redirect(req.get('referer'));
                     }).then(function(){
                         //mail: đấu giá tự động thành công
+                        emailRepo.sendbidsucess(data);
                     });
                 });
             }
@@ -288,10 +291,12 @@ checkAutoBid = function(data) {
                 }
                 insertBid(newCT).then(function(){
                     //mail: thay đổi khi bị bid max chiếm
+                    emailRepo.sendbidfail(data);
                 });
             }
             else{
                 //mail: đấu giá tự động thành công
+                emailRepo.sendbidsucess(data);
             }
 
         }

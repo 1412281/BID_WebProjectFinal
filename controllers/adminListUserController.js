@@ -6,18 +6,18 @@ var r = express.Router();
 var crypto = require('crypto');
 
 r.get('/', function(req,res){
-	/*if (res.locals.layoutModels == null) {
-        res.redirect('/home/login');
+	if (res.locals.layoutModels == null) {
+        res.redirect('/');
         return false;
     }
     if ((res.locals.layoutModels != null) && (res.locals.layoutModels.curUser.permission != 2)) {
-        res.redirect(403, '/home/login');
+        res.redirect(403, '/');
         return false;
-    }*/
+    }
 	adminListUserRepo.listuserpact()
 		.then(function(rows){
 			var vm = {
-				layoutVM: res.locals.layoutVM,
+				layoutModels: res.locals.layoutModels,
 				users : rows
 			};
 			// in ra test thu
@@ -46,6 +46,7 @@ r.get('/reset/:id', function(req, res) {
     var id = req.params.id;
     accountRepo.getUser(id).then(function(user) {
         var newpw = adminListUserRepo.randomString(8);
+        console.log('New pass: ' + newpw);
         var hashpw = crypto.createHash('md5').update(newpw).digest('hex');
         accountRepo.updatepassword(user[0].tenuser, hashpw);
         //m_to, m_subject, m_text, m_html
@@ -60,7 +61,5 @@ r.get('/reset/:id', function(req, res) {
         emailRepo.sentmail(m_to, m_subject, m_text, m_html);
         res.redirect('/');
     });
-    
-    
 });
 module.exports = r;

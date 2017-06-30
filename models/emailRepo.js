@@ -3,16 +3,24 @@ var hbs = require('nodemailer-express-handlebars');
 
 exports.sendbidsucess = function(data){
     var m_to = data.nguoidaugia.email;
-    var m_subject = 'Thông báo Bid sản phẩm thành công;
+    var m_subject = 'Thông báo Bid sản phẩm thành công';
     var m_text = 'Thông báo từ BQT Website AutoBid';
     var m_html = '<p>BQT Website AutoBid kính chào <b>' + data.nguoidaugia.hoten +'</b>!</p>';
     m_html += '<p>Bạn đã bid sản phẩm thành công!</p>';
     m_html += '<p>Thân ái! AutoBid</p>';
     m_html += '<ul><li>Email: suport@tintin.vn</li><li>Phone: 18001000</li></ul>';
+    sentmail(m_to, m_subject, m_text, m_html);
 }
 
 exports.sendbidfail = function(data){
-    
+    var m_to = data.nguoidaugia.email;
+    var m_subject = 'Thông báo Bid sản phẩm thành công';
+    var m_text = 'Thông báo từ BQT Website AutoBid';
+    var m_html = '<p>BQT Website AutoBid kính chào <b>' + data.nguoidaugia.hoten +'</b>!</p>';
+    m_html += '<p>Bạn đã bị kích khỏi phiên đấu giá sản phẩm!</p>';
+    m_html += '<p>Thân ái! AutoBid</p>';
+    m_html += '<ul><li>Email: suport@tintin.vn</li><li>Phone: 18001000</li></ul>';
+    sentmail(m_to, m_subject, m_text, m_html);
 }
 
 exports.sentmail = function(m_to, m_subject, m_text, m_html){

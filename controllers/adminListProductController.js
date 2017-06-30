@@ -3,18 +3,18 @@ var adminListProductsRepo =  require('../models/adminListProductRepo');
 var r = express.Router();
 
 r.get('/', function(req,res){
-	/*if (res.locals.layoutModels == null) {
-        res.redirect('/home/login');
+	if (res.locals.layoutModels == null) {
+        res.redirect('/');
         return false;
     }
     if ((res.locals.layoutModels != null) && (res.locals.layoutModels.curUser.permission != 2)) {
-        res.redirect(403, '/home/login');
+        res.redirect(403, '/');
         return false;
-    }*/
+    }
 	adminListProductsRepo.listproductpact()
 		.then(function(rows){
 			var vm = {
-				layoutVM: res.locals.layoutVM,
+				layoutModels: res.locals.layoutModels,
 				products : rows
 			};
 			// in ra test thu
