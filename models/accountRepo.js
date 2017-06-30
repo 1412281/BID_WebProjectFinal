@@ -3,11 +3,11 @@ var mustache = require('mustache'),
     mysql = require('mysql'),
     db = require('../fn/db');
 
-exports.getUserByEmail = function(email) {
+exports.checkEmailIsUnique = function(email) {
     var data = {
         email
     };
-    var sql = mustache.render("select * from users where email = '{{email}}'", data);
+    var sql = mustache.render("select count(*) as total from users where email = '{{email}}'", data);
 
     return db.load(sql);
 }
@@ -53,7 +53,7 @@ exports.getUser = function(username) {
     var data = {
         tenuser: username
     }
-    var sql = mustache.render('select * from users where tenuser="{{tenuser}}"',data);
+    var sql = mustache.render('select * from users where tenuser="{{tenuser}}"', data);
     return db.load(sql);
 }
 
@@ -61,9 +61,9 @@ exports.getUserInfo = function(username) {
     var data = {
         tenuser: username
     }
-    console.log("input:"+ data.tenuser);
-    var sql = mustache.render("select * from users where tenuser='{{tenuser}}';",data);
-    sql+="select * from nhanxet where tenuser='"+data.tenuser+"'; select danhgia from thongtinuser where tenuser='"+data.tenuser+"'";
+    console.log("input:" + data.tenuser);
+    var sql = mustache.render("select * from users where tenuser='{{tenuser}}';", data);
+    sql += "select * from nhanxet where tenuser='" + data.tenuser + "'; select danhgia from thongtinuser where tenuser='" + data.tenuser + "'";
     console.log(sql);
     return db.load(sql);
 }
@@ -71,12 +71,12 @@ exports.getUserInfo = function(username) {
 exports.updateinfo = function(userinfo) {
     var data = {
         tenuser: userinfo.tenuser,
-        hoten: userinfo.hoten ,
-        email: userinfo.email ,
-        diachi:userinfo.diachi
+        hoten: userinfo.hoten,
+        email: userinfo.email,
+        diachi: userinfo.diachi
     }
-    console.log("input:"+ data.tenuser);
-    var sql = mustache.render("update users set hoten='{{hoten}}',email='{{email}}', diachi='{{diachi}}' where tenuser='{{tenuser}}';", 
+    console.log("input:" + data.tenuser);
+    var sql = mustache.render("update users set hoten='{{hoten}}',email='{{email}}', diachi='{{diachi}}' where tenuser='{{tenuser}}';",
         data);
     console.log(sql);
     return db.update(sql);
@@ -86,7 +86,7 @@ exports.nangcaptaikhoan = function(ten) {
     var data = {
         tenuser: ten
     }
-    var sql = mustache.render("insert into seller(tenuser) values('{{tenuser}}')", 
+    var sql = mustache.render("insert into seller(tenuser) values('{{tenuser}}')",
         data);
     console.log(sql);
     return db.update(sql);
@@ -97,7 +97,7 @@ exports.updatepassword = function(tenuser, passmoi) {
         tenuser: tenuser,
         passmoi: passmoi
     }
-    var sql = mustache.render("update users set matkhau='{{passmoi}}' where tenuser='{{tenuser}}';", 
+    var sql = mustache.render("update users set matkhau='{{passmoi}}' where tenuser='{{tenuser}}';",
         data);
     console.log(sql);
     return db.update(sql);
@@ -107,7 +107,7 @@ exports.loaddangdaugia = function(tenuser) {
     var data = {
         tenuser: tenuser
     }
-    var sql = mustache.render("select p.* from topphiendaugia p, chitietphien ct where p.maphien = ct.maphien and ct.nguoidaugia = '{{tenuser}}' group by p.maphien", 
+    var sql = mustache.render("select p.* from topphiendaugia p, chitietphien ct where p.maphien = ct.maphien and ct.nguoidaugia = '{{tenuser}}' group by p.maphien",
         data);
     console.log(sql);
     return db.load(sql);
@@ -116,7 +116,7 @@ exports.loadyeuthich = function(tenuser) {
     var data = {
         tenuser: tenuser
     }
-    var sql = mustache.render("select p.*,h.urlhinhanh from yeuthich y, sanpham sp, hinhanh h, topphiendaugia p where y.masp = sp.masp and sp.masp  = h.masp and y.tenuser = '{{tenuser}}' and p.masp = sp.masp group by sp.masp; select p.*,sp.tensp,  kq.*,h.urlhinhanh from yeuthich y,phiendaugia p, hinhanh h, ketquadaugia kq, sanpham sp where y.masp = p.sanpham and sp.masp  = h.masp and y.tenuser = '{{tenuser}}' and sp.masp=p.sanpham and  kq.maphien = p.maphien group by y.masp", 
+    var sql = mustache.render("select p.*,h.urlhinhanh from yeuthich y, sanpham sp, hinhanh h, topphiendaugia p where y.masp = sp.masp and sp.masp  = h.masp and y.tenuser = '{{tenuser}}' and p.masp = sp.masp group by sp.masp; select p.*,sp.tensp,  kq.*,h.urlhinhanh from yeuthich y,phiendaugia p, hinhanh h, ketquadaugia kq, sanpham sp where y.masp = p.sanpham and sp.masp  = h.masp and y.tenuser = '{{tenuser}}' and sp.masp=p.sanpham and  kq.maphien = p.maphien group by y.masp",
         data);
     console.log(sql);
     return db.load(sql);
@@ -126,7 +126,7 @@ exports.loaddathang = function(tenuser) {
     var data = {
         tenuser: tenuser
     }
-    var sql = mustache.render("select  kq.*, sp.masp,sp.nguoidang,sp.tensp,h.urlhinhanh,p.thgiankt from ketquadaugia kq, sanpham sp, phiendaugia p, hinhanh h where  kq.maphien=p.maphien and sp.masp=p.sanpham and h.masp = sp.masp and winner = '{{tenuser}}' group by kq.maphien;", 
+    var sql = mustache.render("select  kq.*, sp.masp,sp.nguoidang,sp.tensp,h.urlhinhanh,p.thgiankt from ketquadaugia kq, sanpham sp, phiendaugia p, hinhanh h where  kq.maphien=p.maphien and sp.masp=p.sanpham and h.masp = sp.masp and winner = '{{tenuser}}' group by kq.maphien;",
         data);
     console.log(sql);
     return db.load(sql);
